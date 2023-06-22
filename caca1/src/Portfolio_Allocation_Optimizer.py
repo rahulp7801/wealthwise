@@ -40,10 +40,9 @@ def portfolioPerformance(ratio, meanReturns, covMatrix):
     return net_returns, standard_deviations
 
 """
-Optimization:
+Sharpe Ratio Optimization:
 1. Calculate NEGATIVE Sharpe Ratio 'negativeSR'
 2. Minimize the Negative Sharpe Ratio 'maxSR'
-
 """
 def negativeSR(weights, meanReturns, covMatrix, riskFreeRate = 0.0374):
     pnet_returns, pstandard_deviations = portfolioPerformance(ratio, meanReturns, covMatrix)
@@ -57,7 +56,12 @@ def maxSR(meanReturns, covMatrix, riskFreeRate = 0.0374, constraintSet=(0,1)):
     bounds = tuple(bound for asset in range(numAssets))
     result = sc.minimize(negativeSR, numAssets*[1.0/numAssets], args=args, method='SLSQP', constraints=constraints)
     return result
+"""
+Variance Optimization:
+1. Calculate Variance over Portfolio
+2. Minimize Variance
 
+"""
 def portfolioVariance(ratio, meanReturns, covMatrix):
     return portfolioPerformance(ratio, meanReturns, covMatrix)[1]
 
@@ -89,9 +93,11 @@ def calculatedResults(meanReturns, covMatrix, constraintSet=(0,1), riskFreeRate 
     ("Returns: " + str(minVar_returns.round(2)), "Variance: " + str(minSR_std.round(2)))
 )
 
+"""
+Efficient Frontier:
+Will provide allocation for inputed level of risk
 
-
-
+"""
 def efficientOpt(meanReturns, covMatrix, returnTarget, constraintSet=(0,1)):
     numAssets = len(meanReturns)
     args = (meanReturns, covMatrix)
