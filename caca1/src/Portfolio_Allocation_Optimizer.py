@@ -89,6 +89,9 @@ def calculatedResults(meanReturns, covMatrix, constraintSet=(0,1), riskFreeRate 
     ("Returns: " + str(minVar_returns.round(2)), "Variance: " + str(minSR_std.round(2)))
 )
 
+
+
+
 def efficientOpt(meanReturns, covMatrix, returnTarget, constraintSet=(0,1)):
     numAssets = len(meanReturns)
     args = (meanReturns, covMatrix)
