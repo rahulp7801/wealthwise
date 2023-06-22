@@ -102,15 +102,14 @@ Will provide allocation for inputed level of risk
 def portfolioReturn(ratio, meanReturns, covMatrix):
     return portfolioPerformance(ratio, meanReturns, covMatrix)[0]
 def efficientOpt(meanReturns, covMatrix, returnTarget, constraintSet=(0,1)):
-    print(f"hi {covMatrix}")
     numAssets = len(meanReturns)
-    args = (meanReturns, covMatrix, returnTarget)
+    args = (meanReturns, covMatrix)
 
-    constraints = ({'type': 'eq', 'fun': lambda x: portfolioReturn(x) - returnTarget},
+    constraints = ({'type': 'eq', 'fun': lambda x: portfolioReturn(x, meanReturns, covMatrix) - returnTarget},
                    {'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
     bound = constraintSet
     bounds = [(0, 1) for asset in range(numAssets)]
-    effOpt = sc.minimize(portfolioVariance, numAssets*[1.0/numAssets], args=args, method='SLSQP', constraints=constraints,
+    effOpt = sc.minimize(portfolioVariance, numAssets*[1./numAssets], args=args, method='SLSQP', constraints=constraints,
                          bounds=bounds)
     return effOpt
 
@@ -122,7 +121,8 @@ mmaxSR, maxWeights = results_Sr['fun'].round(2), results_Sr['x'].round(2)
 minVar, minWeights = results_Var['fun'].round(2), results_Var['x'].round(2)
 #print(maxSR, maxWeights)
 # print(minVar, minWeights)
-print(efficientOpt(meanReturns, covMatrix, 0.07))
+effOpt = efficientOpt(meanReturns, covMatrix, 0.2)
+print(effOpt['x'].round(2))
 
 
 
