@@ -18,10 +18,17 @@
   },
   "homepage": "https://github.com/rahulp7801/caca",
   "devDependencies": {
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^1.1.5"
   },
   "dependencies": {
-    "react": "^18.2.0"
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@svgr/webpack": "^8.0.1",
+    "babel-loader": "^9.1.2",
+    "file-loader": "^6.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "source-map-loader": "^4.0.1",
+    "style-loader": "^3.3.3"
   },
   "browserslist": {
     "production": [
