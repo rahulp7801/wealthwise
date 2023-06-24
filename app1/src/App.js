@@ -1,45 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-import React,  { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
 
-function App() {
+// routing
+import Routes from 'routes';
 
-	const [data, setdata] = useState({
-		name: "",
-		age: 0,
-		date: "",
-		programming: "",
-	});
+// defaultTheme
+import themes from 'themes';
 
-	useEffect(() => {
-		fetch("/data").then((res) =>
-			res.json().then((data) => {
-				setdata({
-					name: data.Name,
-					age: data.Age,
-					date: data.Date,
-					programming: data.programming,
-				});
-			})
-		);
-	}, []);
+// project imports
+import NavigationScroll from 'layout/NavigationScroll';
 
-	return (
-		<div className="App">
-			<header className="App-header">
-				<h1>React and flask</h1>
-				{/* Calling a data from setdata for showing */}
-				<p>{data.name}</p>
-				<p>{data.age}</p>
-				<p>{data.date}</p>
-				<p>{data.programming}</p>
+// ==============================|| APP ||============================== //
 
-			</header>
-		</div>
-	);
-}
+const App = () => {
+  const customization = useSelector((state) => state.customization);
+
+  return (
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={themes(customization)}>
+        <CssBaseline />
+        <NavigationScroll>
+          <Routes />
+        </NavigationScroll>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
+};
 
 export default App;
-
-
