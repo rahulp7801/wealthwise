@@ -6,3 +6,5 @@ pandas_datareader==0.10.0
 scipy==1.10.1
 yfinance==0.2.21
 matplotlib==3.7.1
+requests~=2.31.0
+flask-cors==3.0.10
