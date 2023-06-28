@@ -11,7 +11,7 @@ const MyComponent = () => {
   };
 
   return (
-    <Button onClick={handleButtonClick} variant="contained" color="success">
+    <Button onClick={handleButtonClick} variant="contained" color="secondary">
       button textssss
     </Button>
   );
