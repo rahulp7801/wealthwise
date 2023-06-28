@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import MSFT_Chart from 'views/sample-page/charting.js';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Button, CardActions, CardContent, Divider, Grid, Menu, MenuItem, Typography } from '@mui/material';
 
 // project imports
-import BajajAreaChartCard from './BajajAreaChartCard';
+//import BajajAreaChartCard from './BajajAreaChartCard';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
@@ -40,7 +41,7 @@ const PopularCard = ({ isLoading }) => {
         <MainCard content={false}>
           <CardContent>
             <Grid container spacing={gridSpacing}>
-              <Grid item xs={12}>
+              <Grid item xs={200}>
                 <Grid container alignContent="center" justifyContent="space-between">
                   <Grid item>
                     <Typography variant="h4">Popular Stocks</Typography>
@@ -80,7 +81,7 @@ const PopularCard = ({ isLoading }) => {
                 </Grid>
               </Grid>
               <Grid item xs={12} sx={{ pt: '16px !important' }}>
-                <BajajAreaChartCard />
+                <MSFT_Chart />
               </Grid>
               <Grid item xs={12}>
                 <Grid container direction="column">

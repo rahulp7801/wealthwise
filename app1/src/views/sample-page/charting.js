@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const MSFT_Chart = () => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,13 +17,12 @@ const MSFT_Chart = () => {
         console.error(error);
       }
     };
-
     fetchData();
   }, []);
 
   return (
     <div className='App'>
-      <h1>chart</h1>
+      <h1>MSFT</h1>
       <div style={{ width: '1000px', height: '300px' }}>
         <LineChart
           width={1000}
@@ -54,3 +52,5 @@ const MSFT_Chart = () => {
 };
 
 export default MSFT_Chart;
+
+
