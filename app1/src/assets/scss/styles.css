@@ -1,0 +1,14 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 5fr; /* Adjust the fractions as needed */
+  gap: 20px; /* Adjust the gap between grid items */
+}
+
+.grid-item {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.wide-item {
+  grid-column: 1 / span 2; /* Adjust the span as needed */
+}
