@@ -6,6 +6,9 @@ import MainCard from 'ui-component/cards/MainCard';
 import { Typography } from '@mui/material';
 //import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard'
+//import StockValSkill from 'views/sample-page/StockValSkill.js';
+import EarningCard from 'views/dashboard/Default/EarningCard';
 
 class Greeter extends Component {
   render() {
@@ -28,10 +31,15 @@ class Greeter extends Component {
                               : null
                             } />
                 </CalendarContainer>
+                <div className="gap"></div>
+                <TotalIncomeDarkCard />
               <Greet />
 
             </MainCard>
-            <div className="grid-item"><Greet /></div>
+            <div className="grid-item">
+                <EarningCard />
+                <EarningCard />
+            </div>
         </div>
 
       </MainCard>

@@ -12,3 +12,7 @@
 .wide-item {
   grid-column: 1 / span 2; /* Adjust the span as needed */
 }
+
+.gap {
+  height: 15px; /* Adjust the height of the gap as needed */
+}
