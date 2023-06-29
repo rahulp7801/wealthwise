@@ -24,6 +24,13 @@ const utilities = {
       children: [
         {
           id: 'tabler-icons',
+          title: 'Home',
+          type: 'item',
+          url: '/icons/tabler-icons',
+          breadcrumbs: false
+        },
+        {
+          id: 'tabler-icons',
           title: 'Stocks',
           type: 'item',
           url: '/icons/tabler-icons',
@@ -35,7 +42,7 @@ const utilities = {
           type: 'item',
           external: true,
           target: '_blank',
-          url: 'https://mui.com/material-ui/material-icons/',
+          url: '/learn/ETF',
           breadcrumbs: false
         }
       ]
