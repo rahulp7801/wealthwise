@@ -23,10 +23,10 @@ const utilities = {
       icon: icons.IconWindmill,
       children: [
         {
-          id: 'tabler-icons',
+          id: 'learn-home',
           title: 'Home',
           type: 'item',
-          url: '/icons/tabler-icons',
+          url: '/icons/learn-home',
           breadcrumbs: false
         },
         {
