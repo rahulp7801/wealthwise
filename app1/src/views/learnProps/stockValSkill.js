@@ -1,6 +1,7 @@
-import Greet from 'views/sample-page/greet.js';
+//import Greet from 'views/sample-page/greet.js';
 import React, { Component } from 'react'
 import MainCard from 'ui-component/cards/MainCard';
+import myImage from 'app1/src/views/learnProps/stockvalwall.png';
 
 
 
@@ -10,7 +11,7 @@ class StockValSkill extends Component {
 
         return (
           <MainCard >
-            <Greet />
+            <img src={myImage} alt=" " />
           </MainCard>
           )
           }}
