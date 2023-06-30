@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -57,6 +58,8 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 
 const StockValCard = ({ isLoading }) => {
+  const navigate = useNavigate();
+
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,8 +68,7 @@ const StockValCard = ({ isLoading }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleButtonClick = () => {
-    alert('Clicked');
-    navigate('free/icons/stock-val')
+    navigate('/icons/stock-val');
     };
 
   const handleClose = () => {
@@ -79,9 +81,12 @@ const StockValCard = ({ isLoading }) => {
         <SkeletonEarningCard />
       ) : (
         <CardWrapper border={false} content={false}>
+          <Button onClick={handleButtonClick} variant="contained" color="secondary" style={{ textAlign: 'left' }}>
           <Box sx={{ p: 2.25 }}>
             <Grid container direction="column">
+
               <Grid item>
+
                 <Grid container justifyContent="space-between">
                   <Grid item>
                     <Avatar
@@ -147,7 +152,7 @@ const StockValCard = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>Stock Valuation</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }} textAlign="left">Stock Valuation</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -155,12 +160,15 @@ const StockValCard = ({ isLoading }) => {
                         cursor: 'pointer',
                         ...theme.typography.smallAvatar,
                         backgroundColor: theme.palette.secondary[200],
-                        color: theme.palette.secondary.dark
+                        color: theme.palette.secondary.dark,
+                        width: 15, // Adjust the width as needed
+                        height: 15, // Adjust the height as needed
                       }}
                       aria-controls="menu-earning-card"
                       aria-haspopup="true"
+
                       >
-                      <Button onClick={handleButtonClick}></Button>
+
 
 
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
@@ -182,6 +190,7 @@ const StockValCard = ({ isLoading }) => {
               </Grid>
             </Grid>
           </Box>
+          </Button>
         </CardWrapper>
       )}
     </>

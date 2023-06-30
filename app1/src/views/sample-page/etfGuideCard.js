@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -57,12 +59,11 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const ETF_Guide_Card = ({ isLoading }) => {
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
 
    const handleButtonClick = () => {
-    alert('Clicked');
     navigate('/icons/tabler-icons')
     };
 
@@ -77,6 +78,7 @@ const ETF_Guide_Card = ({ isLoading }) => {
         <SkeletonEarningCard />
       ) : (
         <CardWrapper border={false} content={false}>
+          <Button onClick={handleButtonClick} variant="contained" color="primary" style={{ width: '100%' }, {textAlign: 'left' }}>
           <Box sx={{ p: 2.25 }}>
             <Grid container direction="column">
               <Grid item>
@@ -175,6 +177,7 @@ const ETF_Guide_Card = ({ isLoading }) => {
               </Grid>
             </Grid>
           </Box>
+          </Button>
         </CardWrapper>
       )}
     </>
