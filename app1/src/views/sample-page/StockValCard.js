@@ -13,8 +13,6 @@ import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 
 // assets
 import EarningIcon from 'assets/images/icons/earning.svg';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
@@ -64,9 +62,7 @@ const StockValCard = ({ isLoading }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+
   const handleButtonClick = () => {
     navigate('/icons/stock-val');
     };
@@ -81,7 +77,7 @@ const StockValCard = ({ isLoading }) => {
         <SkeletonEarningCard />
       ) : (
         <CardWrapper border={false} content={false}>
-          <Button onClick={handleButtonClick} variant="contained" color="secondary" style={{ textAlign: 'left' }}>
+          <Button onClick={handleButtonClick} variant="contained" color="grey" style={{ width: '100%' , justifyContent: 'flex-start' }}>
           <Box sx={{ p: 2.25 }}>
             <Grid container direction="column">
 
@@ -102,21 +98,7 @@ const StockValCard = ({ isLoading }) => {
                     </Avatar>
                   </Grid>
                   <Grid item>
-                    <Avatar
-                      variant="rounded"
-                      sx={{
-                        ...theme.typography.commonAvatar,
-                        ...theme.typography.mediumAvatar,
-                        backgroundColor: theme.palette.secondary.dark,
-                        color: theme.palette.secondary[200],
-                        zIndex: 1
-                      }}
-                      aria-controls="menu-earning-card"
-                      aria-haspopup="true"
-                      onClick={handleClick}
-                    >
-                      <MoreHorizIcon fontSize="inherit" />
-                    </Avatar>
+
                     <Menu
                       id="menu-earning-card"
                       anchorEl={anchorEl}
@@ -155,25 +137,7 @@ const StockValCard = ({ isLoading }) => {
                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }} textAlign="left">Stock Valuation</Typography>
                   </Grid>
                   <Grid item>
-                    <Avatar
-                      sx={{
-                        cursor: 'pointer',
-                        ...theme.typography.smallAvatar,
-                        backgroundColor: theme.palette.secondary[200],
-                        color: theme.palette.secondary.dark,
-                        width: 15, // Adjust the width as needed
-                        height: 15, // Adjust the height as needed
-                      }}
-                      aria-controls="menu-earning-card"
-                      aria-haspopup="true"
 
-                      >
-
-
-
-                      <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
-
-                    </Avatar>
                   </Grid>
                 </Grid>
               </Grid>
