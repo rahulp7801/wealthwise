@@ -63,6 +63,10 @@ const StockValSkill = ({ isLoading }) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const handleButtonClick = () => {
+    alert('Clicked');
+    navigate('/icons/tabler-icons')
+    };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -142,7 +146,7 @@ const StockValSkill = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>$500.00</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>Stock Valuation</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -152,6 +156,9 @@ const StockValSkill = ({ isLoading }) => {
                         backgroundColor: theme.palette.secondary[200],
                         color: theme.palette.secondary.dark
                       }}
+                      aria-controls="menu-earning-card"
+                      aria-haspopup="true"
+                      onClick={handleButtonClick}
                     >
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                     </Avatar>
@@ -166,7 +173,7 @@ const StockValSkill = ({ isLoading }) => {
                     color: theme.palette.secondary[200]
                   }}
                 >
-                  Total Earning
+                  Level:
                 </Typography>
               </Grid>
             </Grid>
@@ -177,7 +184,7 @@ const StockValSkill = ({ isLoading }) => {
   );
 };
 
-EarningCard.propTypes = {
+StockValSkill.propTypes = {
   isLoading: PropTypes.bool
 };
 

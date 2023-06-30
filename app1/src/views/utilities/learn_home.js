@@ -8,9 +8,8 @@ import { Typography } from '@mui/material';
 import styled from 'styled-components';
 
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard'
-//import StockValSkill from 'views/sample-page/StockValSkill.js';
-import EarningCard from 'views/dashboard/Default/EarningCard';
-
+import StockValSkill from 'views/sample-page/StockValSkill.js';
+import ETF_Guide_Card from 'views/sample-page/etfGuideCard.js';
 class Greeter extends Component {
 
 
@@ -20,6 +19,7 @@ class Greeter extends Component {
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDate();
     //const customShortWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
     return (
       <MainCard title={<Typography variant="h1" fontWeight="bold" style={{ textAlign: 'center' }}></Typography>}>
         <div className="grid-container">
@@ -43,10 +43,10 @@ class Greeter extends Component {
                 <div className="grid-item">
                     <div className="skill-grid-container">
                       <div className="skill-item">
-                        <EarningCard />
+                        <StockValSkill />
                       </div>
                       <div className="skill-item">
-                        <EarningCard />
+                        <ETF_Guide_Card />
                       </div>
                     </div>
             </div>

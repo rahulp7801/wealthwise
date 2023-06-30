@@ -90,6 +90,7 @@ const MainRoutes = {
         }
       ]
     },
+
     {
       path: 'sample-page',
       element: <SamplePage />
