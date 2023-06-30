@@ -6,22 +6,26 @@ import MainCard from 'ui-component/cards/MainCard';
 import { Typography } from '@mui/material';
 //import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard'
 //import StockValSkill from 'views/sample-page/StockValSkill.js';
 import EarningCard from 'views/dashboard/Default/EarningCard';
 
 class Greeter extends Component {
+
+
   render() {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDate();
+    //const customShortWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
     return (
       <MainCard title={<Typography variant="h1" fontWeight="bold" style={{ textAlign: 'center' }}></Typography>}>
         <div className="grid-container">
             <MainCard className="grid-item wide-item" >
                 <CalendarContainer >
-                    <Calendar
+                    <Calendar formatShortWeekday = {(locale, date) => ['S', 'M', 'T', 'W', 'T', 'F', 'S'][date.getDay()]}
                         tileClassName={({ date, view }) =>
                             view === 'month' &&
                             date.getFullYear() === currentYear &&
@@ -36,9 +40,15 @@ class Greeter extends Component {
               <Greet />
 
             </MainCard>
-            <div className="grid-item">
-                <EarningCard />
-                <EarningCard />
+                <div className="grid-item">
+                    <div className="skill-grid-container">
+                      <div className="skill-item">
+                        <EarningCard />
+                      </div>
+                      <div className="skill-item">
+                        <EarningCard />
+                      </div>
+                    </div>
             </div>
         </div>
 
@@ -56,7 +66,7 @@ const CalendarContainer = styled.div`
   margin-top: 20px;
   background-color: #616161;
   padding: 10px;
-  border-radius: 3px;
+  border-radius: 10px;
 
   /* ~~~ navigation styles ~~~ */
   .react-calendar__navigation {
@@ -116,6 +126,9 @@ const CalendarContainer = styled.div`
   .react-calendar__month-view__days__day--weekend {
     color: #F5F5F5;
   }
+  .react-calendar__month-view__weekdays__weekday {
+  color: white; /* Set the desired color for the day names */
+    }
 
   /* ~~~ other view styles ~~~ */
   .react-calendar__tile--active {
