@@ -30,19 +30,17 @@ const utilities = {
           breadcrumbs: false
         },
         {
-          id: 'tabler-icons',
+          id: 'stock-val',
           title: 'Stocks',
           type: 'item',
-          url: '/icons/tabler-icons',
+          url: '/icons/stock-val',
           breadcrumbs: false
         },
         {
-          id: 'material-icons',
+          id: 'etf-guide',
           title: 'ETFs',
           type: 'item',
-          external: true,
-          target: '_blank',
-          url: '/learn/ETF',
+          url: '/icons/etf-guide',
           breadcrumbs: false
         }
       ]

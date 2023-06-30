@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 // material-ui
 import { styled, useTheme } from '@mui/material/styles';
@@ -19,7 +20,7 @@ import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.secondary.dark,
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
@@ -28,7 +29,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     position: 'absolute',
     width: 210,
     height: 210,
-    background: theme.palette.primary[800],
+    background: theme.palette.secondary[800],
     borderRadius: '50%',
     top: -85,
     right: -95,
@@ -42,7 +43,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     position: 'absolute',
     width: 210,
     height: 210,
-    background: theme.palette.primary.dark,
+    background: theme.palette.secondary[800],
     borderRadius: '50%',
     top: -125,
     right: -15,
@@ -55,17 +56,18 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 }));
 
 
-const ETF_Guide_Card = ({ isLoading }) => {
+const StockValCard = ({ isLoading }) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-
-   const handleButtonClick = () => {
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleButtonClick = () => {
     alert('Clicked');
-    navigate('/icons/tabler-icons')
+    navigate('free/icons/stock-val')
     };
-
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -87,7 +89,7 @@ const ETF_Guide_Card = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        backgroundColor: theme.palette.primary[800],
+                        backgroundColor: theme.palette.secondary[800],
                         mt: 1
                       }}
                     >
@@ -100,13 +102,13 @@ const ETF_Guide_Card = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
-                        backgroundColor: theme.palette.primary.main,
+                        backgroundColor: theme.palette.secondary.dark,
                         color: theme.palette.secondary[200],
                         zIndex: 1
                       }}
                       aria-controls="menu-earning-card"
                       aria-haspopup="true"
-
+                      onClick={handleClick}
                     >
                       <MoreHorizIcon fontSize="inherit" />
                     </Avatar>
@@ -145,7 +147,7 @@ const ETF_Guide_Card = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>ETF</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>Stock Valuation</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -155,9 +157,14 @@ const ETF_Guide_Card = ({ isLoading }) => {
                         backgroundColor: theme.palette.secondary[200],
                         color: theme.palette.secondary.dark
                       }}
-                      onClick={handleButtonClick}
-                    >
+                      aria-controls="menu-earning-card"
+                      aria-haspopup="true"
+                      >
+                      <Button onClick={handleButtonClick}></Button>
+
+
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
+
                     </Avatar>
                   </Grid>
                 </Grid>
@@ -181,8 +188,8 @@ const ETF_Guide_Card = ({ isLoading }) => {
   );
 };
 
-ETF_Guide_Card.propTypes = {
+StockValCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default ETF_Guide_Card;
+export default StockValCard;

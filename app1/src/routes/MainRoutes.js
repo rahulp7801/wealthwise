@@ -16,6 +16,8 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 const Greeter = Loadable(lazy(() => import('views/utilities/learn_home')));
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+const StockValSkill = Loadable(lazy(() => import('views/learnProps/stockValSkill')))
+const ETFSkill = Loadable(lazy(() => import('views/learnProps/etfGuideSkill')))
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -87,6 +89,24 @@ const MainRoutes = {
         {
           path: 'learn-home',
           element: <Greeter />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'stock-val',
+          element: <StockValSkill />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'etf-guide',
+          element: <ETFSkill />
         }
       ]
     },

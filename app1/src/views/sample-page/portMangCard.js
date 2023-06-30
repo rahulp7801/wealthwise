@@ -19,7 +19,7 @@ import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.dark,
+  backgroundColor: theme.palette.primary.main,
   color: '#fff',
   overflow: 'hidden',
   position: 'relative',
@@ -28,7 +28,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     position: 'absolute',
     width: 210,
     height: 210,
-    background: theme.palette.secondary[800],
+    background: theme.palette.primary[800],
     borderRadius: '50%',
     top: -85,
     right: -95,
@@ -42,7 +42,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
     position: 'absolute',
     width: 210,
     height: 210,
-    background: theme.palette.secondary[800],
+    background: theme.palette.primary.dark,
     borderRadius: '50%',
     top: -125,
     right: -15,
@@ -55,18 +55,17 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 }));
 
 
-const StockValSkill = ({ isLoading }) => {
+const PortMang_Guide_Card = ({ isLoading }) => {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleButtonClick = () => {
+
+   const handleButtonClick = () => {
     alert('Clicked');
     navigate('/icons/tabler-icons')
     };
+
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -88,7 +87,7 @@ const StockValSkill = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.largeAvatar,
-                        backgroundColor: theme.palette.secondary[800],
+                        backgroundColor: theme.palette.primary[800],
                         mt: 1
                       }}
                     >
@@ -101,13 +100,13 @@ const StockValSkill = ({ isLoading }) => {
                       sx={{
                         ...theme.typography.commonAvatar,
                         ...theme.typography.mediumAvatar,
-                        backgroundColor: theme.palette.secondary.dark,
+                        backgroundColor: theme.palette.primary.main,
                         color: theme.palette.secondary[200],
                         zIndex: 1
                       }}
                       aria-controls="menu-earning-card"
                       aria-haspopup="true"
-                      onClick={handleClick}
+
                     >
                       <MoreHorizIcon fontSize="inherit" />
                     </Avatar>
@@ -146,7 +145,7 @@ const StockValSkill = ({ isLoading }) => {
               <Grid item>
                 <Grid container alignItems="center">
                   <Grid item>
-                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>Stock Valuation</Typography>
+                    <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>Portfolio Management</Typography>
                   </Grid>
                   <Grid item>
                     <Avatar
@@ -156,8 +155,6 @@ const StockValSkill = ({ isLoading }) => {
                         backgroundColor: theme.palette.secondary[200],
                         color: theme.palette.secondary.dark
                       }}
-                      aria-controls="menu-earning-card"
-                      aria-haspopup="true"
                       onClick={handleButtonClick}
                     >
                       <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
@@ -184,8 +181,8 @@ const StockValSkill = ({ isLoading }) => {
   );
 };
 
-StockValSkill.propTypes = {
+PortMang_Guide_Card.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default StockValSkill;
+export default PortMang_Guide_Card;

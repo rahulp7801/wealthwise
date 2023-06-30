@@ -8,8 +8,9 @@ import { Typography } from '@mui/material';
 import styled from 'styled-components';
 
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard'
-import StockValSkill from 'views/sample-page/StockValSkill.js';
+import StockValCard from 'views/sample-page/StockValCard.js';
 import ETF_Guide_Card from 'views/sample-page/etfGuideCard.js';
+import PortMang_Guide_Card from 'views/sample-page/portMangCard.js'
 class Greeter extends Component {
 
 
@@ -43,7 +44,9 @@ class Greeter extends Component {
                 <div className="grid-item">
                     <div className="skill-grid-container">
                       <div className="skill-item">
-                        <StockValSkill />
+                        <StockValCard />
+                        <div className="gap"></div>
+                        <PortMang_Guide_Card />
                       </div>
                       <div className="skill-item">
                         <ETF_Guide_Card />
