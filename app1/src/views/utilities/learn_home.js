@@ -22,7 +22,7 @@ class Greeter extends Component {
     //const customShortWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
     return (
-      <MainCard title={<Typography variant="h1" fontWeight="bold" style={{ textAlign: 'center' }}></Typography>}>
+      <MainCard title={<Typography variant="h1" fontWeight="bold" style={{ textAlign: 'center' }}></Typography>} >
         <div className="grid-container">
             <MainCard className="grid-item wide-item" >
                 <CalendarContainer >
