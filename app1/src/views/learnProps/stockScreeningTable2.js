@@ -17,7 +17,7 @@ const style = {
   borderRadius: '10px',
 };
 
-export default function StockScreeningTable() {
+export default function RelValTable2() {
   const [checkedItems, setCheckedItems] = useState({});
 
   const handleToggle = (value) => {
@@ -37,7 +37,7 @@ export default function StockScreeningTable() {
           fontWeight: 'bold',
         }}
       >
-        {`Stock Screening`}
+        {`Relative Valuation/Understanding Multiples`}
       </ListSubheader>
       <Divider />
       <ListItem button>
@@ -50,7 +50,7 @@ export default function StockScreeningTable() {
             onChange={() => handleToggle('Drafts')}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>Pick a Stock</Typography>} />
+        <ListItemText primary={<Typography sx={{ color: 'white' }}>Introduction to the Multiple</Typography>} />
       </ListItem>
       <Divider />
       <ListItem button divider>
@@ -63,7 +63,7 @@ export default function StockScreeningTable() {
             onChange={() => handleToggle('Trash')}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>Understanding the Business</Typography>} />
+        <ListItemText primary={<Typography sx={{ color: 'white' }}>Enterprise Value Multiples</Typography>} />
       </ListItem>
       <Divider />
       <ListItem button>
@@ -76,7 +76,7 @@ export default function StockScreeningTable() {
             onChange={() => handleToggle('Spam')}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>KPI (Key Performance Indicators)</Typography>} />
+        <ListItemText primary={<Typography sx={{ color: 'white' }}>Equity Value Multiples</Typography>} />
       </ListItem>
       <Divider />
     </List>

@@ -12,7 +12,7 @@
 
 
 .grid-item {
-  background-color: #f1f1f1;
+  background-color: darkPaper;
   padding: 20px;
 }
 
@@ -24,13 +24,19 @@
 .skill-grid-container {
   display: flex;
   gap: 20px;
+  background-color: darkPaper;
+
 }
 
 .skill-item {
     flex: 1;
+    background-color: darkPaper;
 }
 .gap {
-  height: 200px; /* Adjust the height of the gap as needed */
+  height: 100px; /* Adjust the height of the gap as needed */
+}
+.gap2 {
+  height: 25px; /* Adjust the height of the gap as needed */
 }
 .dark {
   background-color: black;

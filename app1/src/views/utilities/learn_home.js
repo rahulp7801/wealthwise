@@ -45,17 +45,16 @@ class Greeter extends Component {
                     <div className="skill-grid-container">
                       <div className="skill-item">
                         <StockValCard />
-                        <div className="gap"></div>
+                        <div className="gap2"></div>
                         <PortMang_Guide_Card />
                       </div>
                       <div className="skill-item">
                         <ETF_Guide_Card />
                       </div>
                     </div>
-            </div>
-        </div>
-
-      </MainCard>
+                 </div>
+                </div>
+            </MainCard>
     )
   }
 }

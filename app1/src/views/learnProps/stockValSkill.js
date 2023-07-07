@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 //import { OrbitControls } from '@react-three/drei';
 //import MainCard from 'ui-component/cards/MainCard';
 //import MainCardDark from 'ui-component/cards/MainCardDark';
-
+import RelValTable2 from 'views/learnProps/stockScreeningTable2.js';
 //import CardMedia from '@mui/material/CardMedia';
 //import CollapsibleTable from 'views/learnProps/stockScreeningTable.js';
 //import CollapsibleTable2 from 'views/learnProps/relValTable.js';
@@ -28,9 +28,8 @@ export default function StockValSkill() {
         <StockScreeningTable />
       </div>
       <div className='gap'></div>
-      <div className='gap'></div>
       <div>
-        <StockScreeningTable />
+        <RelValTable2 />
       </div>
     </div>
   );
