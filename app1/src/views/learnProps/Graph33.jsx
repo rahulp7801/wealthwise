@@ -10,7 +10,7 @@ Title: Graph
 import React, { useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
-export function Model(props) {
+export default function Model(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/graph33.gltf')
   const { actions } = useAnimations(animations, group)

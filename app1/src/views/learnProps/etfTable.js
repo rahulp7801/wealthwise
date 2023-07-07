@@ -6,37 +6,22 @@ import Divider from '@mui/material/Divider';
 import ListSubheader from '@mui/material/ListSubheader';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Typography from '@mui/material/Typography';
+
 
 const style = {
   width: '100%',
   maxWidth: 750,
-  border: '1px solid #697586',
-  bgcolor: 'background.darkPaper',
+  bgcolor: 'background.paper',
   margin: 'auto',
-  borderRadius: '10px',
 };
 
-export default function StockScreeningTable() {
-  const [checkedItems, setCheckedItems] = useState({});
-
-  const handleToggle = (value) => {
-    setCheckedItems((prevState) => ({
-      ...prevState,
-      [value]: !prevState[value],
-    }));
-  };
-
+export default function etfTable() {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleToggle = () => {
+    setIsChecked(!isChecked); };
   return (
     <List sx={style} component="nav" aria-label="mailbox folders">
-      <ListSubheader
-        sx={{
-          color: 'white',
-          backgroundColor: '#111936',
-          fontSize: '18px',
-          fontWeight: 'bold',
-        }}
-      >
+      <ListSubheader sx={{ fontSize: '18px', fontWeight: 'bold' }}>
         {`Header`}
       </ListSubheader>
       <Divider />
@@ -44,41 +29,52 @@ export default function StockScreeningTable() {
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={checkedItems['Drafts']}
+            checked={isChecked}
             tabIndex={-1}
             disableRipple
-            onChange={() => handleToggle('Drafts')}
+            onChange={handleToggle}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>Drafts</Typography>} />
+        <ListItemText primary="Inbox" />
       </ListItem>
       <Divider />
       <ListItem button divider>
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={checkedItems['Trash']}
+            checked={isChecked}
             tabIndex={-1}
             disableRipple
-            onChange={() => handleToggle('Trash')}
+            onChange={handleToggle}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>Trash</Typography>} />
+        <ListItemText primary="Drafts" />
       </ListItem>
-      <Divider />
       <ListItem button>
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={checkedItems['Spam']}
+            checked={isChecked}
             tabIndex={-1}
             disableRipple
-            onChange={() => handleToggle('Spam')}
+            onChange={handleToggle}
           />
         </ListItemIcon>
-        <ListItemText primary={<Typography sx={{ color: 'white' }}>Spam</Typography>} />
+        <ListItemText primary="Trash" />
       </ListItem>
-      <Divider />
+      <Divider light />
+      <ListItem button>
+        <ListItemIcon>
+          <Checkbox
+            edge="start"
+            checked={isChecked}
+            tabIndex={-1}
+            disableRipple
+            onChange={handleToggle}
+          />
+        </ListItemIcon>
+        <ListItemText primary="Spam" />
+      </ListItem>
     </List>
   );
 }

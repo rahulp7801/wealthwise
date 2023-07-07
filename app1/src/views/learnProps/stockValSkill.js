@@ -1,49 +1,37 @@
-//import Greet from 'views/sample-page/greet.js';
-import React, { Component } from 'react'
-import MainCard from 'ui-component/cards/MainCard';
-//import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-//import { Table, TableBody, TableRow, TableCell, Link } from '@material-ui/core';
-//import { Link as RouterLink } from 'react-router-dom';
-import CollapsibleTable from 'views/learnProps/stockScreeningTable.js';
-import CollapsibleTable2 from 'views/learnProps/relValTable.js';
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber'
+//import { OrbitControls } from '@react-three/drei';
+//import MainCard from 'ui-component/cards/MainCard';
+//import MainCardDark from 'ui-component/cards/MainCardDark';
+
+//import CardMedia from '@mui/material/CardMedia';
+//import CollapsibleTable from 'views/learnProps/stockScreeningTable.js';
+//import CollapsibleTable2 from 'views/learnProps/relValTable.js';
+//import { createScene } from 'views/learnProps/threeShape.js';
+import StockScreeningTable from 'views/learnProps/stockScreeningTable.js';
+//import Box3D from 'views/learnProps/threeShape.js';
+//import Graph33 from 'views/learnProps/Graph33';
+
+//import { useLoader }  from '@react-three/fiber';
+//import { TextureLoader } from 'three/src/loaders/TextureLoader';
+//import texture from "views/learnProps/9964554_2142.jpg"
 
 
-
-class StockValSkill extends Component {
-  
-  render() {
-    return (
-    <>
-      <div className="background">
-
-        <CardMedia
-          component="img"
-          alt=""
-          height="250"
-          src="https://i.postimg.cc/NMWtgphv/stockvalwall.png"
-        />
-        <div className='gap'>
-
-        </div>
-        <MainCard>
-            <CollapsibleTable />
-        </MainCard>
-        <div className="gap"></div>
-        <MainCard>
-            <CollapsibleTable2 />
-        </MainCard>
+export default function StockValSkill() {
+  return (
+    <div>
+      <Canvas>
+        <Suspense fallback={null}>
+        </Suspense>
+      </Canvas>
+      <div>
+        <StockScreeningTable />
       </div>
-    </>
-    );
-  }
+      <div className='gap'></div>
+      <div className='gap'></div>
+      <div>
+        <StockScreeningTable />
+      </div>
+    </div>
+  );
 }
-
-export default StockValSkill;
-
-
-
-
-
-
-

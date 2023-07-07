@@ -30,5 +30,19 @@
     flex: 1;
 }
 .gap {
-  height: 100px; /* Adjust the height of the gap as needed */
+  height: 200px; /* Adjust the height of the gap as needed */
+}
+.dark {
+  background-color: black;
+}
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px; /* Set the desired height */
+}
+
+.canvas-container canvas {
+  width: 500px; /* Set the desired width */
+  height: 100%; /* Occupy full height of the container */
 }
