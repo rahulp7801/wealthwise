@@ -8,6 +8,10 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
+import Button from '@mui/material/Button';
+
+
+
 const style = {
   width: '100%',
   maxWidth: 750,
@@ -20,8 +24,10 @@ const style = {
 export default function StockScreeningTable() {
   const [checkedItems, setCheckedItems] = useState({});
   const handleButtonClick = () => {
-    navigate('/icons/etf-guide');
-    };
+    alert('Clicked');
+    navigate('/icons/pick-stock');
+  };
+
   const handleToggle = (value) => {
     setCheckedItems((prevState) => ({
       ...prevState,
@@ -42,7 +48,8 @@ export default function StockScreeningTable() {
         {`Stock Screening`}
       </ListSubheader>
       <Divider />
-      <ListItemButton onClick={handleButtonClick}>
+      <ListItemButton >
+        <Button onClick={handleButtonClick}>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -53,6 +60,7 @@ export default function StockScreeningTable() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Pick a Stock</Typography>} />
+        </Button>
       </ListItemButton>
       <Divider />
       <ListItemButton divider>
