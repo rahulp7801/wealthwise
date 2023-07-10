@@ -43,6 +43,7 @@ const utilities = {
           url: '/icons/etf-guide',
           breadcrumbs: false
         }
+
       ]
     },
     {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+//import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import ListSubheader from '@mui/material/ListSubheader';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
-
+import ListItemButton from '@mui/material/ListItemButton';
 const style = {
   width: '100%',
   maxWidth: 750,
@@ -19,7 +19,9 @@ const style = {
 
 export default function StockScreeningTable() {
   const [checkedItems, setCheckedItems] = useState({});
-
+  const handleButtonClick = () => {
+    navigate('/icons/etf-guide');
+    };
   const handleToggle = (value) => {
     setCheckedItems((prevState) => ({
       ...prevState,
@@ -32,7 +34,7 @@ export default function StockScreeningTable() {
       <ListSubheader
         sx={{
           color: 'white',
-          backgroundColor: '#111936',
+          backgroundColor: '#29314f',
           fontSize: '18px',
           fontWeight: 'bold',
         }}
@@ -40,7 +42,7 @@ export default function StockScreeningTable() {
         {`Stock Screening`}
       </ListSubheader>
       <Divider />
-      <ListItem button>
+      <ListItemButton onClick={handleButtonClick}>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -51,9 +53,9 @@ export default function StockScreeningTable() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Pick a Stock</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
-      <ListItem button divider>
+      <ListItemButton divider>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -64,9 +66,9 @@ export default function StockScreeningTable() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Understanding the Business</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
-      <ListItem button>
+      <ListItemButton>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -77,7 +79,7 @@ export default function StockScreeningTable() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>KPI (Key Performance Indicators)</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
     </List>
   );

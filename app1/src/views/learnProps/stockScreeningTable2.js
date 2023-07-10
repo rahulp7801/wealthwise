@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+//import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import ListSubheader from '@mui/material/ListSubheader';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
+import ListItemButton from '@mui/material/ListItemButton';
 
 const style = {
   width: '100%',
@@ -32,7 +33,7 @@ export default function RelValTable2() {
       <ListSubheader
         sx={{
           color: 'white',
-          backgroundColor: '#111936',
+          backgroundColor: '#29314f',
           fontSize: '18px',
           fontWeight: 'bold',
         }}
@@ -40,7 +41,7 @@ export default function RelValTable2() {
         {`Relative Valuation/Understanding Multiples`}
       </ListSubheader>
       <Divider />
-      <ListItem button>
+      <ListItemButton>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -51,9 +52,9 @@ export default function RelValTable2() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Introduction to the Multiple</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
-      <ListItem button divider>
+      <ListItemButton divider>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -64,9 +65,9 @@ export default function RelValTable2() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Enterprise Value Multiples</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
-      <ListItem button>
+      <ListItemButton>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -77,7 +78,7 @@ export default function RelValTable2() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Equity Value Multiples</Typography>} />
-      </ListItem>
+      </ListItemButton>
       <Divider />
     </List>
   );
