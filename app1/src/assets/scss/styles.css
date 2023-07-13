@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1.5fr 5fr; /* Adjust the fractions as needed */
   gap: 20px; /* Adjust the gap between grid items */
+  background-color: #111936
 }
 
 .grid-tem {

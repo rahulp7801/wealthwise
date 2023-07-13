@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
-import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +22,7 @@ const style = {
 };
 
 export default function StockScreeningTable() {
+  const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({});
   const handleButtonClick = () => {
     alert('Clicked');
@@ -48,8 +49,7 @@ export default function StockScreeningTable() {
         {`Stock Screening`}
       </ListSubheader>
       <Divider />
-      <ListItemButton >
-        <Button onClick={handleButtonClick}>
+      <ListItemButton onClick={handleButtonClick}>
         <ListItemIcon>
           <Checkbox
             edge="start"
@@ -60,7 +60,6 @@ export default function StockScreeningTable() {
           />
         </ListItemIcon>
         <ListItemText primary={<Typography sx={{ color: 'white' }}>Pick a Stock</Typography>} />
-        </Button>
       </ListItemButton>
       <Divider />
       <ListItemButton divider>
