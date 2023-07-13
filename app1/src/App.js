@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import Firebaseexp from "views/sample-page/firebaseexp.js"
 
 // routing
 import Routes from 'routes';
@@ -23,6 +24,7 @@ const App = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={themes(customization)}>
         <CssBaseline />
+        <Firebaseexp />
         <NavigationScroll>
           <Routes />
 

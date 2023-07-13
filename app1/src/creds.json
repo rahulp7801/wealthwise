@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "wealthwise-46f60",
+  "private_key_id": "ea277fc27f29d141079e75658917ab8a5c9d061f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCp0K9sZAdMuVi6\n24IMLSFJ9mDPXRypUOgMpnLJ5Vjgghg7+LNR2pqasKWDeaXq+ArVGxFTmIRiHCQf\nFyCYcZCU4JdsC4ud+bjlFSHMPZTiZI45MeuweOoqFru+uAKapop9VHxNAWl1q5LI\n+8HPWJ/4ygyttLRqZ567I48tmynr1MsW1j28yPNhawH1OUQe00mHt5jkW0wEGbrI\n/9HuWQvR0cCnuvKEkcevvkFdn3qI5muFNVcLsZykGycOggQB7xDkgPBzt0CoKeBU\nZl3lSRgNKg1iPBN+VdMD+fjFVaez+dlJhpdCwWj68KptuU8gojJiU/PNxRqjkCML\npNKqfeW1AgMBAAECggEAHVvdgFVY57xhqUibFsTUrQdiHGfCNUmuHMXIMbyrnYEQ\ndIneYsfzE8x3iSAGffWtVcOsvrGvLZEk85UZhxGXSA3+T+k9Fa5fd4esRLXe4Dc3\nWY8Wave0sFsm0WXZ2WfyqJFrPhsA4x2rLoFMNC9j1O0FvSBxUrYgfMU8k0twt3tV\njcbr8j2b8iUhygxn9VGUUFObRhrDa0INWbbfjPlIaYq5FxTfIqNI7a9faPOoZ/52\n3BlvTED3TzDoLc8KXGUkUaAp80CEuCk9BYnkF7BjzGLtJQaebYrHAQs1TbWMp4gd\nMI4JvVIIMQvlgpZvI097uxwOkdF0VWgRB2muxkq03wKBgQDr7oTQUPBB8TASwKCF\nFb1m/UtizBcmQfsIMQo67v/mMsL00oOPouF3+vqCBqgd3fv1ehvsWui9Hbusdiue\ntGsXfWhkj6rxRAFbWBwgcAIWv3cFxRJpIVjNKt5iQpQ8LxnKvIreKHvjAyY90YUx\n923v+DNHf3q/hI2XB/NeDMZnEwKBgQC4QnWyZZBpO+DgbMtmzSG7gCfUIl1lR87+\nyRLJVCtf075hsPQ7ekc/kD8BlsUVHuSoZHORlOi9ikbdpEvF00hVNPjENT1rJ7Kw\nMKc+rScGE2y0oK5zZmTiyVI2S+xrUz3fePikxXWUign34RUQl93CAAgTWRngmP8g\nG0Pe91AxFwKBgQCHufHB/a4Z4WysfRBbP4R0aScjMRHoOnD153BhMvkYLv+k5C43\nRZa79TCD+NxiQkAemh7SPAJEOYSr1FeHt3ccTlLt9xB6N4soR2n25zjsaT1JnnPW\n8w4pCY5hrLemX9pQnWKuJ1AN6tPnIE+lzRf7wyeM7DNrVhA2YKaK5oKE7QKBgQC0\nvgxxqArWDzRxMIb9Gi8Cm512CxeOJ7g2WMqiznuVjkDr1wZb6YBGK5qCVoCQTTOC\nsrZika0Tb7Y/58+kB7KmUkXLQWYz3Eb9aVxEsNjcruUs8YjuDfzcMRsBw8vvI0JI\nGYPdLQw/XoCUtCdTlYSjriA9ymMF2043EkerSPFSlQKBgB4jVPE8mayhk5FGxamK\n2qfCDEIleH2H4XakTGw1rXcThRvfVkp0ccs9yjaviv6oX9FMdS2zvwlGJ8/TK4Ep\nhN5Pkpve0yIEIrYdKUfYqnww3hMq3RKfaNLlDztsMvzHW7D+EQ+oseLQZ5T2GSaI\nHCPppQ4pPES0I/gK24qvoZjW\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ykq1h@wealthwise-46f60.iam.gserviceaccount.com",
+  "client_id": "116665862736080992800",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ykq1h%40wealthwise-46f60.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
