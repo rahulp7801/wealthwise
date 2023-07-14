@@ -24,6 +24,11 @@ def init_curs():
     response.headers.add('Access-Control-Allow-Methods', 'GET')
     response.headers.add('Access-Control-Allow-Methods', 'POST')
 
+def agg_vals(data):
+    email = data.get("email")
+    pwd = data.get('password')
+    return email, pwd
+
 # Pull ticker data from API and send to frontend
 @app.route("/api/get-data", methods=['OPTIONS', 'GET'])
 def get_data():
@@ -46,9 +51,10 @@ def get_login():
 def post_db():
     init_curs()
     data = request.json
-    text = data.get('text')
+    email, pwd = agg_vals(data)
+    print(email, pwd)
     ref = db.reference('/users')
-    ref.update({f"user{randint(0,10000)}": text}) #randint for sum randomness
+    ref.child(email.replace('.', ',')).set(pwd)
     return "Successfully updated DB"
 
 if __name__=="__main__":

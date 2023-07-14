@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -60,6 +61,17 @@ const FirebaseRegister = ({ ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleFormSubmit = async (values) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/post-db', values);
+    console.log(response.data);
+    // Handle the response from the server as needed
+  } catch (error) {
+    console.error(error);
+    // Handle any errors that occurred during the request
+  }
+};
 
   const changePassword = (value) => {
     const temp = strengthIndicator(value);
@@ -137,6 +149,8 @@ const FirebaseRegister = ({ ...others }) => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             if (scriptedRef.current) {
+              console.error(values);
+              await handleFormSubmit(values);
               setStatus({ success: true });
               setSubmitting(false);
             }
