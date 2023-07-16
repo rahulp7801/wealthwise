@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber'
+import React from 'react';
 //import { OrbitControls } from '@react-three/drei';
 import MainCard from 'ui-component/cards/MainCard';
 //import MainCardDark from 'ui-component/cards/MainCardDark';
@@ -20,17 +19,18 @@ import StockScreeningTable from 'views/learnProps/stockScreeningTable.js';
 export default function StockValSkill() {
   return (
     <MainCard>
-      <Canvas>
-        <Suspense fallback={null}>
-        </Suspense>
-      </Canvas>
-      <div>
-        <StockScreeningTable />
+      <div className="stock-val-skill-container">
+        Stock Valuation
       </div>
-      <div className='gap'></div>
-      <div>
-        <RelValTable2 />
-      </div>
+      <MainCard>
+        <div>
+          <StockScreeningTable />
+        </div>
+        <div className='gap'></div>
+        <div>
+          <RelValTable2 />
+        </div>
+      </MainCard>
     </MainCard>
   );
 }

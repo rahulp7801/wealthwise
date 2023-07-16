@@ -3,7 +3,6 @@ import Greet from 'views/sample-page/greet.js';
 import 'assets/scss/styles.css';
 import Calendar from 'react-calendar';
 import MainCard from 'ui-component/cards/MainCard';
-import { Typography } from '@mui/material';
 //import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
 
@@ -22,7 +21,10 @@ class Greeter extends Component {
     //const customShortWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
     return (
-      <MainCard title={<Typography variant="h1" fontWeight="bold" style={{ textAlign: 'center' }}></Typography>} >
+      <MainCard >
+        <div className='stock-val-skill-container'>
+          Skills
+        </div>
         <div className="grid-container">
             <MainCard className="grid-item wide-item" >
                 <CalendarContainer >
