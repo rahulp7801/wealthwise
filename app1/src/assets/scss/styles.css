@@ -53,3 +53,97 @@
   width: 500px; /* Set the desired width */
   height: 100%; /* Occupy full height of the container */
 }
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
+.get-started {
+  aspect-ratio: 1/1;
+  border: 0.5vmin solid #4527A0;
+  padding-left: 10px;
+  width: 40vmin;
+  margin-top: 10px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 125px;
+  font-family: 'Libre Franklin', sans-serif; 
+}
+.get-started:before {
+  background: linear-gradient(
+    130deg,
+    transparent 0% 33%, 
+    #4527A0 63%,
+    #673AB7 83.5%,
+    #B39DDB 100%
+  );
+  background-position: 0% 0%;
+  background-size: 300% 300%;
+  content: "";
+  height: 100%;
+  left: 0px;
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  transition: background-position 350ms ease, transform 350ms ease;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.get-started:hover:before {
+  background-position: 100%, 100%;
+  transform: scale(1.08, 1.03);
+}
+.get-started:hover > .get-started-content {
+  background-position: -10% 0%;
+}
+
+.get-started:hover > .get-started-icon {
+  color: white; 
+}
+
+.get-started:hover > .get-started-content > .get-started-subtitle > .get-started-subtitle-word {  
+  opacity: 1;
+  transform: translateY(0%);
+  transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.get-started-content {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 8%, 
+    transparent 8%
+  );
+  background-position: 0% 0%;
+  background-size: 4vmin 4vmin;
+  height: 100%;
+  padding: 2vmin;
+  position: relative;
+  transition: background-position 350ms ease;
+  width: calc(100% - 1vmin);
+  z-index: 2;
+}
+
+.get-started-title,
+.get-started-subtitle {
+  color: white;
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.get-started-title {
+  font-size: 4vmin;
+  line-height: 1.25;
+
+}
+
+.get-started-subtitle {
+  font-size: 3vmin;
+  margin-top: 2vmin;
+  line-height: 1.25;
+}
+
+.get-started-subtitle-word {
+  display: inline-block;
+  margin: 0vmin 0.3vmin;
+  opacity: 0;
+  position: relative;  
+  transform: translateY(40%);
+  transition: none;
+}

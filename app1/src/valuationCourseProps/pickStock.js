@@ -2,6 +2,7 @@ import { Grid, CardContent, Typography, Table, TableBody, TableCell, TableContai
 import React, { useEffect } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
+import 'assets/scss/styles.css';
 
 const MyComponent = () => {
   useEffect(() => {
@@ -40,17 +41,46 @@ const MyComponent = () => {
     };
   }, []);
 
+  useEffect(() => {
+    
+    const subtitle = document.getElementsByClassName("get-started-subtitle")[0];
+
+    const createWord = (text, index) => {
+      const word = document.createElement("span");
+
+      word.innerHTML = `${text} `;
+
+      word.classList.add("get-started-subtitle-word");
+
+      word.style.transitionDelay = `${index * 40}ms`;
+
+      return word;
+    };
+
+    const addWord = (text, index) => subtitle.appendChild(createWord(text, index));
+
+    const createSubtitle = (text) => text.split(" ").map(addWord);
+
+    createSubtitle("Browse relevant publicly traded companies to decide the first stock you want to analyze!");
+
+  }, []);
+
+
   return (
       <div>
-        <div className="moving-gradient">
+        <div className="top-active-stocks-container">
           Pick a Stock
         </div>
-        <div className='line'></div>
-        <div className='get-started'>
-          <h1>Get Started</h1>
-          <h3>Begin your journey by choosing a</h3>
-          <h3>publicly traded company you&apos;d </h3>
-          <h3>like to analyze!</h3>
+        <div className='hidden'>
+          <div className='get-started'>
+            <div className='get-started-content'>
+              <h5 className='get-started-title'>First Step:</h5>
+              <h5 className='get-started-title'>Stock Selection</h5>
+              <h7 className='get-started-subtitle'>
+
+              </h7>
+            </div>
+          </div>
         </div>
         <div className='fat'>
           <div id='blocks'>

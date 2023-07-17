@@ -151,6 +151,7 @@
   max-width: 912006px;
   width: 100%;
   margin: 0 auto;
+  margin-top: -100px;
 }
 #blocks:hover > .block > .block-border {
   opacity: 0;
@@ -164,7 +165,7 @@
   height: 468px;
   position: relative;
   width: 300px;
-  box-shadow: #4527A0;
+  box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
 }
 .block:hover::before {
   opacity: 0.1;
@@ -186,7 +187,6 @@
       400px circle at var(--mouse-x) var(--mouse-y), 
       rgba(144, 202, 249),
       transparent 20%
-  
   );
   z-index: 3;
 }
@@ -210,9 +210,6 @@
   z-index: 2;
   position: relative;
 }
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
 .top-active-stocks-container {
   background: linear-gradient(0deg, rgba(41, 49, 79, 1) 0%, rgba(69, 39, 160, 1) 100%);
@@ -238,12 +235,8 @@
   font-family: 'Libre Franklin', sans-serif; /* Replace 'Your Custom Font' with your desired font or font-family */
   font-size: 50px; /* Adjust the font size as needed */
 }
-.get-started {
-  margin-left: 50px;
-  font-family: 'Libre Franklin', sans-serif; /* Replace 'Your Custom Font' with your desired font or font-family */
 
 
-}
 
 .hidden {
   opacity: 0;
