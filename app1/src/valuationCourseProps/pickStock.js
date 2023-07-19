@@ -1,16 +1,20 @@
 import { Grid, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow   } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
+import Chat from './aiFrontend';
 import 'assets/scss/styles.css';
+//import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const MyComponent = () => {
+  
+// Animation function for slide in Left
   useEffect(() => {
     const hiddenElements = document.querySelectorAll('.hidden');
     hiddenElements.forEach((el, index) => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          console.log(entry);
+          // console.log(entry);
           if (entry.isIntersecting) {
             entry.target.classList.add('show');
           } else {
@@ -28,6 +32,7 @@ const MyComponent = () => {
         observer.disconnect();
       };
     });
+    // Animation Function for hover effect
     const blocksElement = document.getElementById('blocks');
     blocksElement.onmousemove = (e) => {
       for (const block of document.getElementsByClassName('block')) {
@@ -40,7 +45,33 @@ const MyComponent = () => {
       }
     };
   }, []);
+  const observerRef = useRef(null);
+// Survey Card Animation
+  useEffect(() => {
+    const cards = document.querySelectorAll('.survey-card');
+    const options = {
+      threshold: 0.5,
+    };
 
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('show', entry.isIntersecting);
+      });
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, options);
+
+    cards.forEach((card) => {
+      observerRef.current.observe(card);
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+  // Subtitle Animation for Get Started Card
   useEffect(() => {
     
     const subtitle = document.getElementsByClassName("get-started-subtitle")[0];
@@ -64,6 +95,31 @@ const MyComponent = () => {
     createSubtitle("Browse relevant publicly traded companies to decide the first stock you want to analyze!");
 
   }, []);
+  // Animation for the Stock Personalized Card
+  useEffect(() => {
+    
+    const subtitle = document.getElementsByClassName("get-started-2-subtitle")[0];
+
+    const createWord = (text, index) => {
+      const word = document.createElement("span");
+
+      word.innerHTML = `${text} `;
+
+      word.classList.add("get-started-2-subtitle-word");
+
+      word.style.transitionDelay = `${index * 40}ms`;
+
+      return word;
+    };
+
+    const addWord = (text, index) => subtitle.appendChild(createWord(text, index));
+
+    const createSubtitle = (text) => text.split(" ").map(addWord);
+
+    createSubtitle("Take a short 10-question survey to get personalized stock recommendations!")
+
+  }, []);
+  
 
 
   return (
@@ -71,17 +127,22 @@ const MyComponent = () => {
         <div className="top-active-stocks-container">
           Pick a Stock
         </div>
-        <div className='hidden'>
-          <div className='get-started'>
-            <div className='get-started-content'>
-              <h5 className='get-started-title'>First Step:</h5>
-              <h5 className='get-started-title'>Stock Selection</h5>
-              <h7 className='get-started-subtitle'>
+        <div className='gap2'></div>
 
-              </h7>
+        <div className='container-2'>
+          <div className='hidden'>
+            <div className='get-started'>
+              <div className='get-started-content'>
+                <h5 className='get-started-title'>First Step:</h5>
+                <h5 className='get-started-title'>Stock Selection</h5>
+                <h7 className='get-started-subtitle'>
+
+                </h7>
+              </div>
             </div>
           </div>
         </div>
+        <div className='gap'></div>
         <div className='fat'>
           <div id='blocks'>
             <Grid  container spacing={1}>
@@ -161,6 +222,23 @@ const MyComponent = () => {
               </Grid>
             </Grid>
           </div>
+        </div>
+        <div className='container-2'>
+          <div className='hidden'>
+            <div className='get-started-2'>
+              <div className='get-started-2-content'>
+                <h5 className='get-started-2-title'>Personalization Survey</h5>
+                <h7 className='get-started-2-subtitle'>
+
+                </h7>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="gap2"></div>
+        <div className="survey-card-container">
+          <div className="survey-card"><Chat /> </div>
+
         </div>
       </div>
   );

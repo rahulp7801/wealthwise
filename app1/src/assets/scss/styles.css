@@ -53,12 +53,14 @@
   width: 500px; /* Set the desired width */
   height: 100%; /* Occupy full height of the container */
 }
+
+/* These are the CSS Rules for the "Get Started Card" Animation */
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
 .get-started {
-  aspect-ratio: 1/1;
+  aspect-ratio: 1.6/1;
   border: 0.5vmin solid #4527A0;
   padding-left: 10px;
-  width: 40vmin;
+  height: 40vmin;
   margin-top: 10px;
   cursor: pointer;
   position: relative;
@@ -146,4 +148,157 @@
   position: relative;  
   transform: translateY(40%);
   transition: none;
+}
+/* These are the CSS Rules for the "Personalized Stock" Card */
+.get-started-2 {
+  aspect-ratio: 1.6/1;
+  border: 0.5vmin solid #4527A0;
+  padding-left: 10px;
+  height: 40vmin;
+  margin-top: 10px;
+  cursor: pointer;
+  position: relative;
+  margin-left: 125px;
+  font-family: 'Libre Franklin', sans-serif; 
+}
+.get-started-2:before {
+  background: linear-gradient(
+    130deg,
+    transparent 0% 33%, 
+    #4527A0 63%,
+    #673AB7 83.5%,
+    #B39DDB 100%
+  );
+  background-position: 0% 0%;
+  background-size: 300% 300%;
+  content: "";
+  height: 100%;
+  left: 0px;
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  transition: background-position 350ms ease, transform 350ms ease;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.get-started-2:hover:before {
+  background-position: 100%, 100%;
+  transform: scale(1.08, 1.03);
+}
+.get-started-2:hover > .get-started-2-content {
+  background-position: -10% 0%;
+}
+
+.get-started-2:hover > .get-started-2-icon {
+  color: white; 
+}
+
+.get-started-2:hover > .get-started-2-content > .get-started-2-subtitle > .get-started-2-subtitle-word {  
+  opacity: 1;
+  transform: translateY(0%);
+  transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.get-started-2-content {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.2) 8%, 
+    transparent 8%
+  );
+  background-position: 0% 0%;
+  background-size: 4vmin 4vmin;
+  height: 100%;
+  padding: 2vmin;
+  position: relative;
+  transition: background-position 350ms ease;
+  width: calc(100% - 1vmin);
+  z-index: 2;
+}
+
+.get-started-2-title,
+.get-started-2-subtitle {
+  color: white;
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.get-started-2-title {
+  font-size: 4vmin;
+  line-height: 1.25;
+
+}
+
+.get-started-2-subtitle {
+  font-size: 3vmin;
+  margin-top: 2vmin;
+  line-height: 1.25;
+}
+
+.get-started-2-subtitle-word {
+  display: inline-block;
+  margin: 0vmin 0.3vmin;
+  opacity: 0;
+  position: relative;  
+  transform: translateY(40%);
+  transition: none;
+}
+/* Unused Grid Elements for Adjacent Animated Cards */
+.grid-container-2 {
+  display: grid;
+  background-color: rgba(41, 49, 79, 1);
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position:fixed;
+  overflow:hidden;
+}
+
+.box-2 {
+  background-color: rgba(41, 49, 79, 1);
+}
+.box-3 {
+  background-color: rgba(41, 49, 79, 1);
+  margin-right: 400;
+  min-width: 500px;
+  position:fixed;
+  overflow:hidden;
+}
+.container-2 {
+  display: flex;
+  margin-right: 100px;
+  justify-content: center; /* Horizontally center the contents */
+  align-items: center; /* Vertically center the contents */
+}
+.square {
+  width: 150px;
+  height: 150px;
+  background-color: black;
+}
+/* Survey CSS Rules */
+.survey-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center; /* Center the cards horizontally */
+  justify-content: center;
+  margin-right: 100px;
+
+
+}
+
+.survey-card {
+  background: pink;
+  border: 1px solid black;
+  border-radius: .25rem;
+  padding: .5rem;
+  transform: translateX(300px);
+  opacity: 0;
+  transition: 300ms;
+  height: 60vmin;
+  aspect-ratio: 1.6/1;
+  
+}
+.survey-card.show {
+  transform: translateX(0);
+  opacity: 1;
 }

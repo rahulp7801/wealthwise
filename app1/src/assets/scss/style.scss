@@ -126,8 +126,7 @@
     transform: translateX(10px);
   }
 }
-/*The Animations */
-
+/*These are the CSS Rules for the hover animation glow on the ESG Stocks and Top Active Stocks */
 :root {
   --bg-color: rgb(20, 20, 20);
   --block-color: rgb(23, 23, 23);
@@ -210,6 +209,7 @@
   z-index: 2;
   position: relative;
 }
+// These are the CSS Rules for the Gradient Headers
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
 .top-active-stocks-container {
   background: linear-gradient(0deg, rgba(41, 49, 79, 1) 0%, rgba(69, 39, 160, 1) 100%);
@@ -237,18 +237,23 @@
 }
 
 
-
+// These are CSS Rules for a Sliding Card from Left
 .hidden {
   opacity: 0;
   filter:blur(5px);
   transform: translateX(-100%);
   transition: all 1s;
+  background-color: rgba(41, 49, 79, 1);
+
 }
 .show {
   opacity: 1;
   filter: blur(0);
   transform: translateX(0);
+  background-color: rgba(41, 49, 79, 1);
+
 }
+// These are the CSS Rules for the Animated Gradient
 .moving-gradient{
   background: linear-gradient(-45deg, #B39DDB, #4527A0);
 	background-size: 400% 400%;

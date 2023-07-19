@@ -1,53 +1,25 @@
-:root {
-    --border: rgb(3, 169, 244);
-    
-    --g1: rgb(98, 0, 234);
-    --g2: rgb(236, 64, 122);
-    --g3: rgb(253, 216, 53);
-  }
-  
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: center; 
+  align-items: center; 
+}
 
-  
-  .card {
-    aspect-ratio: 1 / 1.6;
-    border: 0.5vmin solid var(--border);
-    cursor: pointer;
-    position: relative;
-    width: 56vmin;
-  }
-  
-  .card:hover:before {
-    background-position: 100% 100%;
-    transform: scale(1.08, 1.03);
-  }
-  
-  .card:hover > .card-content {
-    background-position: -10% 0%;
-  }
-  
-  .card:hover > .card-icon {
-    color: white; 
-  }
-  
-  .card:before {
-    background: linear-gradient(
-      130deg, 
-      transparent 0% 33%, 
-      var(--g1) 66%, 
-      var(--g2) 83.5%, 
-      var(--g3) 100%
-    );
-    background-position: 0% 0%;
-    background-size: 300% 300%;
-    content: "";
-    height: 100%;
-    left: 0px;
-    pointer-events: none;
-    position: absolute;
-    top: 0px;
-    transition: background-position 350ms ease, transform 350ms ease;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  
+.card {
+  background: pink;
+  border: 1px solid black;
+  border-radius: .25rem;
+  padding: .5rem;
+  transform: translateX(300px);
+  opacity: 0;
+  transition: 300ms;
+  height: 60vmin;
+  aspect-ratio: 1.6/1;
+
+}
+.card.show {
+  transform: translateX(0);
+  opacity: 1;
+}
