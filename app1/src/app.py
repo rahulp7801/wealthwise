@@ -1,33 +1,15 @@
-from flask import Flask, request, make_response
-import datetime
+import utils  # our own utils file
+
+from flask import Flask, request
 from Stock_Chart import graphStock
 from flask_cors import CORS
-from random import randint
-import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import db
+
+from utils import init_curs, agg_vals, agg_vals_login
 
 # Initialize Flask APP and initialize CORS Policy
 app = Flask(__name__)
-CORS(app, origins='http://localhost:3000', supports_credentials=True, methods=['GET', 'POST'], allow_headers=['Content-Type'])
-
-# Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("creds.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://wealthwise-46f60-default-rtdb.firebaseio.com/'
-})
-
-# Initialize CORS Policy and prevent HTML Blocking
-def init_curs():
-    response = make_response()
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Methods', 'GET')
-    response.headers.add('Access-Control-Allow-Methods', 'POST')
-
-def agg_vals(data):
-    email = data.get("email")
-    pwd = data.get('password')
-    return email, pwd
+CORS(app, origins=utils.ORIGINS, supports_credentials=True, methods=['GET', 'POST'], allow_headers=['Content-Type'])
 
 # Pull ticker data from API and send to frontend
 @app.route("/api/get-data", methods=['OPTIONS', 'GET'])
@@ -46,16 +28,58 @@ def get_login():
     data = ref.get()
     return data
 
-# Post data to database
-@app.route("/api/post-db", methods=['POST'])
-def post_db():
+# Create user and add to database
+@app.route("/api/create-user", methods=['POST'])
+def create_user():
+    init_curs()
+    data = request.json  # What the backend gives us
+    email, pwd, fname, lname = agg_vals(data)  # get the email and password
+    user = utils.User(email, pwd, fname, lname)  # Create a user object to handle things for us
+    user.reg_user()  # Register user to database
+    return "Successfully updated DB"
+
+# LOGIN LEGACY!
+@app.route("/api/login", methods=["POST"])
+def login():
     init_curs()
     data = request.json
-    email, pwd = agg_vals(data)
-    print(email, pwd)
-    ref = db.reference('/users')
-    ref.child(email.replace('.', ',')).set(pwd)
-    return "Successfully updated DB"
+    email, pwd = agg_vals_login(data)  # get form values
+    user = utils.User(email, pwd)  # create USER object
+    stat, err = user.login_user(True)  # login
+    if not stat:  # oh nah they monkey up
+        if err == 401:
+            return "Incorrect password"
+        else:
+            return "User does not exist"
+    return "Login Successful"
+
+# REGISTER WIT GOOGLE!
+@app.route('/api/register-google', methods=["POST"])
+def register_google():
+    data = request.json  # the Google stuff
+    user = utils.User(id=data.get('idToken'))
+    res, stat = user.reg_user()
+    if not res:  # how does this even happen silly
+        if stat == 401:
+            return "userext"
+        else:
+            return "interr"
+
+    return "success"
+
+# LOGIN WIT GOOGLE
+@app.route("/api/login-google", methods=["POST"])
+def login_google():
+    data = request.json
+    user = utils.User(id=data.get("idToken"))
+    res, stat = user.login_user(False)  # False because not LEGACY, we goin wit GOOGLE
+    if not res:  # HOOWOWWW
+        if stat == 401:
+            return "interr"
+        else:
+            return "notexist"
+    return "success"
+
 
 if __name__=="__main__":
     app.run(debug=True, port=5000)

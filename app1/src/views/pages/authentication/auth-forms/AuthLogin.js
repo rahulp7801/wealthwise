@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -45,7 +49,24 @@ const FirebaseLogin = ({ ...others }) => {
   const [checked, setChecked] = useState(true);
 
   const googleHandler = async () => {
-    console.error('Login');
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const idToken = await result.user.getIdToken();
+    // Make an HTTP request Flask backend with the Firebase ID token
+    const response = await axios.post('http://localhost:5000/api/login-google', { idToken });
+    console.log(response.data);
+    if (response.data === "notexist") {
+        alert("User does not exist in DB (GOOGLE SIGN IN ONLY)!");
+    } else if (response.data === "interr") {
+        alert("Internal Server Error, try again later.");
+    } else if (response.data === "success") {
+        alert("Successfully logged in");
+    }
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+  }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -56,6 +77,22 @@ const FirebaseLogin = ({ ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleFormSubmit = async (values) => {
+  try {
+    const response = await axios.post('http://localhost:5000/api/login', values);
+    console.log(response.data);
+    if (response.data === "Login Successful") {
+        alert("Login Successful");
+    } else if (response.data === "Incorrect password") {
+        alert("Incorrect password");
+    } else if (response.data === "User does not exist") {
+        alert("User does not exist");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <>
@@ -131,6 +168,7 @@ const FirebaseLogin = ({ ...others }) => {
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             if (scriptedRef.current) {
+              await handleFormSubmit(values);
               setStatus({ success: true });
               setSubmitting(false);
             }
