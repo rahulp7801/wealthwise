@@ -1,0 +1,40 @@
+.cool-spinny {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #85bb65, #538c37); /* Money-colored gradient */
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto;
+  top: -100px;
+  animation: spinny 5s linear infinite;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(500px) translateZ(-25px) rotateX(0deg) rotateY(0deg);
+  margin-top: 100px;
+}
+
+.cool-spinny::before {
+  content: "$"; /* Dollar sign */
+  font-size: 90px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff; /* White text color */
+  opacity: 0.8;
+  transform-style: preserve-3d;
+}
+
+@keyframes spinny {
+  0% {
+    transform: perspective(500px) translateZ(-25px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(500px) translateZ(-25px) rotateX(180deg) rotateY(180deg);
+  }
+  100% {
+    transform: perspective(500px) translateZ(-25px) rotateX(360deg) rotateY(360deg);
+  }
+}
