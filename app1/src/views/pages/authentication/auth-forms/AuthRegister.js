@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -39,7 +42,23 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
+
+
 const FirebaseRegister = ({ ...others }) => {
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB-_yVx8sZYJ5-zlToQ5fKh3_hTS4uQ920",
+  authDomain: "wealthwise-46f60.firebaseapp.com",
+  databaseURL: "https://wealthwise-46f60-default-rtdb.firebaseio.com",
+  projectId: "wealthwise-46f60",
+  storageBucket: "wealthwise-46f60.appspot.com",
+  messagingSenderId: "1038265631668",
+  appId: "1:1038265631668:web:307904228298d125c0e8e1",
+  measurementId: "G-NXKK636ZDL"
+};
+
+firebase.initializeApp(firebaseConfig);
+
   const theme = useTheme();
   const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -50,10 +69,6 @@ const FirebaseRegister = ({ ...others }) => {
   const [strength, setStrength] = useState(0);
   const [level, setLevel] = useState();
 
-  const googleHandler = async () => {
-    console.error('Register');
-  };
-
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -62,14 +77,33 @@ const FirebaseRegister = ({ ...others }) => {
     event.preventDefault();
   };
 
+  const handleGoogleSignIn = async () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  try {
+    const result = await firebase.auth().signInWithPopup(provider);
+    const idToken = await result.user.getIdToken();
+    // Make an HTTP request to Flask backend with the Firebase ID token
+    const response = await axios.post('http://localhost:5000/api/register-google', { idToken });
+    if (response.data === "userext") {
+        alert("User already exists!");
+    } else if (response.data === "interr") {
+        alert("Internal Server Error, try again later.");
+    } else if (response.data === "success") {
+        alert("Successfully added Google Sign in to DB");
+
+    }
+  } catch (error) {
+    console.error('Google Sign-In Error:', error);
+  }
+};
+
   const handleFormSubmit = async (values) => {
   try {
-    const response = await axios.post('http://localhost:5000/api/post-db', values);
+    const response = await axios.post('http://localhost:5000/api/create-user', values);
     console.log(response.data);
-    // Handle the response from the server as needed
   } catch (error) {
     console.error(error);
-    // Handle any errors that occurred during the request
   }
 };
 
@@ -80,18 +114,31 @@ const FirebaseRegister = ({ ...others }) => {
   };
 
   useEffect(() => {
-    changePassword('123456');
+    const initializeGoogleAPI = async () => {
+      try {
+        await window.google.accounts.id.initialize({
+          client_id: '249512283025-ics93oo906n24nmolide7pk26lo6rqii.apps.googleusercontent.com',
+          callback: handleGoogleSignIn, // Callback function
+          auto_select: false, // Set to true if you want the user to be automatically prompted for Google sign-in
+        });
+
+        console.log('Google Identity Services client initialized successfully.');
+      } catch (error) {
+        console.error('Error initializing Google Identity Services client:', error);
+      }
+    };
+
+    initializeGoogleAPI();
   }, []);
 
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
         <Grid item xs={12}>
-          <AnimateButton>
             <Button
               variant="outlined"
               fullWidth
-              onClick={googleHandler}
+              onClick={handleGoogleSignIn}
               size="large"
               sx={{
                 color: 'grey.700',
@@ -104,7 +151,7 @@ const FirebaseRegister = ({ ...others }) => {
               </Box>
               Sign up with Google
             </Button>
-          </AnimateButton>
+
         </Grid>
         <Grid item xs={12}>
           <Box sx={{ alignItems: 'center', display: 'flex' }}>
@@ -138,6 +185,8 @@ const FirebaseRegister = ({ ...others }) => {
 
       <Formik
         initialValues={{
+          fname: '',
+          lname: '',
           email: '',
           password: '',
           submit: null
@@ -173,6 +222,9 @@ const FirebaseRegister = ({ ...others }) => {
                   label="First Name"
                   margin="normal"
                   name="fname"
+                  value={values.fname}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
                   type="text"
                   defaultValue=""
                   sx={{ ...theme.typography.customInput }}
@@ -184,6 +236,9 @@ const FirebaseRegister = ({ ...others }) => {
                   label="Last Name"
                   margin="normal"
                   name="lname"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.lname}
                   type="text"
                   defaultValue=""
                   sx={{ ...theme.typography.customInput }}
