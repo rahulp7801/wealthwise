@@ -57,14 +57,12 @@
 /* These are the CSS Rules for the "Get Started Card" Animation */
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
 .get-started {
-  aspect-ratio: 1.6/1;
+  aspect-ratio: 8/1;
   border: 0.5vmin solid #4527A0;
   padding-left: 10px;
-  height: 40vmin;
-  margin-top: 10px;
-  cursor: pointer;
+  height: 18vmin;
   position: relative;
-  margin-left: 125px;
+  margin-left: 100px;
   font-family: 'Libre Franklin', sans-serif; 
 }
 .get-started:before {
@@ -116,6 +114,7 @@
   height: 100%;
   padding: 2vmin;
   position: relative;
+  padding-top: 45px;
   transition: background-position 350ms ease;
   width: calc(100% - 1vmin);
   z-index: 2;
@@ -127,11 +126,15 @@
   font-family: 'Libre Franklin', sans-serif;
   font-weight: 400;
   margin: 0px;
+  
 }
 
 .get-started-title {
   font-size: 4vmin;
   line-height: 1.25;
+  text-align: center;
+  font-size: 3vmin;
+  font-weight: bolder;
 
 }
 
@@ -156,7 +159,6 @@
   padding-left: 10px;
   height: 40vmin;
   margin-top: 10px;
-  cursor: pointer;
   position: relative;
   margin-left: 125px;
   font-family: 'Libre Franklin', sans-serif; 
@@ -278,10 +280,10 @@
 .survey-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
   align-items: center; /* Center the cards horizontally */
   justify-content: center;
-  margin-right: 100px;
+  /* margin-right: 100px; */
 
 
 }
@@ -301,4 +303,12 @@
 .survey-card.show {
   transform: translateX(0);
   opacity: 1;
+}
+.response-card {
+  border: 0.5vmin solid #4527A0;
+  color: #111936;
+  height: 100px;
+  width: 100px;
+  overflow: scroll;
+  
 }

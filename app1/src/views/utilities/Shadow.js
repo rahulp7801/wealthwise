@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-
+import TenInputSlotsComponent
+ from 'valuationCourseProps/animationTest';
 const MyComponent = () => {
   const navigate = useNavigate();
 
@@ -11,9 +12,12 @@ const MyComponent = () => {
   };
 
   return (
-    <Button onClick={handleButtonClick} variant="contained" color="secondary">
-      button textssss
-    </Button>
+    <div>
+      <Button onClick={handleButtonClick} variant="contained" color="secondary">
+        button texsss
+      </Button>
+      <TenInputSlotsComponent />
+    </div>
   );
 };
 

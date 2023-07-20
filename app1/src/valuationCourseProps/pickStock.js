@@ -72,29 +72,29 @@ const MyComponent = () => {
     };
   }, []);
   // Subtitle Animation for Get Started Card
-  useEffect(() => {
+  // useEffect(() => {
     
-    const subtitle = document.getElementsByClassName("get-started-subtitle")[0];
+  //   const subtitle = document.getElementsByClassName("get-started-subtitle")[0];
 
-    const createWord = (text, index) => {
-      const word = document.createElement("span");
+  //   const createWord = (text, index) => {
+  //     const word = document.createElement("span");
 
-      word.innerHTML = `${text} `;
+  //     word.innerHTML = `${text} `;
 
-      word.classList.add("get-started-subtitle-word");
+  //     word.classList.add("get-started-subtitle-word");
 
-      word.style.transitionDelay = `${index * 40}ms`;
+  //     word.style.transitionDelay = `${index * 40}ms`;
 
-      return word;
-    };
+  //     return word;
+  //   };
 
-    const addWord = (text, index) => subtitle.appendChild(createWord(text, index));
+  //   const addWord = (text, index) => subtitle.appendChild(createWord(text, index));
 
-    const createSubtitle = (text) => text.split(" ").map(addWord);
+  //   const createSubtitle = (text) => text.split(" ").map(addWord);
 
-    createSubtitle("Browse relevant publicly traded companies to decide the first stock you want to analyze!");
+  //   createSubtitle("Browse relevant publicly traded companies to decide the first stock you want to analyze!");
 
-  }, []);
+  // }, []);
   // Animation for the Stock Personalized Card
   useEffect(() => {
     
@@ -123,9 +123,9 @@ const MyComponent = () => {
 
 
   return (
-      <div>
+      <div >
         <div className="top-active-stocks-container">
-          Pick a Stock
+          Stock Selection
         </div>
         <div className='gap2'></div>
 
@@ -133,11 +133,9 @@ const MyComponent = () => {
           <div className='hidden'>
             <div className='get-started'>
               <div className='get-started-content'>
-                <h5 className='get-started-title'>First Step:</h5>
-                <h5 className='get-started-title'>Stock Selection</h5>
-                <h7 className='get-started-subtitle'>
+                <h6 className='get-started-title'>Browse relevant publicly traded companies to decide the first stock you want to analyze! </h6>
 
-                </h7>
+
               </div>
             </div>
           </div>
@@ -236,8 +234,19 @@ const MyComponent = () => {
           </div>
         </div>
         <div className="gap2"></div>
-        <div className="survey-card-container">
+        <div className="survey-container">
+          <div className="survey-card"> </div>
+          <div className='gap2'></div>
+          <div className="survey-card"> </div>
+          <div className='gap2'></div>
+          <div className="survey-card"> </div>
+          <div className='gap2'></div>
+          <div className="survey-card"> </div>
+          <div className='gap2'></div>
+          <div className="survey-card"> </div>
+          <div className='gap2'></div>
           <div className="survey-card"><Chat /> </div>
+
 
         </div>
       </div>
