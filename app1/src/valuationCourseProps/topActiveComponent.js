@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow   } from '@mui/material';
-//import MainCard from 'ui-component/cards/MainCard';
 
 const TopActive = () => {
   const [mostActiveStocks, setMostActiveStocks] = useState([]);

@@ -1,48 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const TenInputSlotsComponent = () => {
+const TenInputSlotsComponent = ({ index, onUserInput }) => {
   const placeholders = [
-    'Enter sentence 1',
-    'Enter sentence 2',
-    'Enter sentence 3',
-    'Enter sentence 4',
-    'Enter sentence 5',
-    'Enter sentence 6',
-    'Enter sentence 7',
-    'Enter sentence 8',
-    'Enter sentence 9',
-    'Enter sentence 10',
+    '1. What are your long-term financial goals and objectives?',
+    '2. What is your preferred investment timeframe?',
+    '3. What is your risk tolerance?',
+    '4. What is your investment experience? Are you a beginner or an experienced investor?',
+    '5. What is your current financial situation?',
+    '6. What is your investment knowledge? ',
+    '7. What is your asset allocation preference? ',
+    '8. What industry sectors or themes are you interested in? ',
+    '9. Do you have any specific ethical or social considerations when selecting stocks for investment?',
+    '10. What is your desired level of involvement in managing your investments?',
   ];
 
-  const [inputs, setInputs] = useState(Array(10).fill('')); // Array to hold the user inputs
-
-  const handleInputChange = (index, value) => {
-    const updatedInputs = [...inputs];
-    updatedInputs[index] = value;
-    setInputs(updatedInputs);
-  };
-
-  const handleSubmit = () => {
-    // Do something with the array of inputs (e.g., send it to the server)
-    console.log('User inputs:', inputs);
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    onUserInput(index, value);
   };
 
   return (
-    <div>
-      <h2>Input Sentences:</h2>
-      {inputs.map((input, index) => (
-        <div key={index}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-            placeholder={placeholders[index]}
-          />
-        </div>
-      ))}
-      <div>
-        <button onClick={handleSubmit}>Submit</button>
-      </div>
+    <div className='custom-textarea'>
+      {placeholders[index]}
+      <input
+        type="text"
+        onChange={handleInputChange}
+      />
     </div>
   );
 };

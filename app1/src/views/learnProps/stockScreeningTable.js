@@ -23,7 +23,6 @@ export default function StockTaskTable() {
   const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({});
   const handleButtonClick = () => {
-    alert('Clicked');
     navigate('/icons/pick-stock');
   };
   const handleToggle = (value) => {

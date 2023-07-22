@@ -14,7 +14,6 @@ Introduce the firebase module to work with Google Authentication (trust)
 
 
 import bcrypt
-
 from flask import make_response
 from datetime import datetime
 from firebase_admin import initialize_app, db, credentials, auth
