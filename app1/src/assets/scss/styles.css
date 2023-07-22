@@ -114,7 +114,7 @@
   height: 100%;
   padding: 2vmin;
   position: relative;
-  padding-top: 45px;
+  padding-top: 39px;
   transition: background-position 350ms ease;
   width: calc(100% - 1vmin);
   z-index: 2;
@@ -212,6 +212,8 @@
   height: 100%;
   padding: 2vmin;
   position: relative;
+  align-items: center;
+  justify-content: center;
   transition: background-position 350ms ease;
   width: calc(100% - 1vmin);
   z-index: 2;
@@ -346,6 +348,271 @@
   opacity: 1;
   height: 60vmin;
   aspect-ratio: 1.6/1;
+}
+
+.submit-stock-box {
+  background: rgba(41, 49, 79, 1);
+  border: 0.5vmin solid #4527A0;
+  box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
   
+  padding: .5rem;
+  opacity: 1;
+  height: 60vmin;
+  aspect-ratio: 1.6/1;
+}
+
+.submit-stock-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.submit-stock-box .user-box {
+  position: relative;
+}
+
+.submit-stock-box .user-box textarea {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.submit-stock-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.submit-stock-box .user-box input:focus ~ label,
+.submit-stock-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #4527A0;
+  font-size: 12px;
+}
+
+
+
+
+.submit-stock-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #4527A0;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 4px
+}
+
+.submit-stock-box a:hover {
+  background: #4527A0;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #4527A0,
+              0 0 25px #4527A0,
+              0 0 50px #4527A0,
+              0 0 100px #4527A0;
+}
+
+.submit-stock-box a span {
+  position: absolute;
+  display: block;
+}
+
+.submit-stock-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4527A0);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.submit-stock-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #4527A0);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.submit-stock-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #4527A0);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.submit-stock-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #4527A0);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+.submit-button-reset-style {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  }
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+.skip-button {
+  background: #B39DDB;
+background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
   
 }
+.skip-button span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.skip-button:before,
+.skip-button:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+   background: #B39DDB;
+  transition: all 0.3s ease;
+}
+.skip-button:before {
+  height: 0%;
+  width: 2px;
+}
+.skip-button:after {
+  width: 0%;
+  height: 2px;
+  color: #fff;
+
+}
+.skip-button:hover{
+   background: transparent;
+  box-shadow: none;
+}
+.skip-button:hover:before {
+  height: 100%;
+}
+.skip-button:hover:after {
+  width: 100%;
+  color: #fff;
+
+}
+.skip-button span:hover{
+   color: #fff;
+}
+.skip-button span:before,
+.skip-button span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+   background: #B39DDB;
+  transition: all 0.3s ease;
+  color: #B39DDB;
+  
+}
+.skip-button span:before {
+  width: 2px;
+  height: 0%;
+}
+.skip-button span:after {
+  width: 0%;
+  height: 2px;
+  color: #fff;
+
+}
+.skip-button span:hover:before {
+  height: 100%;
+}
+.skip-button span:hover:after {
+  width: 100%;
+  color: #fff;
+
+}
+

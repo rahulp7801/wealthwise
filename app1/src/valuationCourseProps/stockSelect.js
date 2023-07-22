@@ -32,29 +32,47 @@ const StockSelector = () => {
         }).then((data) => {
             return data.json();
         }).then((data) => {
+            console.log(data.choices[0].message.content)
             setValidity(data.choices[0].message.content);
         });
     }
     return (
-        <div>
-            <div>
-                <h1>Enter the Stock You want to Analyze</h1>
-                <textarea 
-                onChange={(e) => setStock(e.target.value)}
-                    placeholder="Submit Stock"
-                    cols={50}
-                    rows={10}
-                />
+        
+            
+            <div className="submit-stock-box">
+                <h2>Enter the Stock You want to Analyze</h2>
+                <form>
+                    <div className="user-box">
+                        <textarea 
+                        onChange={(e) => setStock(e.target.value)}
+                            placeholder="Submit Stock"
+                        /> 
+                    </div>
+                    <div>
+                        <a >
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <button 
+                                className="submit-button-reset-style"  
+                                type="button" 
+                                onClick={callOpenAIAPI}
+                                >
+                                    Submit
+                                </button>
+                            
+                        </a>
+                        {validity !== "" ?
+                            <h3>This Input Is: {validity}</h3>
+                            :
+                            null
+                        }     
+                    </div>          
+                </form>
             </div>
-            <div>
-                <button onClick={callOpenAIAPI}>Submit</button>
-                {validity !== "" ?
-                    <h3>This Input Is: {validity}</h3>
-                    :
-                    null
-            }
-            </div>
-        </div>
+        
+        
     )
 }
 export default StockSelector;

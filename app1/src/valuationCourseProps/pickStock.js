@@ -1,4 +1,4 @@
-import { Grid, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow   } from '@mui/material';
+import { Grid } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
@@ -6,6 +6,7 @@ import StockSurvey from './stockSurvey';
 import 'assets/scss/styles.css';
 import StockSelector from './stockSelect';
 import TenInputSlotsComponent from './animationTest';
+import TopESGStocks from './topESG';
 
 const MyComponent = () => {
   
@@ -25,9 +26,8 @@ const MyComponent = () => {
 
       setTimeout(() => {
         observer.observe(el);
-      }, index * 200); // Delay each element by 200ms
+      }, index * 200); 
 
-      // Clean up the observer when the component is unmounted
       return () => {
         observer.disconnect();
       };
@@ -95,9 +95,10 @@ const MyComponent = () => {
     const createSubtitle = (text) => text.split(" ").map(addWord);
     
 
-    createSubtitle("Take a short 10-question survey to get personalized stock recommendations!")
+    createSubtitle("Take a short 10-question survey to get personalized stock recommendations!                        Want to skip the survey?")
 
   }, []);
+  //Handling Inputs and Submittions for Open AI API
   const [userInputs, setUserInputs] = useState(Array(10).fill('')); // Array to hold user inputs from TenInputSlotsComponent
   const [isSubmitted, setIsSubmitted] = useState(false); // State to track if the form is submitted
   
@@ -109,9 +110,9 @@ const MyComponent = () => {
     console.log('User inputs:', userInputs);
     setIsSubmitted(true); 
     };
-  
-
-
+    const handleTest = () => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
   return (
       <div >
         <div className="top-active-stocks-container">
@@ -124,8 +125,6 @@ const MyComponent = () => {
             <div className='get-started'>
               <div className='get-started-content'>
                 <h6 className='get-started-title'>Browse relevant publicly traded companies to decide the first stock you want to analyze! </h6>
-
-
               </div>
             </div>
           </div>
@@ -136,50 +135,7 @@ const MyComponent = () => {
             <Grid  container spacing={1}>
               <Grid item xs={4}>
                 <div className='hidden'>
-                    <div className="block">
-                      <div className="block-border"> 
-                        <div className='block-content'>
-                          <MainCard>
-                            <CardContent>
-                              <Typography className="text-esg" variant="h3">TOP ESG STOCKS</Typography>
-                              <TableContainer>
-                                <Table>
-                                  <TableHead>
-                                    <TableRow>
-                                      <TableCell>Ticker</TableCell>
-                                      <TableCell>Industry</TableCell>
-                                    </TableRow>
-                                  </TableHead>
-                                  <TableBody>
-                                    <TableRow>
-                                      <TableCell>WOR</TableCell>
-                                      <TableCell>Metal </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableCell>JBHT</TableCell>
-                                      <TableCell> Freight & Logistics</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableCell>VRSK</TableCell>
-                                      <TableCell> Consulting </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableCell>TXN</TableCell>
-                                      <TableCell>Semiconductors</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                      <TableCell>AAPL</TableCell>
-                                      <TableCell> Electronics </TableCell>
-                                    </TableRow>
-
-                                  </TableBody>
-                                </Table>
-                              </TableContainer>
-                            </CardContent>
-                          </MainCard>
-                        </div>
-                      </div>
-                    </div>
+                    <TopESGStocks />
                 </div>
               </Grid>
               <Grid item xs={4}>
@@ -219,6 +175,10 @@ const MyComponent = () => {
                 <h7 className='get-started-2-subtitle'>
 
                 </h7>
+                <div className='gap2'></div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <button className="custom-btn skip-button" onClick={handleTest}><span>Skip</span></button>
+                </div>
               </div>
             </div>
           </div>
@@ -279,11 +239,10 @@ const MyComponent = () => {
               <StockSurvey userInputs={userInputs} />
             </div>
               )}
-          
-        </div>
+          <div >
+            <StockSelector/>
+          </div>
 
-        <div className='survey-card'>
-          <StockSelector/>
         </div>
       </div>
   );
