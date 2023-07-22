@@ -275,9 +275,8 @@ const MyComponent = () => {
           </div>
           
           {isSubmitted && (
-            <div className='survey-card'>
-              <StockSurvey userInputs={userInputs} />;
-              {console.log('Inside conditional statement')}              
+            <div className='survey-reponse-card'>
+              <StockSurvey userInputs={userInputs} />
             </div>
               )}
           

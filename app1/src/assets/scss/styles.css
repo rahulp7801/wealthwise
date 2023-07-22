@@ -336,6 +336,16 @@
 
 .esg-text {
   font-family: 'Libre Franklin', sans-serif;
-
-
+}
+.survey-reponse-card {
+  background: rgba(41, 49, 79, 1);
+  border: 0.5vmin solid #4527A0;
+  box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+  
+  padding: .5rem;
+  opacity: 1;
+  height: 60vmin;
+  aspect-ratio: 1.6/1;
+  
+  
 }
