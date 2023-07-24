@@ -14,13 +14,17 @@ Introduce the firebase module to work with Google Authentication (trust)
 
 
 import bcrypt
+
 from flask import make_response
 from datetime import datetime
 from firebase_admin import initialize_app, db, credentials, auth
 
+from bardapi import Bard
+
 # Constants
 DATABASE_URL = 'https://wealthwise-46f60-default-rtdb.firebaseio.com/'
 ORIGINS = 'http://localhost:3000'
+BARD_API_TOKEN = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
 
 # Authenticate Firebase, Establish Connection
 cred = credentials.Certificate("creds.json")
@@ -200,6 +204,19 @@ class User(object):
         user_name = decoded_token.get("name")
         self.fullname = user_name
         return self.fullname
+
+
+class BardAI(object):
+
+    def __init__(self):
+        self.bard = Bard(token=BARD_API_TOKEN)
+
+    def get_response(self, query):
+        response = self.bard.get_answer(query)
+        return response
+
+
+
 
 
 
