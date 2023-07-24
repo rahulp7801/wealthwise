@@ -62,9 +62,8 @@
   padding-left: 10px;
   height: 18vmin;
   position: relative;
-  margin-left: 100px;
-  font-family: 'Libre Franklin', sans-serif; 
-}
+  margin-left: 80px;
+  font-family: 'Libre Franklin', sans-serif;}
 .get-started:before {
   background: linear-gradient(
     130deg,
@@ -114,7 +113,7 @@
   height: 100%;
   padding: 2vmin;
   position: relative;
-  padding-top: 39px;
+  padding-top: 60px;
   transition: background-position 350ms ease;
   width: calc(100% - 1vmin);
   z-index: 2;
@@ -614,5 +613,67 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
   width: 100%;
   color: #fff;
 
+}
+.get-started-button {
+  border: 0.5vmin solid #4527A0;
+  padding-left: 0px;
+  height: 50vmin;
+  position: relative;
+  margin-left: -10px;
+  font-family: 'Libre Franklin', sans-serif;
+  width: 45vmin;
+}
+
+/* Styles for the second button */
+.get-started-content-button {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 8%, transparent 8%);
+  background-position: 0% 0%;
+  background-size: 1.5vmin 1.5vmin;
+  height: 100%;
+  padding: 2vmin;
+  position: relative;
+  padding-top: 5px;
+  transition: background-position 350ms ease;
+  width: 100%;
+  z-index: 2;
+  /* Additional styles for the button text */
+  color: #ffffff; /* Set text color to white */
+  font-weight: 500; /* Adjust font weight as needed */
+
+.get-started-title-button {
+  font-size: 4vmin;
+  line-height: 1.25;
+  text-align: left;
+  font-size: 2.5vmin;
+  font-weight: bolder;
+
+}
+
+.get-started-subheading-button {
+  font-size: 2vmin;
+  margin-top: 2vmin;
+  font-weight: Light;
+  color: #F5DEB3;
+  line-height: 2;
+  justify-content: left;
+}
+}
+.grid-container2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns with equal width */
+  gap: 70px; /* Gap between grid items */
+  height: 2vh; /* Make the container take up the full height of the viewport */
+}
+
+.grid-item2 {
+  display: flex;
+  justify-content: right;
+  align-items: center; /* Optional: Add a background color to visualize the layout */
+}
+
+.grid-item3 {
+  display: flex;
+  justify-content: left;
+  align-items: center; /* Optional: Add a background color to visualize the layout */
 }
 

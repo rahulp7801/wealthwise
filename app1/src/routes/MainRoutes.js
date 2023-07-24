@@ -20,6 +20,8 @@ const StockValSkill = Loadable(lazy(() => import('views/learnProps/stockValSkill
 const ETFSkill = Loadable(lazy(() => import('views/learnProps/etfGuideSkill')))
 const PickStock = Loadable(lazy(() => import('valuationCourseProps/pickStock')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
+const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
+const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -130,11 +132,19 @@ const MainRoutes = {
         }
       ]
     },
-
+    {
+      path: 'guest',
+      element: <Guest />
+    },
+    {
+      path: 'customize',
+      element: <Customize />
+    },
     {
       path: 'sample-page',
       element: <SamplePage />
     }
+
   ]
 };
 
