@@ -7,8 +7,11 @@ import 'assets/scss/styles.css';
 import StockSelector from './stockSelect';
 import TenInputSlotsComponent from './animationTest';
 import TopESGStocks from './topESG';
+import CompanySearch from './stockSearch';
+import { Provider } from 'react-redux';
+import store from './store';
 
-const MyComponent = () => {
+const PickStock  = () => {
   
 // Animation function for slide in Left
   useEffect(() => {
@@ -99,13 +102,16 @@ const MyComponent = () => {
 
   }, []);
   //Handling Inputs and Submittions for Open AI API
-  const [userInputs, setUserInputs] = useState(Array(10).fill('')); // Array to hold user inputs from TenInputSlotsComponent
-  const [isSubmitted, setIsSubmitted] = useState(false); // State to track if the form is submitted
+  const [userInputs, setUserInputs] = useState(Array(10).fill(''));
+  const [isSubmitted, setIsSubmitted] = useState(false); 
   
+  
+
   const handleUserInput = (index, value) => {
     const updatedUserInputs = [...userInputs];
     updatedUserInputs[index] = value;
     setUserInputs(updatedUserInputs); }
+  
   const handleSubmit = () => {
     console.log('User inputs:', userInputs);
     setIsSubmitted(true); 
@@ -113,8 +119,9 @@ const MyComponent = () => {
     const handleTest = () => {
       window.scrollTo(0, document.body.scrollHeight);
     }
+    
   return (
-      <div >
+      <div>
         <div className="top-active-stocks-container">
           Stock Selection
         </div>
@@ -172,9 +179,9 @@ const MyComponent = () => {
             <div className='get-started-2'>
               <div className='get-started-2-content'>
                 <h5 className='get-started-2-title'>Personalization Survey</h5>
-                <h7 className='get-started-2-subtitle'>
+                <h6 className='get-started-2-subtitle'>
 
-                </h7>
+                </h6>
                 <div className='gap2'></div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <button className="custom-btn skip-button" onClick={handleTest}><span>Skip</span></button>
@@ -239,13 +246,15 @@ const MyComponent = () => {
               <StockSurvey userInputs={userInputs} />
             </div>
               )}
-          <div >
-            <StockSelector/>
-          </div>
-
+          <Provider store={store}>
+            <div >
+              <StockSelector />
+              <CompanySearch />
+            </div>
+          </Provider>  
         </div>
       </div>
   );
 };
 
-export default MyComponent;
+export default PickStock ;

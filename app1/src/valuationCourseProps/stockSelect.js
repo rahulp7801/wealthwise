@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState  } from "react";
+import { useDispatch } from 'react-redux';
+import { setApiData } from './actions';
 
 const apiKey = "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";
 const StockSelector = () => {
     const [stock, setStock] = useState("");
     const [validity, setValidity] = useState("");
+
+    const dispatch = useDispatch();
+
 
     async function callOpenAIAPI() {
 
@@ -12,7 +17,7 @@ const StockSelector = () => {
             "messages": [
               {
                 "role": "system",
-                "content": "You determine if the user's inputs correspond to a publicly traded company. Input can be a ticker or name. If it matches, You return: True, the company name, and the stock ticker; otherwise, You'll return: False, Not a Valid Stock. ",
+                "content": "You determine if the user's inputs correspond to a publicly traded company on yahoo finance. Input can be a ticker or name. If it matches, You return: the stock symbol only; otherwise, You'll return: False, Not a Valid Stock. ",
               },
               {
                 "role": "user",
@@ -32,8 +37,10 @@ const StockSelector = () => {
         }).then((data) => {
             return data.json();
         }).then((data) => {
-            console.log(data.choices[0].message.content)
+            console.log(data.choices[0].message.content);
             setValidity(data.choices[0].message.content);
+            dispatch(setApiData(data.choices[0].message.content));
+            
         });
     }
     return (

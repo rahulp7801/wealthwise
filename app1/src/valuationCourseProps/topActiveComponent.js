@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow   } from '@mui/material';
+import { CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 const TopActive = () => {
   const [mostActiveStocks, setMostActiveStocks] = useState([]);
@@ -11,6 +11,7 @@ const TopActive = () => {
         const response = await axios.get(
           'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=AMXAOB5BNQ7TZK65'
         );
+        console.log(response.data);
         setMostActiveStocks(response.data.most_actively_traded.slice(0,5));
       } catch (error) {
         console.log('Error:', error);
