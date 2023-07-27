@@ -2,7 +2,7 @@ import { useState  } from "react";
 import { useDispatch } from 'react-redux';
 import { setApiData } from './actions';
 
-const apiKey = "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";
+const apiKey = "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";
 const StockSelector = () => {
     const [stock, setStock] = useState("");
     const [validity, setValidity] = useState("");
@@ -17,7 +17,7 @@ const StockSelector = () => {
             "messages": [
               {
                 "role": "system",
-                "content": "You determine if the user's inputs correspond to a publicly traded company on yahoo finance. Input can be a ticker or name. If it matches, You return: the stock symbol only; otherwise, You'll return: False, Not a Valid Stock. ",
+                "content": "You determine if the user's inputs correspond to a publicly traded company on yahoo finance. Input can be a ticker or name. If it matches, You return: the stock symbol and name; otherwise, You'll return: Not a Valid Stock, and Did you mean: followed by a list of stocks that are similar to the input ",
               },
               {
                 "role": "user",
@@ -44,40 +44,38 @@ const StockSelector = () => {
         });
     }
     return (
-        
-            
-            <div className="submit-stock-box">
-                <h2>Enter the Stock You want to Analyze</h2>
-                <form>
-                    <div className="user-box">
-                        <textarea 
-                        onChange={(e) => setStock(e.target.value)}
-                            placeholder="Submit Stock"
-                        /> 
-                    </div>
-                    <div>
-                        <a >
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <button 
-                                className="submit-button-reset-style"  
-                                type="button" 
-                                onClick={callOpenAIAPI}
-                                >
-                                    Submit
-                                </button>
-                            
-                        </a>
-                        {validity !== "" ?
-                            <h3>This Input Is: {validity}</h3>
-                            :
-                            null
-                        }     
-                    </div>          
-                </form>
+
+        <div className="submit-stock-box">
+        <h2>Enter the Stock You want to Analyze</h2>
+        <form>
+            <div className="user-box">
+                <textarea 
+                    onChange={(e) => setStock(e.target.value)}
+                    placeholder="Submit Stock"
+                /> 
             </div>
+            <div>
+                <a>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <button 
+                        className="submit-button-reset-style"  
+                        type="button" 
+                        onClick={callOpenAIAPI}
+                    >
+                        Submit
+                    </button>
+                </a>
+                {validity !== "" ?
+                    <h3>This Input Is: {validity}</h3>
+                    :
+                    null
+                }     
+            </div>          
+        </form>
+    </div>
         
         
     )

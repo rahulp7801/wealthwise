@@ -19,6 +19,7 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const StockValSkill = Loadable(lazy(() => import('views/learnProps/stockValSkill')))
 const ETFSkill = Loadable(lazy(() => import('views/learnProps/etfGuideSkill')))
 const PickStock = Loadable(lazy(() => import('valuationCourseProps/pickStock')))
+const UnderstandBiz = Loadable(lazy(() => import('valuationCourseProps/understandingBusiness.js')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
@@ -111,6 +112,15 @@ const MainRoutes = {
         {
           path: 'pick-stock',
           element: <PickStock />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'understand-business',
+          element: <UnderstandBiz />
         }
       ]
     },

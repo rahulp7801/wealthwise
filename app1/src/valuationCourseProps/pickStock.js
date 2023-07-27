@@ -10,9 +10,10 @@ import TopESGStocks from './topESG';
 import CompanySearch from './stockSearch';
 import { Provider } from 'react-redux';
 import store from './store';
+import { useNavigate } from 'react-router-dom';
+import CardGridComponent from './survey_grid';
 
 const PickStock  = () => {
-  
 // Animation function for slide in Left
   useEffect(() => {
     const hiddenElements = document.querySelectorAll('.hidden');
@@ -26,7 +27,6 @@ const PickStock  = () => {
           }
         });
       });
-
       setTimeout(() => {
         observer.observe(el);
       }, index * 200); 
@@ -103,9 +103,10 @@ const PickStock  = () => {
   }, []);
   //Handling Inputs and Submittions for Open AI API
   const [userInputs, setUserInputs] = useState(Array(10).fill(''));
+  // This submit state is for the survey submit button
   const [isSubmitted, setIsSubmitted] = useState(false); 
-  
-  
+  // This submit state is for the stock search submit button
+  const targetElementRef = useRef(null)
 
   const handleUserInput = (index, value) => {
     const updatedUserInputs = [...userInputs];
@@ -116,10 +117,15 @@ const PickStock  = () => {
     console.log('User inputs:', userInputs);
     setIsSubmitted(true); 
     };
-    const handleTest = () => {
-      window.scrollTo(0, document.body.scrollHeight);
-    }
+  const navigate = useNavigate();
+  const handleNextPage = () => {
+    navigate('/icons/understand-business')
+  }
     
+  
+  const scrollToElement = () => {
+    targetElementRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
       <div>
         <div className="top-active-stocks-container">
@@ -184,7 +190,7 @@ const PickStock  = () => {
                 </h6>
                 <div className='gap2'></div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <button className="custom-btn skip-button" onClick={handleTest}><span>Skip</span></button>
+                  <button className="custom-btn skip-button" onClick={scrollToElement}><span>Skip</span></button>
                 </div>
               </div>
             </div>
@@ -233,11 +239,11 @@ const PickStock  = () => {
             <TenInputSlotsComponent index={8} onUserInput={handleUserInput} />
           </div>
           <div className='gap2'></div>
-          <div className="survey-card">
+          <div className="survey-card" >
             <TenInputSlotsComponent index={9} onUserInput={handleUserInput} />
           </div>
-          <div className='gap2'></div>
-          <div>
+          <div className='gap2' ></div>
+          <div ref={targetElementRef}>
             <button onClick={handleSubmit}>Submit</button>
           </div>
           
@@ -246,12 +252,14 @@ const PickStock  = () => {
               <StockSurvey userInputs={userInputs} />
             </div>
               )}
-          <Provider store={store}>
-            <div >
-              <StockSelector />
-              <CompanySearch />
-            </div>
-          </Provider>  
+          <div >
+            <Provider store={store} >
+                <StockSelector />
+                <CompanySearch />
+            </Provider>
+          </div>
+          <button onClick={handleNextPage}>submit</button>
+          <CardGridComponent />
         </div>
       </div>
   );

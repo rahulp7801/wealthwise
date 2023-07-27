@@ -31,7 +31,6 @@
     "firebase": "^10.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-google-login": "^5.2.2",
     "source-map-loader": "^4.0.1",
     "style-loader": "^3.3.3",
     "styled-components": "^6.0.1"

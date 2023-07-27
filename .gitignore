@@ -2,3 +2,4 @@
 /.idea
 /app1/node_modules
 /node_modules
+/app1/src/venv

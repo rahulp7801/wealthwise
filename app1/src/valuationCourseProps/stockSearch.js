@@ -11,12 +11,12 @@ const CompanySearch = () => {
     const fetchAlphaVantageData = async () => {
       const apiKey = 'AMXAOB5BNQ7TZK65';
       const apiUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${apiData}&apikey=${apiKey}`;
-
+      console.log(apiData)
       try {
         setLoading(true);
         const response = await fetch(apiUrl);
         const data = await response.json();
-
+        
         // Assuming the API returns a 'bestMatches' array with company information.
         setSearchResults(data.bestMatches);
       } catch (error) {
@@ -31,27 +31,24 @@ const CompanySearch = () => {
 
   return (
     <div className='survey-card'>
-        {loading ? (
-            <p>Loading...</p>
-        ) : (
-            <>
-                <h1>Alpha Vantage Search Results for </h1>
-
-                <ul>
-                    {searchResults.map((company) => (
-                    <li key={company['1. symbol']}>
-                        {company['2. name']} - {company['1. symbol']} - {company['3. type']}
-                    </li>
-                    ))}
-                </ul>
-            </>
-        )}
+      {loading ? (
+        <p>Loading...</p>
+      ) : searchResults.length > 0 ? ( 
+        <>
+          <div>
+            <p>{searchResults[0]['2. name']} - {searchResults[0]['1. symbol']} - {searchResults[0]['3. type']}</p>
+            
+          </div>
+        </>
+      ) : (
+        <p>No results found.</p>
+      )}
     </div>
+
   );
 };
 
 
 
 export default CompanySearch;
-
-
+ 

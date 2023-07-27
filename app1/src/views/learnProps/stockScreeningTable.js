@@ -22,9 +22,12 @@ const style = {
 export default function StockTaskTable() {
   const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({});
-  const handleButtonClick = () => {
+  const handleButtonClick1 = () => {
     navigate('/icons/pick-stock');
   };
+  const handleButtonClick2 = () => {
+    navigate('/icons/understand-business')
+  }
   const handleToggle = (value) => {
     setCheckedItems((prevState) => ({
       ...prevState,
@@ -49,7 +52,7 @@ export default function StockTaskTable() {
           >
             Relative Valuation/Understanding Multiples
           </ListSubheader>
-          <ListItemButton onClick={handleButtonClick}>
+          <ListItemButton onClick={handleButtonClick1}>
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -61,7 +64,7 @@ export default function StockTaskTable() {
             </ListItemIcon>
             <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Pick a Stock</Typography>} />
           </ListItemButton>
-          <ListItemButton divider>
+          <ListItemButton onClick={handleButtonClick2}>
             <ListItemIcon>
               <Checkbox
                 edge="start"

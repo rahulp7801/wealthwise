@@ -27,7 +27,7 @@ ORIGINS = 'http://localhost:3000'
 BARD_API_TOKEN = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
 
 # Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("creds.json")
+cred = credentials.Certificate("C:\\Users\\jchdn\\VSCODE\\Wealth_Wise\\app1\\src\\creds.json")
 initialize_app(cred, {
     'databaseURL': DATABASE_URL
 })
