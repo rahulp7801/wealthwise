@@ -653,7 +653,7 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
   font-size: 2vmin;
   margin-top: 2vmin;
   font-weight: Light;
-  color: #F5DEB3;
+  color: #ffffff;
   line-height: 2;
   justify-content: left;
 }
@@ -677,3 +677,43 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
   align-items: center; /* Optional: Add a background color to visualize the layout */
 }
 
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message {
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px;
+}
+
+.user {
+  background-color: #dff0d8;
+  align-self: flex-end;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-input button {
+  margin-left: 8px;
+}
