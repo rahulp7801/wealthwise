@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import 'assets/scss/stock-select.css'
 
 const apiKey = "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";
 
@@ -51,15 +52,10 @@ const ValProposition = () => {
 
   return (
     // Your JSX for the StockDescription component, including rendering the 'validity' variable
-    <div className="submit-stock-box">
-      <h2>Value Proposition</h2>
-      <form>
-        <div>
-          {validity !== "" ? (
-            <h3>{validity}</h3>
-          ) : null}
-        </div>
-      </form>
+    <div>
+        {validity !== "" ? (
+          <p>{validity}</p>
+        ) : null}
     </div>
   );
 };

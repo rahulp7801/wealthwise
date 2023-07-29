@@ -1,58 +1,66 @@
-import { useState, useEffect } from "react";
-const { Configuration, OpenAIApi } = require("openai");
+// StockSurvey.js
+import React, { useState } from 'react';
+
+const apiKey = "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";
 
 const StockSurvey = ({ userInputs }) => {
-  const configuration = new Configuration({
-    apiKey: "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",
-  });
+  const [validity, setValidity] = useState("");
 
-  const openai = new OpenAIApi(configuration);
-  const [apiResponse, setApiResponse] = useState("");
-  const [loading, setLoading] = useState(true); 
+  const stock = userInputs.join("\n")
+  
+  if (stock) {
+    callOpenAIAPI(stock); // Pass the apiData to the API call function
+  }
+  
+  
 
-
-  useEffect(() => {
-    const fullPrompt =
-      "You are a financial advisor that will give 5 stock (publicly traded company) recommendations based on the information the user inputs.  User input: " + userInputs.join("\n");
-
-    const getApiResponse = async () => {
-      try {
-        const result = await openai.createCompletion({
-          model: "text-davinci-003",
-          prompt: fullPrompt,
-          temperature: 0.5,
-          max_tokens: 4000,
-        });
-
-        setApiResponse(result.data.choices[0].text);
-      } catch (e) {
-        setApiResponse("Something is going wrong, Please try again.");
-      } finally {
-        setLoading(false); 
-      }
+  async function callOpenAIAPI(stock) {
+    // Construct your APIBody using apiData from the Redux store
+    const APIBody = {
+      "model": "gpt-3.5-turbo",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You are a financial advisor that will give 10 stock (publicly traded company) recommendations based on the information the user inputs. Only list the company names",
+        },
+        {
+          "role": "user",
+          "content": stock,
+        },
+      ],
+      "temperature": 0,
+      "max_tokens": 1024,
     };
 
-    getApiResponse();
-  }, [userInputs]);
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + apiKey,
+        },
+        body: JSON.stringify(APIBody),
+      });
+
+      const data = await response.json();
+      console.log(data.choices[0].message.content);
+      setValidity(data.choices[0].message.content);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 
   return (
-
-    <div >
-      {!loading && apiResponse && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div >
-            {apiResponse}
-          </div>
+    // Your JSX for the StockDescription component, including rendering the 'validity' variable
+    <div className="submit-stock-box">
+      <form>
+        <div>
+          {validity !== "" ? (
+            <h3>{validity}</h3>
+          ) : null}
         </div>
-      )}
+      </form>
     </div>
-
-
   );
 };
 

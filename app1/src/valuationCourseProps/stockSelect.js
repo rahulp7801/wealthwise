@@ -1,6 +1,7 @@
 import { useState  } from "react";
 import { useDispatch } from 'react-redux';
 import { setApiData } from './actions';
+import 'assets/scss/stock-select.css'
 
 const apiKey = "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";
 const StockSelector = () => {
@@ -45,7 +46,7 @@ const StockSelector = () => {
     }
     return (
 
-        <div className="submit-stock-box">
+    <div className="submit-stock-box">
         <h2>Enter the Stock You want to Analyze</h2>
         <form>
             <div className="user-box">
@@ -69,7 +70,7 @@ const StockSelector = () => {
                     </button>
                 </a>
                 {validity !== "" ?
-                    <h3>This Input Is: {validity}</h3>
+                    <h3> {validity}</h3>
                     :
                     null
                 }     

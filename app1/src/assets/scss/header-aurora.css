@@ -188,3 +188,23 @@
     border-radius: 10px;
     background: linear-gradient(0deg, rgb(0, 0, 0) 50%, rgba(17, 25, 54) 100%);
 }
+
+.space {
+  height: 25px;
+}
+
+.grid-boxx {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Left box takes 2 parts, right box takes 1 part */
+  gap: 20px; /* Optional gap between the boxes */
+}
+
+  .left-box {
+    background-color: #e6f7ff; /* Example background color */
+    height: 50px;
+  }
+
+  .right-box {
+    height: 50px;
+    width: 50px;
+  }

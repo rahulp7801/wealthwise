@@ -358,6 +358,7 @@
   opacity: 1;
   height: 60vmin;
   aspect-ratio: 1.6/1;
+  text-align: center;
 }
 
 .submit-stock-box h2 {
