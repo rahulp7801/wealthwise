@@ -27,8 +27,8 @@ h1, h2, h3, p {
   
 .card:after {  
     content: "";
-    height: 70px;
-    width: 1px;  
+    height: 150px;
+    width: 3px;  
     position: absolute;  
     left: -1px;
     top: 65%;

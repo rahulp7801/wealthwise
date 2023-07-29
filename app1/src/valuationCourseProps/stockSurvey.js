@@ -52,7 +52,7 @@ const StockSurvey = ({ userInputs }) => {
 
   return (
     // Your JSX for the StockDescription component, including rendering the 'validity' variable
-    <div className="submit-stock-box">
+    <div >
       <form>
         <div>
           {validity !== "" ? (
