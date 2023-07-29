@@ -1,7 +1,12 @@
-const LilPortfolioCustomizer = () => {
+import 'assets/scss/styles.css';
+import CompanySearch from 'valuationCourseProps/stockSearch';
+
+const LilPortfolioCustomizer  = () => {
+
   return (
-    <div>
-    </div>
+      <div>
+        <CompanySearch />
+      </div>
   );
 };
 

@@ -76,6 +76,7 @@ class User(object):
         self.id = id
         self.fullname = f"{fname} {lname}"
         self.regdate = datetime.utcnow()
+        self.portfolio = {}
 
     # Firebase has some requirements for key names and since
     # we use emails as the key name, AND there are no "." characters
@@ -204,7 +205,21 @@ class User(object):
         user_name = decoded_token.get("name")
         self.fullname = user_name
         return self.fullname
+    def post_user_info(self, stock_portfolio_data):
+        try:
+            users_ref = db.reference('users')
+            if not self._check_user_exists():
+                print("User not registered")
+                return False, 401
 
+            users_ref.child(self._encode_emailHTML()).child('stock_portfolio').set(stock_portfolio_data)
+
+            self.portfolio = stock_portfolio_data
+            print("User's stock portfolio has been successfully stored in Firebase.")
+            return True, self.portfolio, 200
+        except Exception as e:
+            print("An error occurred:", e)
+            return False, None, 401
 
 class BardAI(object):
 

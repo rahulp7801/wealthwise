@@ -5,7 +5,7 @@ from Stock_Chart import graphStock
 from flask_cors import CORS
 from firebase_admin import db
 
-from utils import init_curs, agg_vals, agg_vals_login
+from utils import User, init_curs, agg_vals, agg_vals_login
 
 # Initialize Flask APP and initialize CORS Policy
 app = Flask(__name__)
@@ -79,7 +79,15 @@ def login_google():
         else:
             return "notexist"
     return "success"
-
+@app.route("/api/post-user-info", methods=["POST"])
+def post_user_info():
+    init_curs()
+    data = request.json
+    email, _, _, _ = agg_vals(data)  # Get the logged-in user's email from the frontend data
+    user = User(email=email)  # Create a User object with the logged-in user's email (no need for pwd, fname, and lname)
+    portfolio_data = data.get("portfolio")  # Get the user's stock portfolio data from the frontend data
+    updated_portfolio = user.post_user_info(portfolio_data)  # Call the post_user_info function
+    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
 
 if __name__=="__main__":
     app.run(debug=True, port=5000)

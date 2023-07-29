@@ -10,7 +10,6 @@ const StockSelector = () => {
 
     const dispatch = useDispatch();
 
-
     async function callOpenAIAPI() {
 
         const APIBody = {
@@ -32,7 +31,7 @@ const StockSelector = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + apiKey 
+                "Authorization": "Bearer " + apiKey
             },
             body: JSON.stringify(APIBody)
         }).then((data) => {
@@ -41,7 +40,7 @@ const StockSelector = () => {
             console.log(data.choices[0].message.content);
             setValidity(data.choices[0].message.content);
             dispatch(setApiData(data.choices[0].message.content));
-            
+
         });
     }
     return (
@@ -50,10 +49,10 @@ const StockSelector = () => {
         <h2>Enter the Stock You want to Analyze</h2>
         <form>
             <div className="user-box">
-                <textarea 
+                <textarea
                     onChange={(e) => setStock(e.target.value)}
                     placeholder="Submit Stock"
-                /> 
+                />
             </div>
             <div>
                 <a>
@@ -61,9 +60,9 @@ const StockSelector = () => {
                     <span></span>
                     <span></span>
                     <span></span>
-                    <button 
-                        className="submit-button-reset-style"  
-                        type="button" 
+                    <button
+                        className="submit-button-reset-style"
+                        type="button"
                         onClick={callOpenAIAPI}
                     >
                         Submit
@@ -73,12 +72,12 @@ const StockSelector = () => {
                     <h3> {validity}</h3>
                     :
                     null
-                }     
-            </div>          
+                }
+            </div>
         </form>
     </div>
-        
-        
+
+
     )
 }
 export default StockSelector;
