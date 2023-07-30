@@ -7,6 +7,7 @@ import 'assets/scss/styles.css';
 import StockSelector from './stockSelect';
 // import TenInputSlotsComponent from './animationTest';
 import TopESGStocks from './topESG';
+import SparkleButton from './sparkleButton';
 // import CompanySearch from './stockSearch';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -192,7 +193,8 @@ const PickStock  = () => {
                 <StockSelector />
             </Provider>
           </div>
-          <button onClick={handleNextPage}>submit</button>
+          <div className="gap2"></div>
+          <SparkleButton onClick={handleNextPage}/>
         </div>
       </div>
   );

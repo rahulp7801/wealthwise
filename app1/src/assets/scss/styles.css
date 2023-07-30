@@ -256,7 +256,6 @@
   position:fixed;
   overflow:hidden;
 }
-
 .box-2 {
   background-color: rgba(41, 49, 79, 1);
 }
@@ -286,8 +285,6 @@
   align-items: center; /* Center the cards horizontally */
   justify-content: center;
   /* margin-right: 100px; */
-
-
 }
 
 .survey-card {
@@ -301,8 +298,7 @@
   transition: 300ms;
   height: 60vmin;
   aspect-ratio: 1.6/1;
-  
-  
+
 }
 .survey-card.show {
   transform: translateX(0);
@@ -395,7 +391,6 @@
   pointer-events: none;
   transition: .5s;
 }
-
 .submit-stock-box .user-box input:focus ~ label,
 .submit-stock-box .user-box input:valid ~ label {
   top: -20px;
@@ -403,10 +398,6 @@
   color: #4527A0;
   font-size: 12px;
 }
-
-
-
-
 .submit-stock-box form a {
   position: relative;
   display: inline-block;
@@ -420,7 +411,6 @@
   margin-top: 40px;
   letter-spacing: 4px
 }
-
 .submit-stock-box a:hover {
   background: #4527A0;
   color: #fff;
@@ -430,12 +420,10 @@
               0 0 50px #4527A0,
               0 0 100px #4527A0;
 }
-
 .submit-stock-box a span {
   position: absolute;
   display: block;
 }
-
 .submit-stock-box a span:nth-child(1) {
   top: 0;
   left: -100%;
@@ -444,7 +432,6 @@
   background: linear-gradient(90deg, transparent, #4527A0);
   animation: btn-anim1 1s linear infinite;
 }
-
 @keyframes btn-anim1 {
   0% {
     left: -100%;
@@ -453,7 +440,6 @@
     left: 100%;
   }
 }
-
 .submit-stock-box a span:nth-child(2) {
   top: -100%;
   right: 0;
@@ -663,7 +649,7 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two columns with equal width */
   gap: 70px; /* Gap between grid items */
-  height: 2vh; /* Make the container take up the full height of the viewport */
+  height: 2vh; 
 }
 
 .grid-item2 {

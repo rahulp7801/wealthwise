@@ -7,6 +7,7 @@ import FiveForces from "./bizProps/forceDropdown";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
+// import SparkleButton from "./sparkleButton";
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
 const UnderstandBiz  = () => {
@@ -52,6 +53,7 @@ const UnderstandBiz  = () => {
             </PersistGate>
           </Provider>
           <div className="gap"></div>
+          {/* <SparkleButton /> */}
 
         </div>
       </div>
