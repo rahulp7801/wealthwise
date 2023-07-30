@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
 
 .card-body {
-    height: 1000px;
+    height: 100%;
     display: grid;
     place-items: center;
     background-color: #111936;
@@ -110,3 +110,31 @@ h1, h2, h3, p {
       font-size: 2.2rem;
     }
   }
+.gape {
+  height: 25px;
+}
+
+.title-body {
+  display: grid;
+  place-items: center;
+  height: 100px;
+  background-color: #111936;
+  margin: 0rem;
+  overflow: hidden;
+}
+.title-h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: 50px;
+  color: mediumslateblue;
+  padding: 0;
+  border-radius: clamp(0.4rem, 0.75vw, 1rem);
+}
+
+/* .title-h1:hover {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  /* height: 55px;
+  align-items: center;
+  justify-content: center; */
+

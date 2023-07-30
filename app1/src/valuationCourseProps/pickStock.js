@@ -185,14 +185,16 @@ const PickStock  = () => {
             </div>
           </div>
         </div>
+        <div className="gap2"></div>
+        <div className="survey-container">
           <div >
             <Provider store={store} >
                 <StockSelector />
             </Provider>
           </div>
           <button onClick={handleNextPage}>submit</button>
-
         </div>
+      </div>
   );
 };
 

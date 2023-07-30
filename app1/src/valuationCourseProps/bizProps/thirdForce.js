@@ -1,11 +1,11 @@
-// StockTweetHandle.js
+// ThirdForce.js
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
 
 const apiKey = "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";
 
-const StockTweetHandle = () => {
+const ThirdForce = () => {
   const [validity, setValidity] = useState("");
   const apiData = useSelector((state) => state.apiData);
 
@@ -18,11 +18,11 @@ const StockTweetHandle = () => {
   async function callOpenAIAPI(apiData) {
     // Construct your APIBody using apiData from the Redux store
     const APIBody = {
-      "model": "gpt-3.5-turbo-16k",
+      "model": "gpt-3.5-turbo",
       "messages": [
         {
           "role": "system",
-          "content": "Provide the twitter handle for the company the user inputs.",
+          "content": "Given a company, write a concise 3 sentence analysis on the bargaining power of suppliers in the company's industry.",
         },
         {
           "role": "user",
@@ -30,7 +30,7 @@ const StockTweetHandle = () => {
         },
       ],
       "temperature": 0,
-      "max_tokens": 1024,
+      "max_tokens": 100,
     };
 
     try {
@@ -60,4 +60,4 @@ const StockTweetHandle = () => {
   );
 };
 
-export default StockTweetHandle;
+export default ThirdForce;

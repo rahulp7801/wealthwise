@@ -1,4 +1,3 @@
-# testing.py (Flask backend)
 from flask import Flask, request, jsonify
 from bardapi import Bard
 from flask_cors import CORS
