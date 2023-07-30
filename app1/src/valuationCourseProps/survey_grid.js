@@ -7,87 +7,93 @@ import 'swiper/css';
 import 'assets/scss/survey-styles.scss'
 import TenInputSlotsComponent from './animationTest';
 import StockSurvey from './stockSurvey';
-import { useNavigate } from 'react-router-dom';
 
+const BlogSlider = () => {
   useEffect(() => {
-    const cardsContainer = cardsContainerRef.current;
-    const cards = cardsRef.current;
-    const numCards = cards.length;
-
-    cardsContainer.style.setProperty('--cards-count', numCards);
-    cardsContainer.style.setProperty('--card-height', `${cards[0].clientHeight}px`);
-
-    cards.forEach((card, index) => {
-      const offsetTop = 20 + index * 20;
-      card.style.paddingTop = `${offsetTop}px`;
-
-      if (index === numCards - 1) return;
-
-      const toScale = 1 - (numCards - 1 - index) * 0.1;
-      const cardInner = card.querySelector('.card__inner');
-
-      const handleScroll = () => {
-        const scrollY = window.scrollY;
-        const containerTop = cardsContainer.offsetTop;
-        const containerHeight = cardsContainer.clientHeight;
-        const cardTop = card.offsetTop;
-        const containerBottom = containerTop + containerHeight;
-        const percentageY =
-          (scrollY - cardTop + offsetTop) / (containerHeight + offsetTop - card.clientHeight);
-
-        if (scrollY >= cardTop && scrollY <= containerBottom - card.clientHeight) {
-          cardInner.style.transform = `scale(${toScale + (1 - toScale) * (1 - percentageY)})`;
-          cardInner.style.filter = `brightness(${1 - (1 - 0.6) * (1 - percentageY)})`;
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll);
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
+    const swiper = new Swiper('.blog-slider', {
+      spaceBetween: 30,
+      effect: 'fade',
+      loop: true,
+      mousewheel: {
+        invert: true,
+      },
+      // autoHeight: true,
+      pagination: {
+        el: '.blog-slider__pagination',
+        clickable: true,
+      },
     });
+
+    return () => {
+      // Destroy Swiper instance when the component unmounts
+      swiper.destroy();
+    };
   }, []);
   const [userInputs, setUserInputs] = useState(Array(10).fill(''));
-  
+
   const handleUserInput = (index, value) => {
     const updatedUserInputs = [...userInputs];
     updatedUserInputs[index] = value;
     setUserInputs(updatedUserInputs); }
-  
+
   const handleSubmit = () => {
     console.log('User inputs:', userInputs);
     setIsSubmitted(true); 
     };
 
   return (
-    <div className="question-cards" ref={cardsContainerRef}>
-      <div className="question-card" data-index="0" ref={(el) => (cardsRef.current[0] = el)}>
-        <div className="question-card__inner">
-          <div className="question-card__image-container">
-            <img
-              className="question-card__image"
-              src="https://images.unsplash.com/photo-1620207418302-439b387441b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=100"
-              alt=""
-            />
+    <div className='blog-body'>
+    <div className="blog-slider">
+      <div className="blog-slider__wrp swiper-wrapper">
+        {/* Slide 1 */}
+        <div className="blog-slider__item swiper-slide">
+          <div className="blog-slider__img">
+            <img src="https://img.freepik.com/free-vector/3d-abstract-wave-pattern-background-vector_53876-168032.jpg?w=740&t=st=1690611198~exp=1690611798~hmac=917f5dce04b61efec75619b13fcd026269c5d7f7a50e093c3df172ceb94aab90" alt="" />
           </div>
-          <div className="question-card__content">
-            <h1 className="question-card__title">Card Title</h1>
-            <p className="question-card__description">
-           
-            </p>
+          <div className="blog-slider__content">
+            <span className="blog-slider__code">Question 1</span>
+            <div className="blog-slider__title">What are your long-term financial goals and objectives?</div>
+            <div className="blog-slider__text"></div>
+            <div className="submit-card">
+              <TenInputSlotsComponent index={0} onUserInput={handleUserInput} > </TenInputSlotsComponent>        
+            </div>      
           </div>
         </div>
-      </div>
-      {/* Duplicate the above card element for additional cards */}
-      <div className="card" data-index="1" ref={(el) => (cardsRef.current[1] = el)}>
-        <div className="card__inner">
-          <div className="card__image-container">
-            <img
-              className="card__image"
-              src="https://images.unsplash.com/photo-1620207418302-439b387441b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=100"
-              alt=""
-            />
+        {/* Slide 2 */}
+        <div className="blog-slider__item swiper-slide">
+            <div className="blog-slider__img">
+              <img src="https://img.freepik.com/premium-photo/abstract-wave-pattern-technology-background-3d-render_79443-2320.jpg" alt="" />
+            </div>
+            <div className="blog-slider__content">
+              <span className="blog-slider__code">Question 2</span>
+              <div className="blog-slider__title">What is your preferred investment timeframe?</div>
+              <div className="blog-slider__text"></div>
+              <TenInputSlotsComponent index={1} onUserInput={handleUserInput} />
+            </div>
+          </div>
+           {/* Slide 3 */}
+           <div className="blog-slider__item swiper-slide">
+            <div className="blog-slider__img">
+              <img src="https://img.freepik.com/premium-vector/futuristic-black-funnel-wireframe-space-travel-tunnel-abstract-wormhole-with-surface-warp-vector-illustration_658411-402.jpg" alt="" />
+            </div>
+            <div className="blog-slider__content">
+              <span className="blog-slider__code">Question 3</span>
+              <div className="blog-slider__title">What is your risk tolerance?</div>
+              <div className="blog-slider__text"></div>
+              <TenInputSlotsComponent index={2} onUserInput={handleUserInput} />
+            </div>
+          </div>
+          {/* Slide 4 */}
+          <div className="blog-slider__item swiper-slide">
+            <div className="blog-slider__img">
+              <img src="https://img.freepik.com/free-vector/3d-abstract-wave-pattern-background_53876-116945.jpg?t=st=1690611198~exp=1690611798~hmac=45fba368dd2ffdc75a7aaf0a6f4d35e3f522c1d3b7253b06f2f1cc1ddeab1318" alt="" />
+            </div>
+            <div className="blog-slider__content">
+              <span className="blog-slider__code">Question 4</span>
+              <div className="blog-slider__title">What is your investment experience? Are you a beginner or an experienced investor?</div>
+              <div className="blog-slider__text"></div>
+              <TenInputSlotsComponent index={3} onUserInput={handleUserInput} />
+            </div>
           </div>
           {/* Slide 5 */}
           <div className="blog-slider__item swiper-slide">
@@ -174,10 +180,11 @@ import { useNavigate } from 'react-router-dom';
             </div>
           </div>
         </div>
+        <div className="blog-slider__pagination"></div>
       </div>
       {/* Add more duplicated card elements as needed */}
     </div>
   );
 };
 
-export default CardGridComponent;
+export default BlogSlider;

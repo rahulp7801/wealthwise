@@ -1,17 +1,17 @@
 import { Grid } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
-import StockSurvey from './stockSurvey';
+// import StockSurvey from './stockSurvey';
 import 'assets/scss/styles.css';
 import StockSelector from './stockSelect';
-import TenInputSlotsComponent from './animationTest';
+// import TenInputSlotsComponent from './animationTest';
 import TopESGStocks from './topESG';
-import CompanySearch from './stockSearch';
+// import CompanySearch from './stockSearch';
 import { Provider } from 'react-redux';
 import store from './store';
 import { useNavigate } from 'react-router-dom';
-import CardGridComponent from './survey_grid';
+// import CardGridComponent from './survey_grid';
 
 const PickStock  = () => {
 // Animation function for slide in Left
@@ -98,25 +98,14 @@ const PickStock  = () => {
     const createSubtitle = (text) => text.split(" ").map(addWord);
     
 
-    createSubtitle("Take a short 10-question survey to get personalized stock recommendations!                        Want to skip the survey?")
+    createSubtitle("Take a short 10-question survey to get personalized stock recommendations!")
 
   }, []);
   //Handling Inputs and Submittions for Open AI API
-  const [userInputs, setUserInputs] = useState(Array(10).fill(''));
   // This submit state is for the survey submit button
-  const [isSubmitted, setIsSubmitted] = useState(false); 
   // This submit state is for the stock search submit button
-  const targetElementRef = useRef(null)
 
-  const handleUserInput = (index, value) => {
-    const updatedUserInputs = [...userInputs];
-    updatedUserInputs[index] = value;
-    setUserInputs(updatedUserInputs); }
-  
-  const handleSubmit = () => {
-    console.log('User inputs:', userInputs);
-    setIsSubmitted(true); 
-    };
+
   const navigate = useNavigate();
   const handleNextPage = () => {
     navigate('/icons/understand-business')
@@ -124,7 +113,7 @@ const PickStock  = () => {
     
   
   const scrollToElement = () => {
-    targetElementRef.current.scrollIntoView({ behavior: 'smooth' });
+    navigate('/sample-page');
   };
   return (
       <div>
@@ -190,79 +179,20 @@ const PickStock  = () => {
                 </h6>
                 <div className='gap2'></div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <button className="custom-btn skip-button" onClick={scrollToElement}><span>Skip</span></button>
+                  <button className="custom-btn skip-button" onClick={scrollToElement}><span>Take It!</span></button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="gap2"></div>
-        <div className="survey-container">
-          <div className="survey-card">
-            <TenInputSlotsComponent index={0} onUserInput={handleUserInput} > </TenInputSlotsComponent>  
-          </div>
-          <div className='gap2'>
-          </div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={1} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'>
-          </div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={2} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'>
-          </div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={3} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'></div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={4} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'>
-          </div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={5} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'></div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={6} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'>
-          </div>
-          <div className="survey-card">
-            <TenInputSlotsComponent index={7} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'></div>
-          <div className="survey-card"> 
-            <TenInputSlotsComponent index={8} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2'></div>
-          <div className="survey-card" >
-            <TenInputSlotsComponent index={9} onUserInput={handleUserInput} />
-          </div>
-          <div className='gap2' ></div>
-          <div ref={targetElementRef}>
-            <button onClick={handleSubmit}>Submit</button>
-          </div>
-          
-          {isSubmitted && (
-            <div className='survey-reponse-card'>
-              <StockSurvey userInputs={userInputs} />
-            </div>
-              )}
           <div >
             <Provider store={store} >
                 <StockSelector />
-                <CompanySearch />
             </Provider>
           </div>
           <button onClick={handleNextPage}>submit</button>
-          <CardGridComponent />
 
         </div>
-      </div>
   );
 };
 

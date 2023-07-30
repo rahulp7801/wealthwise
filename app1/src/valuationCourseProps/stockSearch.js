@@ -40,8 +40,8 @@ const CompanySearch = () => {
   }, [stockInput]);
 
   const handleSelectItem = (symbol) => {
-    setStockInput(symbol);
-    setDropdownOpen(false); // Close the dropdown after selecting an item
+    setStockInput(symbol);   // Set the input field to the selected stock symbol
+    setDropdownOpen(false);  // Close the dropdown after selecting an item
   };
 
   const handleTextareaChange = (e) => {
@@ -67,30 +67,53 @@ const CompanySearch = () => {
         <h2>Enter an Asset</h2>
         <form>
           <div className="user-box">
-            <textarea
+            <input
               ref={dropdownRef}
               value={stockInput}
               onChange={handleTextareaChange}
               onFocus={handleTextareaFocus}
               onBlur={handleDropdownBlur}
               placeholder="Submit Stock"
-              rows={4}
+              style={{
+                background: '#444', // Grayish background color
+                color: 'white',     // White text color
+                width: '100%',
+                padding: '10px',
+                border: 'none',
+                borderRadius: '5px',
+              }}
             />
             {isDropdownOpen && searchResults && searchResults.length > 0 && (
-              <div className="dropdown">
-                <ul>
-                  {searchResults.map((result) => (
-                    <li key={result['1. symbol']}>
-                      <button
-                        type="button"
-                        onClick={() => handleSelectItem(result['1. symbol'])}
-                      >
-                        {result['2. name']} - {result['1. symbol']} - {result['3. type']}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul
+                className="dropdown"
+                style={{
+                  background: '#666', // Grayish background color for the dropdown
+                  color: 'white',     // White text color for the dropdown
+                  listStyleType: 'none',
+                  padding: '0',
+                  margin: '5px 0 0 0',
+                  borderRadius: '5px',
+                }}
+              >
+                {searchResults.map((result) => (
+                  <li key={result['1. symbol']}>
+                    <button
+                      type="button"
+                      onClick={() => handleSelectItem(result['1. symbol'])}
+                      style={{
+                        width: '100%',
+                        padding: '8px 10px',
+                        textAlign: 'left',
+                        border: 'none',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {result['2. name']} - {result['1. symbol']} - {result['3. type']}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
           <div>
