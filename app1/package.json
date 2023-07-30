@@ -59,6 +59,7 @@
     "swiper": "^10.0.4",
     "three": "^0.154.0",
     "three-gltf-loader": "^1.111.0",
+    "twitter": "^1.7.1",
     "yup": "^0.32.11"
   },
   "scripts": {

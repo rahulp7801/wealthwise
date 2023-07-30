@@ -1,12 +1,14 @@
 import React from "react";
 import StockDescription from "./bizProps/stockDescript";
 import ValProposition from "./bizProps/valProp";
+import StockTitle from "./bizProps/stockTitle";
+// import StockTweetHandle from "./bizProps/industryDescript";
+import FiveForces from "./bizProps/forceDropdown";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
-
 const UnderstandBiz  = () => {
   return (
       <div>
@@ -25,10 +27,10 @@ const UnderstandBiz  = () => {
             </div>
           </div>
         </div>
-        <div className="gap"></div>
         <div>
           <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
+              <StockTitle text="Hello, World!" />
               <div className="card-body">
                 <div className='card'>
                   <div className='card-content'>
@@ -36,12 +38,16 @@ const UnderstandBiz  = () => {
                     <StockDescription />
                   </div>
                 </div>
+                <div className="gape"></div>
                 <div className='card'>
                   <div className='card-content'>
                     <h1>Value Proposition</h1>
                     <ValProposition />
                   </div>
                 </div>
+                
+                <FiveForces />
+                  
               </div>
             </PersistGate>
           </Provider>

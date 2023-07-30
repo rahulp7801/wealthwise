@@ -1,0 +1,509 @@
+.force-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Two columns, left box occupies 1/3, right box occupies 2/3 of the container width */
+    gap: 20px; /* Add some space between the boxes */
+    max-width: 2000px; /* Optional: Set a maximum width for the grid container */
+    margin: 0 auto; /* Optional: Center the grid container horizontally */
+  }
+  
+  .force-left-box {
+    padding: 20px;
+    
+  }
+  
+  .force-right-box {
+    padding: 20px;
+    line-height: 30px;
+    text-align: center;
+    padding-top: 50px;
+  }
+/* First Force */
+.force-get-started-1 {
+    aspect-ratio: 1.6/1;
+    border: 0.5vmin solid #4527A0;
+    padding-left: 10px;
+    height: 40vmin;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 125px;
+    font-family: 'Libre Franklin', sans-serif; 
+}
+.force-get-started-1:before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%, 
+        #4527A0 63%,
+        #673AB7 83.5%,
+        #B39DDB 100%
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    transition: background-position 350ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.force-get-started-1:hover:before {
+    background-position: 100%, 100%;
+    transform: scale(1.08, 1.03);
+}
+.force-get-started-1:hover > .force-get-started-1-content {
+    background-position: -10% 0%;
+}
+
+.force-get-started-1:hover > .force-get-started-1-icon {
+    color: white; 
+}
+
+.force-get-started-1:hover > .force-get-started-1-content > .force-get-started-1-subtitle > .force-get-started-1-subtitle-word {  
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.force-get-started-1-content {
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.2) 8%, 
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 4vmin 4vmin;
+    height: 100%;
+    padding: 2vmin;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: background-position 350ms ease;
+    width: calc(100% - 1vmin);
+    z-index: 2;
+}
+
+.force-get-started-1-title,
+.force-get-started-1-subtitle {
+    color: white;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.force-get-started-1-title {
+    font-size: 4vmin;
+    line-height: 1.25;
+    text-align: center;
+
+}
+
+.force-get-started-1-subtitle {
+    font-size: 22px;
+    margin-top: 2vmin;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.force-get-started-1-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    opacity: 0;
+    position: relative;  
+    transform: translateY(40%);
+    transition: none;
+}
+/* First Force */
+.force-get-started-2 {
+    aspect-ratio: 1.6/1;
+    border: 0.5vmin solid #4527A0;
+    padding-left: 10px;
+    height: 40vmin;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 125px;
+    font-family: 'Libre Franklin', sans-serif; 
+}
+.force-get-started-2:before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%, 
+        #4527A0 63%,
+        #673AB7 83.5%,
+        #B39DDB 100%
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    transition: background-position 350ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.force-get-started-2:hover:before {
+    background-position: 100%, 100%;
+    transform: scale(1.08, 1.03);
+}
+.force-get-started-2:hover > .force-get-started-2-content {
+    background-position: -10% 0%;
+}
+
+.force-get-started-2:hover > .force-get-started-2-icon {
+    color: white; 
+}
+
+.force-get-started-2:hover > .force-get-started-2-content > .force-get-started-2-subtitle > .force-get-started-2-subtitle-word {  
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.force-get-started-2-content {
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.2) 8%, 
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 4vmin 4vmin;
+    height: 100%;
+    padding: 2vmin;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: background-position 350ms ease;
+    width: calc(100% - 1vmin);
+    z-index: 2;
+}
+
+.force-get-started-2-title,
+.force-get-started-2-subtitle {
+    color: white;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.force-get-started-2-title {
+    font-size: 4vmin;
+    line-height: 1.25;
+    text-align: center;
+
+}
+
+.force-get-started-2-subtitle {
+    font-size: 22px;
+    margin-top: 2vmin;
+    line-height: 1.5;
+    text-align: center;
+
+}
+
+.force-get-started-2-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    opacity: 0;
+    position: relative;  
+    transform: translateY(40%);
+    transition: none;
+}
+/* First Force */
+.force-get-started-3 {
+    aspect-ratio: 1.6/1;
+    border: 0.5vmin solid #4527A0;
+    padding-left: 10px;
+    height: 40vmin;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 125px;
+    font-family: 'Libre Franklin', sans-serif; 
+}
+.force-get-started-3:before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%, 
+        #4527A0 63%,
+        #673AB7 83.5%,
+        #B39DDB 100%
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    transition: background-position 350ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.force-get-started-3:hover:before {
+    background-position: 100%, 100%;
+    transform: scale(1.08, 1.03);
+}
+.force-get-started-3:hover > .force-get-started-3-content {
+    background-position: -10% 0%;
+}
+
+.force-get-started-3:hover > .force-get-started-3-icon {
+    color: white; 
+}
+
+.force-get-started-3:hover > .force-get-started-3-content > .force-get-started-3-subtitle > .force-get-started-3-subtitle-word {  
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.force-get-started-3-content {
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.2) 8%, 
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 4vmin 4vmin;
+    height: 100%;
+    padding: 2vmin;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: background-position 350ms ease;
+    width: calc(100% - 1vmin);
+    z-index: 2;
+}
+
+.force-get-started-3-title,
+.force-get-started-3-subtitle {
+    color: white;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.force-get-started-3-title {
+    font-size: 4vmin;
+    line-height: 1.25;
+    text-align: center;
+    
+
+}
+
+.force-get-started-3-subtitle {
+    font-size: 22px;
+    margin-top: 2vmin;
+    line-height: 1.5;
+    text-align: center;
+
+}
+
+.force-get-started-3-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    opacity: 0;
+    position: relative;  
+    transform: translateY(40%);
+    transition: none;
+}
+/* First Force */
+.force-get-started-4 {
+    aspect-ratio: 1.6/1;
+    border: 0.5vmin solid #4527A0;
+    padding-left: 10px;
+    height: 40vmin;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 125px;
+    font-family: 'Libre Franklin', sans-serif; 
+}
+.force-get-started-4:before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%, 
+        #4527A0 63%,
+        #673AB7 83.5%,
+        #B39DDB 100%
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    transition: background-position 350ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.force-get-started-4:hover:before {
+    background-position: 100%, 100%;
+    transform: scale(1.08, 1.03);
+}
+.force-get-started-4:hover > .force-get-started-4-content {
+    background-position: -10% 0%;
+}
+
+.force-get-started-4:hover > .force-get-started-4-icon {
+    color: white; 
+}
+
+.force-get-started-4:hover > .force-get-started-4-content > .force-get-started-4-subtitle > .force-get-started-4-subtitle-word {  
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.force-get-started-4-content {
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.2) 8%, 
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 4vmin 4vmin;
+    height: 100%;
+    padding: 2vmin;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: background-position 350ms ease;
+    width: calc(100% - 1vmin);
+    z-index: 2;
+}
+
+.force-get-started-4-title,
+.force-get-started-4-subtitle {
+    color: white;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.force-get-started-4-title {
+    font-size: 4vmin;
+    line-height: 1.25;
+    text-align: center;
+
+}
+
+.force-get-started-4-subtitle {
+    font-size: 22px;
+    margin-top: 2vmin;
+    line-height: 1.5;
+    text-align: center;
+
+}
+
+.force-get-started-4-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    opacity: 0;
+    position: relative;  
+    transform: translateY(40%);
+    transition: none;
+}
+/* First Force */
+.force-get-started-5 {
+    aspect-ratio: 1.6/1;
+    border: 0.5vmin solid #4527A0;
+    padding-left: 10px;
+    height: 40vmin;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 125px;
+    font-family: 'Libre Franklin', sans-serif; 
+}
+.force-get-started-5:before {
+    background: linear-gradient(
+        130deg,
+        transparent 0% 33%, 
+        #4527A0 63%,
+        #673AB7 83.5%,
+        #B39DDB 100%
+    );
+    background-position: 0% 0%;
+    background-size: 300% 300%;
+    content: "";
+    height: 100%;
+    left: 0px;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    transition: background-position 350ms ease, transform 350ms ease;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+
+}
+.force-get-started-5:hover:before {
+    background-position: 100%, 100%;
+    transform: scale(1.08, 1.03);
+}
+.force-get-started-5:hover > .force-get-started-5-content {
+    background-position: -10% 0%;
+}
+
+.force-get-started-5:hover > .force-get-started-5-icon {
+    color: white; 
+}
+
+.force-get-started-5:hover > .force-get-started-5-content > .force-get-started-5-subtitle > .force-get-started-5-subtitle-word {  
+    opacity: 1;
+    transform: translateY(0%);
+    transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+.force-get-started-5-content {
+    background-image: radial-gradient(
+        rgba(255, 255, 255, 0.2) 8%, 
+        transparent 8%
+    );
+    background-position: 0% 0%;
+    background-size: 4vmin 4vmin;
+    height: 100%;
+    padding: 2vmin;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    transition: background-position 350ms ease;
+    width: calc(100% - 1vmin);
+    z-index: 2;
+}
+
+.force-get-started-5-title,
+.force-get-started-5-subtitle {
+    color: white;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.force-get-started-5-title {
+    font-size: 4vmin;
+    line-height: 1.25;
+    text-align: center;
+
+}
+
+.force-get-started-5-subtitle {
+    font-size: 22px;
+    margin-top: 2vmin;
+    line-height: 1.5;
+    text-align: center;
+
+}
+
+.force-get-started-5-subtitle-word {
+    display: inline-block;
+    margin: 0vmin 0.3vmin;
+    opacity: 0;
+    position: relative;  
+    transform: translateY(40%);
+    transition: none;
+}
