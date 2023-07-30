@@ -67,7 +67,7 @@ const CompanySearch = () => {
         <h2>Enter an Asset</h2>
         <form>
           <div className="user-box">
-            <input
+            <textarea
               ref={dropdownRef}
               value={stockInput}
               onChange={handleTextareaChange}
@@ -88,7 +88,7 @@ const CompanySearch = () => {
                 className="dropdown"
                 style={{
                   background: '#666', // Grayish background color for the dropdown
-                  color: 'white',     // White text color for the dropdown
+                  color: '#ffffff', // White text color for the dropdown// White text color for the dropdown
                   listStyleType: 'none',
                   padding: '0',
                   margin: '5px 0 0 0',
