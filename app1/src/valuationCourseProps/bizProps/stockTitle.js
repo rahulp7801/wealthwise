@@ -5,7 +5,7 @@ import 'assets/scss/stock-select.css';
 const StockTitle = () => {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const apiData = useSelector((state) => state.apiData);
-  const [text, setText] = useState(apiData);
+//   const [text, setText] = useState(apiData);
   const [iteration, setIteration] = useState(0);
   const maxIterations = apiData.length * 3;
   const [animationStarted, setAnimationStarted] = useState(false);
@@ -61,7 +61,12 @@ const StockTitle = () => {
 
   return (
     <div className='title-body'>
-        <div className='title-h1' onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+        <div
+      className='title-h1'
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus} // Add an empty onFocus handler
+    >
             {animationStarted ? getAnimatedText() : apiData}
         </div>
     </div>

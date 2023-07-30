@@ -1,7 +1,7 @@
 import React from "react";
 import StockDescription from "./bizProps/stockDescript";
 import ValProposition from "./bizProps/valProp";
-import StockTitle from "./bizProps/stockTitle";
+// import StockTitle from "./bizProps/stockTitle";
 // import StockTweetHandle from "./bizProps/industryDescript";
 import FiveForces from "./bizProps/forceDropdown";
 import { Provider } from 'react-redux';
@@ -30,7 +30,7 @@ const UnderstandBiz  = () => {
         <div>
           <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
-              <StockTitle text="Hello, World!" />
+              {/* <StockTitle /> */}
               <div className="card-body">
                 <div className='card'>
                   <div className='card-content'>
