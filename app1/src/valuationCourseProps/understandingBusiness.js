@@ -4,6 +4,8 @@ import ValProposition from "./bizProps/valProp";
 // import StockTitle from "./bizProps/stockTitle";
 // import StockTweetHandle from "./bizProps/industryDescript";
 import FiveForces from "./bizProps/forceDropdown";
+import NewsDisplay from "./bizProps/newsDisplay"
+import IndustryIdentify from "./bizProps/industryIdentify";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
@@ -46,14 +48,18 @@ const UnderstandBiz  = () => {
                     <ValProposition />
                   </div>
                 </div>
-                
+                <IndustryIdentify />
+
+
                 <FiveForces />
-                  
+                <div className="gap"></div>
+                
+
               </div>
+              <NewsDisplay />
             </PersistGate>
           </Provider>
-          <div className="gap"></div>
-          {/* <SparkleButton /> */}
+          
 
         </div>
       </div>

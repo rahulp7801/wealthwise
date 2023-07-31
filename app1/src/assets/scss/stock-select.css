@@ -138,3 +138,9 @@ h1, h2, h3, p {
   align-items: center;
   justify-content: center; */
 
+.industry-title {
+  font-size: 50px;
+  font-weight: 100;
+  margin: 50px;
+}
+
