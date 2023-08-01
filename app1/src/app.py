@@ -79,16 +79,16 @@ def login_google():
         else:
             return "notexist"
     return "success"
-@app.route("/api/post-user-info", methods=["POST"])
+@app.route("/api/post-portfolio-info", methods=["POST"])
 def post_user_info():
     init_curs()
     data = request.json
     email, _, _, _ = agg_vals(data)  # Get the logged-in user's email from the frontend data
     user = User(email=email)  # Create a User object with the logged-in user's email (no need for pwd, fname, and lname)
     portfolio_data = data.get("portfolio")  # Get the user's stock portfolio data from the frontend data
-    updated_portfolio = user.post_user_info(portfolio_data)  # Call the post_user_info function
-    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
-
+    print(user.post_portfolio_info(portfolio_data))  # Call the post_user_info function
+#    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
+    return('okay')
 if __name__=="__main__":
     app.run(debug=True, port=5000)
 

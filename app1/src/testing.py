@@ -16,7 +16,6 @@ def get_answer():
 
     # Process the user_prompt using the Bard API (or any other logic) to generate an answer
     answer = bard.get_answer(user_prompt)
-    answer['images'] = list(answer['images'])
     print(f"Generated answer: {answer}")
 
     return jsonify({'answer': answer})
