@@ -27,7 +27,8 @@ const Guest = () => {  const [messages, setMessages] = useState([]);
       }
 
         const data = await response.json();
-        const botResponse = { text: data.answer.content, type: 'bot' };
+        console.info("data: " + JSON.stringify(data));
+        const botResponse = { text: data.content, type: 'bot' };
         setMessages([...messages, botResponse]);
       } catch (error) {
         console.error('Error occurred during API request:', error);
