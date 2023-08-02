@@ -11,7 +11,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 // import SparkleButton from "./sparkleButton";
 import 'assets/scss/header-aurora.css';
-import 'assets/scss/stock-select.css'
+// import 'assets/scss/stock-select.css'
+import 'assets/scss/news-display.css';
+
 const UnderstandBiz  = () => {
   return (
       <div>

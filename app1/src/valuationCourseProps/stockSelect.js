@@ -17,7 +17,7 @@ const StockSelector = () => {
             "messages": [
               {
                 "role": "system",
-                "content": "You determine if the user's inputs correspond to a publicly traded company on yahoo finance. Input can be a ticker or name. If it matches, You return: Only Company Name; otherwise, You'll return: Not a Valid Stock, and Did you mean: followed by a list of stocks that are similar to the input ",
+                "content": " You must check if the company is a publicly trade company. If it is, You return: the company symbol ONLY, nothing else. no prefix/suffic, no follow up; otherwise, You'll return: Not a Valid Stock, and Did you mean: followed by a list of stocks that are similar to the input ",
               },
               {
                 "role": "user",

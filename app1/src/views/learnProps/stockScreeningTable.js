@@ -28,6 +28,9 @@ export default function StockTaskTable() {
   const handleButtonClick2 = () => {
     navigate('/icons/understand-business')
   }
+  const handleButtonClick3 = () => {
+    navigate('/icons/financial-kpi')
+  }
   const handleToggle = (value) => {
     setCheckedItems((prevState) => ({
       ...prevState,
@@ -76,7 +79,7 @@ export default function StockTaskTable() {
             </ListItemIcon>
             <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Understanding the Business</Typography>} />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton onClick={handleButtonClick3}>
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -86,7 +89,7 @@ export default function StockTaskTable() {
                 onChange={() => handleToggle('Spam')}
               />
             </ListItemIcon>
-            <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>KPI (Key Performance Indicators)</Typography>} />
+            <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Financial Key Performance Indicators</Typography>} />
           </ListItemButton>
         </List>
       </Paper>

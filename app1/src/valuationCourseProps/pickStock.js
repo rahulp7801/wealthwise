@@ -193,6 +193,7 @@ const PickStock  = () => {
                 <StockSelector />
             </Provider>
           </div>
+          {/* <StockSearchAlt /> */}
           <div className="gap2"></div>
           <SparkleButton onClick={handleNextPage}/>
         </div>

@@ -20,6 +20,7 @@ const StockValSkill = Loadable(lazy(() => import('views/learnProps/stockValSkill
 const ETFSkill = Loadable(lazy(() => import('views/learnProps/etfGuideSkill')))
 const PickStock = Loadable(lazy(() => import('valuationCourseProps/pickStock')))
 const UnderstandBiz = Loadable(lazy(() => import('valuationCourseProps/understandingBusiness.js')))
+const FinancialKPI = Loadable(lazy(() => import('valuationCourseProps/financialKPI.js')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
@@ -121,6 +122,15 @@ const MainRoutes = {
         {
           path: 'understand-business',
           element: <UnderstandBiz />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'financial-kpi',
+          element: <FinancialKPI />
         }
       ]
     },

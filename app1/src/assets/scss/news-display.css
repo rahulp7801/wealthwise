@@ -4,23 +4,27 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    background: #111936;
 }
 .news-title {
     text-align: center;
     margin: 2em 0;
     font-size: 4em;
+    color: #4527A0;
 }
 .news-menu {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
+    background: #111936;
+
 }
 .news-menu li {
     display: inline-block;
     margin: 1em;
     font-size: 1.2em;
     padding: 0.5em 1 em;
-    background:#eee;
+    background:#111936;
     border-radius: 3em;
     cursor: pointer;
     transition: 0.3s;
@@ -48,9 +52,9 @@
     padding: 2.5em;
 }
 .article {
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background: #111936;
     width: 25em;
+    height: 35em;
     border-radius: 8px;
     overflow: hidden;
     text-decoration: none;
@@ -59,6 +63,10 @@
     transition: 0.3s;
     display: flex;
     flex-direction: column;
+    border-color: #eee;
+    border: 0.5vmin solid #4527A0;
+    box-shadow: 0 0px 20px rgba(69, 39, 160, 1);
+    font-family: 'Libre Franklin', sans-serif;
 }
 .article:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
@@ -72,17 +80,26 @@
     align-items: flex-start;
     gap: 1em;
     flex-grow: 1;
-    color: #ccc;
+    color: #4527A0;
+}
+.article-title {
+    color: #eee;
+}
+.article-details {
+    color: #eee;
+
+}
+.article-description {
+    color: #eee;
 }
 .article-source {
-    /* display: flex; */
-    /* justify-content: flex-start; */
+    display: flex; 
+    justify-content: flex-start;
     align-items: center;
     gap: 0.5em;
     color: #ccc;
     width: 50px;
     height: 50px;
-
 }
 .article-image {
     overflow: hidden;
@@ -90,8 +107,8 @@
     position: relative;
     height: 5em;
     color: #ccc;
-    width: 50px;
-    height: 50px;
+    /* width: 50px;
+    height: 50px; */
 
 }
 .article-image img {
@@ -99,9 +116,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
+    width: 100%; 
+    height: 100%;
     transition: 0.7s ease-in-out;
+}
+.article:hover .article-image img {
+    transform:  translate(-50%, -50%) scale(1.1);
 }
 .article p {
     line-height: 25px;
