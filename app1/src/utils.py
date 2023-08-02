@@ -27,7 +27,7 @@ ORIGINS = 'http://localhost:3000'
 BARD_API_TOKEN = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
 
 # Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("C:\\Users\\jchdn\\VSCODE\\Wealth_Wise\\app1\\src\\creds.json")
+cred = credentials.Certificate("creds.json")
 initialize_app(cred, {
     'databaseURL': DATABASE_URL
 })
@@ -205,7 +205,7 @@ class User(object):
         user_name = decoded_token.get("name")
         self.fullname = user_name
         return self.fullname
-    def post_user_info(self, stock_portfolio_data):
+    def post_portfolio_info(self, stock_portfolio_data):
         try:
             users_ref = db.reference('users')
             if not self._check_user_exists():

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -39,9 +40,12 @@ const CompanySearch = () => {
     }
   }, [stockInput]);
 
-  const handleSelectItem = (symbol) => {
+  const handleSelectItem = async (symbol) => {
     setStockInput(symbol);   // Set the input field to the selected stock symbol
     setDropdownOpen(false);  // Close the dropdown after selecting an item
+    const response = await axios.post('http://localhost:5000/api/post-portfolio-info', { symbol });
+    console.log("hello weetad");
+    console.log(response);
   };
 
   const handleTextareaChange = (e) => {

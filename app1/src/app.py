@@ -1,9 +1,10 @@
 import utils  # our own utils file
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from Stock_Chart import graphStock
 from flask_cors import CORS
 from firebase_admin import db
+from bardapi import Bard
 
 from utils import User, init_curs, agg_vals, agg_vals_login
 
@@ -79,15 +80,43 @@ def login_google():
         else:
             return "notexist"
     return "success"
-@app.route("/api/post-user-info", methods=["POST"])
+@app.route("/api/post-portfolio-info", methods=["POST"])
 def post_user_info():
     init_curs()
     data = request.json
     email, _, _, _ = agg_vals(data)  # Get the logged-in user's email from the frontend data
     user = User(email=email)  # Create a User object with the logged-in user's email (no need for pwd, fname, and lname)
     portfolio_data = data.get("portfolio")  # Get the user's stock portfolio data from the frontend data
-    updated_portfolio = user.post_user_info(portfolio_data)  # Call the post_user_info function
-    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
+    print(user.post_portfolio_info(portfolio_data))  # Call the post_user_info function
+#    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
+    return('okay')
+
+
+
+@app.route('/api/get_answer', methods=['POST'])
+def get_answer():
+    data = request.json
+    user_prompt = data.get('prompt')  # Receive the user input from the frontend
+    token = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
+    bard = Bard(token=token)
+    print(f"Received prompt from frontend: {user_prompt}")
+
+    # Process the user_prompt using the Bard API (or any other logic) to generate an answer
+    answer = bard.get_answer(user_prompt)
+    print(f"Generated answer: {answer}")
+    import json
+
+    class SetEncoder(json.JSONEncoder):
+        def default(self, obj):
+            if isinstance(obj, set):
+                return list(obj)
+            return json.JSONEncoder.default(self, obj)
+
+    ans = json.dumps(answer, cls=SetEncoder)
+    print(f"Sending answer to frontend: {ans}")
+    return ans
+
+
 
 if __name__=="__main__":
     app.run(debug=True, port=5000)
