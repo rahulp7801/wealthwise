@@ -17,7 +17,7 @@ const StockSelector = () => {
             "messages": [
               {
                 "role": "system",
-                "content": " You must check if the company is a publicly trade company. If it is, You return: the company symbol ONLY, nothing else. no prefix/suffic, no follow up; otherwise, You'll return: Not a Valid Stock, and Did you mean: followed by a list of stocks that are similar to the input ",
+                "content": " Please check if the specified company is real. If it is, provide only the stock name without any additional information. If the company is not publicly traded, indicate that it is not a valid stock and suggest similar stocks.",
               },
               {
                 "role": "user",

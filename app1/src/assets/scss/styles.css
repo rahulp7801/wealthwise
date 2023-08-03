@@ -113,7 +113,7 @@
   height: 100%;
   padding: 2vmin;
   position: relative;
-  padding-top: 60px;
+  padding-top: 39px;
   transition: background-position 350ms ease;
   width: calc(100% - 1vmin);
   z-index: 2;

@@ -6,12 +6,13 @@ import TotalRevenueComponent from "./financialKPI/incomeStat1";
 import TotalRevenueComponent2 from "./financialKPI/incomeStat2";
 import ProfitMarginComponent1 from "./financialKPI/profitMargin1";
 import ProfitMarginComponent2 from "./financialKPI/profitMargin2";
+import OperatingCashflow1 from "./financialKPI/opCashflow1";
+import OperatingCashflow2 from "./financialKPI/opCashflow2";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 
 const FinancialKPI = () => {
-
     return (
         <div>
             <div className="aurora-gradient">
@@ -40,7 +41,6 @@ const FinancialKPI = () => {
                     </div>
                 </div>
             </div>
-
             <Provider store={store} >
                 <PersistGate loading={null} persistor={persistor}>
                     <div className="card-body">
@@ -53,6 +53,7 @@ const FinancialKPI = () => {
                         </div>
                         <div className='card'>
                             <div className='card-content'>
+                                {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <div>Total revenue measures the gross amount of money a company makes from selling all of its goods and/or services throughout the year. Thus, comparing your company's total revenue from 2022's Annual Report to the 2023 Annual Report can give insight to a company's financial performance. </div>
                                 <div><TotalRevenueComponent /></div>
                                 <div><TotalRevenueComponent2 /></div>
@@ -67,12 +68,27 @@ const FinancialKPI = () => {
                         </div>
                         <div className='card'>
                             <div className='card-content'>
+                                {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <div>Profit margin is a crucial metric revealing a company's profitability. It's the percentage of profit from total revenue after deducting all expenses. Comparing profit margins between 2022 and 2023 Annual Reports helps assess financial performance, with higher margins indicating efficient operations and lower ones suggesting cost or revenue challenges. Monitoring profit margin over time is vital for understanding a company's financial health and profitability. </div>
                                 <div><ProfitMarginComponent1 /></div>
                                 <div><ProfitMarginComponent2 /></div>
                             </div>
                         </div>
-
+                        <div className='container-2'>
+                            <div className='get-started'>
+                                <div className='get-started-content'>
+                                    <h6 className='get-started-title'>Cash Flow from Operations</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='card'>
+                            <div className='card-content'>
+                                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                                <div>Cash flow from operations is a crucial metric showing a company's ability to generate cash from its core activities. Comparing 2022 and 2023 Annual Reports helps assess cash generation over time. Positive cash flow indicates financial strength and sustainability, while negative cash flow may raise concerns about operational efficiency and reliance on external financing. </div>
+                                <div><OperatingCashflow1 /></div>
+                                <div><OperatingCashflow2 /></div>
+                            </div>
+                        </div>
                     </div>
                 </PersistGate>
             </Provider>

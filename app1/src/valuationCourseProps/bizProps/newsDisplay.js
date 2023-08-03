@@ -11,9 +11,9 @@ function NewsDisplay() {
     useEffect(() => {
         // Assuming you have additionalKeyword and sortBy variables defined somewhere in the component
         const sortBy = "relevance";
-        
+        const language = "en"; 
         const pageSize = 3;
-        fetch(`https://newsapi.org/v2/everything?q=${apiData}&sortBy=${sortBy}&pageSize=${pageSize}&apiKey=${apiKey}`)
+        fetch(`https://newsapi.org/v2/everything?q=${apiData}&sortBy=${sortBy}&pageSize=${pageSize}&language=${language}&apiKey=${apiKey}`)
             .then(res => res.json())
             .then(data => setItems(data.articles))
     }, [apiData])

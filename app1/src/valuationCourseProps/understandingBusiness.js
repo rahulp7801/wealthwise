@@ -9,12 +9,17 @@ import IndustryIdentify from "./bizProps/industryIdentify";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
-// import SparkleButton from "./sparkleButton";
+import SparkleButton2 from "./sparkleButton2";
+import { useNavigate } from 'react-router-dom';
 import 'assets/scss/header-aurora.css';
 // import 'assets/scss/stock-select.css'
 import 'assets/scss/news-display.css';
 
 const UnderstandBiz  = () => {
+  const navigate = useNavigate();
+  const handleNextPage = () => {
+    navigate('/icons/financial-kpi')
+  }
   return (
       <div>
         <div className="aurora-gradient">
@@ -55,8 +60,7 @@ const UnderstandBiz  = () => {
 
                 <FiveForces />
                 <div className="gap"></div>
-                
-
+               
               </div>
               <NewsDisplay />
             </PersistGate>
@@ -64,6 +68,8 @@ const UnderstandBiz  = () => {
           
 
         </div>
+        <SparkleButton2 onClick={handleNextPage}/>
+
       </div>
   );
 };

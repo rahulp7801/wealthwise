@@ -2,7 +2,7 @@ import React from 'react';
 import 'assets/scss/sparkle-button.css';
 import { useNavigate } from 'react-router-dom';
 
-const SparkleButton = () => {
+const SparkleButton1 = () => {
     const navigate = useNavigate();
     const handleNextPage = () => {
       navigate('/icons/understand-business')
@@ -25,4 +25,4 @@ const SparkleButton = () => {
         </div>
     )
 }
-export default SparkleButton
+export default SparkleButton1
