@@ -18,7 +18,7 @@ const StockTweetHandle = () => {
   async function callOpenAIAPI(apiData) {
     // Construct your APIBody using apiData from the Redux store
     const APIBody = {
-      "model": "gpt-3.5-turbo-16k",
+      "model": "gpt-4",
       "messages": [
         {
           "role": "system",

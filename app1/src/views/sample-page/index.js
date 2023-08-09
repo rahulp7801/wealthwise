@@ -2,11 +2,20 @@
 // import Quiz from 'valuationCourseProps/survey_grid';
 // project imports
 // import MainCard from 'ui-component/cards/MainCard';
-import BlogSlider from "valuationCourseProps/survey_grid";
+import React from 'react';
+// import BlogSlider from "valuationCourseProps/survey_grid";
+// import LanguageProcessorComponent from "trainingSelector.js/trainer";
 import 'assets/scss/header-aurora.css';
+// import SurveyForm from "valuationCourseProps/surveyForm"
+import StockSurvey from "valuationCourseProps/stockSurveyv2";
 // import InteractiveSkill from "valuationCourseProps/interactIcon";
 
 function SamplePage() {
+  // const [surveyAnswers, setSurveyAnswers] = useState({});
+
+  // const handleSurveySubmit = (answers) => {
+  //   setSurveyAnswers(answers);
+  // };
   return (
     <div>
       <div className="aurora-gradient">
@@ -27,7 +36,13 @@ function SamplePage() {
       
       <div className="space"></div>
     
-      <BlogSlider />
+      {/* <BlogSlider /> */}
+      <div className="space"></div>
+      <div>
+      
+      <StockSurvey />
+      
+      </div>
     </div>
   );
 }

@@ -13,16 +13,24 @@ const StockSelector = () => {
     async function callOpenAIAPI() {
 
         const APIBody = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-4",
             "messages": [
-              {
-                "role": "system",
-                "content": " Please check if the specified company is real. If it is, provide only the stock name without any additional information. If the company is not publicly traded, indicate that it is not a valid stock and suggest similar stocks.",
-              },
-              {
-                "role": "user",
-                "content": stock,
-              }
+                {
+                    "role": "system",
+                    "content": "Please check if the specified company is publicly traded. If true, output only {stock name and symbol}  . If false, indicate that it is not a valid stock and suggest similar stocks. Don't make a complete sentence. Your response should be 2 terms."
+                  },
+                  {
+                    "role": "user",
+                    "content": "tesla"
+                  },
+                  {
+                    "role": "assistant",
+                    "content": "Tesla Inc TSLA"
+                  },
+                  {
+                    "role": "user",
+                    "content": stock,
+                  }
             ],
             "temperature": 0,
             "max_tokens": 1024

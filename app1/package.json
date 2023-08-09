@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://berrydashboard.io/free",
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@emotion/cache": "^11.9.3",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -29,6 +30,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^6.3.16",
     "gsap": "^3.12.2",
+    "langchain": "^0.0.122",
     "material-ui-popup-state": "^4.0.1",
     "node-fetch": "^2.6.1",
     "node-sass": "^9.0.0",
