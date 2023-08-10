@@ -1,43 +1,54 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-const API_KEY = 'P0JY4A01Y8RUNKGI';
+const API_KEY = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
 
-
-const ProfitMarginComponent1 = () => {
-  const [profitMargin, setProfitMargin] = useState(null);
+const ProfitMargin1 = () => {
+  const [netIncome, setNetIncome] = useState(null);
+  const [totalRevenue, setTotalRevenue] = useState(null);
   const apiData = useSelector((state) => state.apiData);
+  const terms = apiData.trim().split(' ');
+  const STOCK_SYMBOL = terms[terms.length - 1];
 
-  const API_URL = `https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=${apiData}&apikey=${API_KEY}`;
+  // Extract the net income and total revenue values from the JSON data
   useEffect(() => {
-    fetchFinancialData();
+    async function fetchData() {
+      try {
+        const response = await fetch(`https://api.polygon.io/vX/reference/financials?ticker=${STOCK_SYMBOL}&apiKey=${API_KEY}`);
+        const data = await response.json();
+
+        if (data.status === 'OK' && data.results && data.results.length > 0) {
+          const incomeStatement = data.results[2].financials.income_statement;
+
+          const netIncomeValue = incomeStatement.net_income_loss.value;
+          const totalRevenueValue = incomeStatement.revenues.value;
+
+          setNetIncome(netIncomeValue);
+          setTotalRevenue(totalRevenueValue);
+        } else {
+          console.error('Data not found in API response.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchData();
   }, []);
 
-  const fetchFinancialData = async () => {
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-
-      // Check if the API response contains the required data
-      if (data && data.annualReports && data.annualReports.length > 0) {
-        const { netIncome, totalRevenue } = data.annualReports[0];
-
-        // Calculate profit margin (net income / total revenue * 100)
-        const profitMarginValue = (parseFloat(netIncome) / parseFloat(totalRevenue)) * 100;
-        setProfitMargin(profitMarginValue);
-      } else {
-        // Handle the case when the data is not available
-        console.error('Financial data not available.');
-      }
-    } catch (error) {
-      console.error('Error fetching financial data:', error);
+  const calculateProfitMargin = () => {
+    if (netIncome !== null && totalRevenue !== null) {
+      const profitMargin = (netIncome / totalRevenue) * 100;
+      return profitMargin.toFixed(2);
     }
+    return 'N/A';
   };
 
   return (
     <div>
-      {profitMargin !== null ? (
-        <p>Profit Margin 2022: {profitMargin.toFixed(2)}%</p>
+      <h2>Profit Margin for {apiData} Q1 of 2023</h2>
+      {netIncome !== null && totalRevenue !== null ? (
+        <p>Profit Margin: {calculateProfitMargin()}%</p>
       ) : (
         <p>Loading...</p>
       )}
@@ -45,4 +56,4 @@ const ProfitMarginComponent1 = () => {
   );
 };
 
-export default ProfitMarginComponent1;
+export default ProfitMargin1;

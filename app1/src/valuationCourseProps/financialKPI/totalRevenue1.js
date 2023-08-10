@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const API_KEY = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
 
-const OperatingCashflow1 = () => {
+const TotalRevComponent1 = () => {
   const [totalRevenue, setTotalRevenue] = useState(null);
   const apiData = useSelector((state) => state.apiData);
   const terms = apiData.trim().split(' ');
@@ -16,7 +16,7 @@ const OperatingCashflow1 = () => {
         const data = await response.json();
 
         if (data.status === 'OK' && data.results && data.results.length > 9) {
-          const revenueValue = data.results[2].financials.cash_flow_statement.net_cash_flow.value;
+          const revenueValue = data.results[2].financials.income_statement.revenues.value;
           setTotalRevenue(revenueValue);
         } else {
           console.error('Revenues data not found in API response.');
@@ -31,9 +31,9 @@ const OperatingCashflow1 = () => {
 
   return (
     <div>
-      <h2>Operating Cashflow for {apiData} for Quarter 1 of 2023</h2>
+      <h2>Total Revenue for {apiData} for Quarter 1 of 2023</h2>
       {totalRevenue !== null ? (
-        <p>Operating Cashflow: ${totalRevenue.toFixed(2)}</p>
+        <p>Total Revenue: ${totalRevenue.toFixed(2)}</p>
       ) : (
         <p>Loading...</p>
       )}
@@ -41,4 +41,4 @@ const OperatingCashflow1 = () => {
   );
 };
 
-export default OperatingCashflow1;
+export default TotalRevComponent1;

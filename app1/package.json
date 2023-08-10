@@ -13,6 +13,7 @@
     "@mui/material": "^5.8.6",
     "@mui/system": "^5.8.6",
     "@mui/utils": "^5.8.6",
+    "@polygon.io/client-js": "^7.2.5",
     "@react-three/drei": "^9.78.1",
     "@react-three/fiber": "^8.13.4",
     "@tabler/icons": "^1.72.0",
