@@ -15,7 +15,7 @@ const TotalRevComponent2 = () => {
         const response = await fetch(`https://api.polygon.io/vX/reference/financials?ticker=${STOCK_SYMBOL}&apiKey=${API_KEY}`);
         const data = await response.json();
         console.log(data)
-        if (data.status === 'OK' && data.results && data.results.length > 9) {
+        if (data.status === 'OK' && data.results && data.results.length > 0) {
           const revenueValue = data.results[1].financials.income_statement.revenues.value;
           setTotalRevenue(revenueValue);
         } else {

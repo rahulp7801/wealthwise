@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import SparkleButton2 from "./sparkleButton2";
 import { useNavigate } from 'react-router-dom';
+import InvestorPage from "./bizProps/investorSrc";
 import 'assets/scss/header-aurora.css';
 // import 'assets/scss/stock-select.css'
 import 'assets/scss/news-display.css';
@@ -40,6 +41,8 @@ const UnderstandBiz  = () => {
         <div>
           <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
+              
+              <InvestorPage />
               {/* <StockTitle /> */}
               <div className="card-body">
                 <div className='card'>
@@ -56,8 +59,6 @@ const UnderstandBiz  = () => {
                   </div>
                 </div>
                 <IndustryIdentify />
-
-
                 <FiveForces />
                 <div className="gap"></div>
                

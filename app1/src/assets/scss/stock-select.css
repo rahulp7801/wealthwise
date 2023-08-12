@@ -144,3 +144,8 @@ h1, h2, h3, p {
   margin: 50px;
 }
 
+.chat-survey {
+  align-items: center;
+  justify-content: center;
+}
+
