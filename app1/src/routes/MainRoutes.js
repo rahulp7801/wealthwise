@@ -21,6 +21,8 @@ const ETFSkill = Loadable(lazy(() => import('views/learnProps/etfGuideSkill')))
 const PickStock = Loadable(lazy(() => import('valuationCourseProps/pickStock')))
 const UnderstandBiz = Loadable(lazy(() => import('valuationCourseProps/understandingBusiness.js')))
 const FinancialKPI = Loadable(lazy(() => import('valuationCourseProps/financialKPI.js')))
+const RelativeValuationIntro = Loadable(lazy(() => import('valuationCourseProps/relValIntro.js')))
+const EnterpriseValueMultiples = Loadable(lazy(() => import('valuationCourseProps/enterpriseValueMultiples.js')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
@@ -131,6 +133,24 @@ const MainRoutes = {
         {
           path: 'financial-kpi',
           element: <FinancialKPI />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'rel-val-intro',
+          element: <RelativeValuationIntro />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'enterprise-multiples',
+          element: <EnterpriseValueMultiples />
         }
       ]
     },

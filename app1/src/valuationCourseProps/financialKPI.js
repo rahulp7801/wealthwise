@@ -8,6 +8,7 @@ import OperatingCashflow1 from "./financialKPI/opCashflow1";
 import OperatingCashflow2 from "./financialKPI/opCashflow2";
 import TotalRevComponent1 from "./financialKPI/totalRevenue1";
 import TotalRevComponent2 from "./financialKPI/totalRevenue2";
+import SparkleButton3 from "./sparkleButton3";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
@@ -102,7 +103,7 @@ const FinancialKPI = () => {
                     </div>
                 </PersistGate>
             </Provider>
-                    
+            <SparkleButton3 />
         </div>
     )
 }
