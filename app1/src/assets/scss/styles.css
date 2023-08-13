@@ -704,3 +704,19 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
 .chat-input button {
   margin-left: 8px;
 }
+.grid-container3 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 70px; /* Gap between grid items */
+  height: 2vh;
+}
+
+.grid-item2 {
+  display: flex;
+  justify-content: right;
+  align-items: center; /* Optional: Add a background color to visualize the layout */
+}
+
+.grid-item3 {
+  display: flex;
+}

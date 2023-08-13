@@ -1,0 +1,44 @@
+    // Google Analytics 4 (GA4) script that determines environment and adds the google analytics script on page load
+
+(function() {
+    "use strict";
+
+    var tags = {
+        apply: { test: "G-XQ7TFDQN0S", prod: "G-8JW1Y2ZP77"},
+        bog: { test: "G-R49KLGNR0H", prod: "G-8EE2E8W4M9"},
+        intl: { test: "G-1V0E4KJ41N", prod: "G-YC8J2RJ3NX"},
+    }
+
+    function getTag() {
+        var host = window.location.host
+        var isTestEnv = host.indexOf("ci.") !== -1 || host.indexOf("test.") !== -1 || host.indexOf("pilot.") !== -1
+
+        if (host.indexOf("bog") !== -1) {
+            return isTestEnv ? tags.bog.test : tags.bog.prod
+        }
+        if (host.indexOf("intl") !== -1) {
+            return isTestEnv ? tags.intl.test : tags.intl.prod
+        }
+        if (host.indexOf("opencccapply") !== -1) {
+            return isTestEnv ? tags.apply.test : tags.apply.prod
+        }
+    }
+
+    $(document).ready(function() { 
+        var tag = getTag()
+
+        if(tag) {
+            var ga4Script = document.createElement('script');
+            ga4Script.src = "https://www.googletagmanager.com/gtag/js?id=" + tag;
+            document.head.appendChild(ga4Script);
+    
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+    
+            gtag('config', tag);
+        } else {
+            console.error("failed to locate GA4 tag id.")
+        }
+     });
+})();

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -47,6 +47,8 @@ const FirebaseLogin = ({ ...others }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const customization = useSelector((state) => state.customization);
   const [checked, setChecked] = useState(true);
+  const navigate = useNavigate();
+
 
   const googleHandler = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -82,8 +84,11 @@ const FirebaseLogin = ({ ...others }) => {
   try {
     const response = await axios.post('http://localhost:5000/api/login', values);
     console.log(response.data);
+
     if (response.data === "Login Successful") {
         alert("Login Successful");
+        localStorage.setItem('isLoggedIn', 'true');
+        navigate('/dashboard');
     } else if (response.data === "Incorrect password") {
         alert("Incorrect password");
     } else if (response.data === "User does not exist") {
@@ -253,7 +258,7 @@ const FirebaseLogin = ({ ...others }) => {
 
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
-                <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
+                <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary" >
                   Sign in
                 </Button>
               </AnimateButton>

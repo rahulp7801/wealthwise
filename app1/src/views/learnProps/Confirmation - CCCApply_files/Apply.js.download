@@ -1,0 +1,123 @@
+/*globals ccc, JSON */
+
+(function(ccc, JSON) {
+    "use strict";
+
+    var configData = JSON.parse($('#js-data').text());
+
+    function initializeAutoPopulation() {
+        var autoPopulationHandler = ccc.Module.get("ccc.AutoPopulationHandler");
+        autoPopulationHandler.setFields(configData.populatedFieldList);
+        $(document).ready(function(){
+            autoPopulationHandler.initialize();
+        });
+    }
+
+    function radioSetClearer() {
+        $("fieldset.yesNoClearable").each( function (i,fieldset){
+            var $radios, fieldName, hiddenField, selectedField;
+            // ADD CLEAR BUTTON
+            $(fieldset).append('<div class="yesNoClear"><button type="button" class="btn-action yesNoClearButton">' + configData.i18n.clearSelection + '</button></div>');
+
+            $radios= $("input[type=radio]", fieldset);
+            if ($radios.length === 0) {
+                return;
+            }
+
+            fieldName= $radios[0].name;
+            // RENAME FIELDS
+            $radios.each( function (i,e) {
+                e.name = "_" + fieldName;
+                if (!selectedField && this.checked) {
+                    selectedField = this;
+                }
+            });
+
+            // ADD HIDDEN FIELD
+            $(fieldset).append('<input type="hidden" name="' + fieldName + '"/>');
+            hiddenField = $("input[name='"+fieldName+"']", fieldset)[0];
+            // BINDINGS
+            $radios.bind("click", {controller:this, field:hiddenField}, function (e) {
+                e.data.field.value = this.value;
+                $(this).closest('fieldset')
+                    .find('.yesNoClear')
+                    .slideDown(125)
+                    .attr('aria-hidden', false);
+            });
+            $("div.yesNoClear button", fieldset).bind( "click", {controller:this, field:hiddenField}, function (e){
+                e.data.field.value = "";
+                $(this).closest('fieldset')
+                    .find('li input[type=radio]:checked')
+                    .attr('checked',false)
+                    .triggerHandler("change");
+                $(this).closest('.yesNoClear')
+                    .slideUp(125)
+                    .attr('aria-hidden', true);
+                $(this).closest('fieldset')
+                    .find('li input[type=radio]:first')
+                    .focus();
+            } );
+
+            // DEFAULT STATE
+            if (selectedField) {
+                hiddenField.value = selectedField.value;
+                $(fieldset).find('.yesNoClear').show();
+            } else {
+                $(fieldset).find('.yesNoClear').attr('aria-hidden',true).hide();
+	    }
+        });
+
+        return true;
+    }
+
+
+    initializeAutoPopulation();
+
+    $(document).ready(function(){
+        // make sure this runs after all other document.ready callbacks...
+        setTimeout(function() {
+            var $fieldset;
+
+            // FIELDSET FOCUS
+            if ($.browser.msie ) {
+                $(".ccc-page-section:odd").addClass("odd");
+            }
+
+            $(".cccform").delegate("*", "focus click", function () {
+                $fieldset = $(this).closest(".ccc-page-section");
+                if (!$fieldset.hasClass("current-fieldset")) {
+                    $fieldset.addClass("current-fieldset")
+                        .siblings(".ccc-page-section")
+                        .removeClass("current-fieldset");
+                }
+            });
+
+            // SELECT FIELD FOCUS
+            $('.cccform div.select select')
+                .bind('focus', function (e) { $(e.target).closest('div.select').addClass('focus'); })
+                .bind('blur', function (e) { $(e.target).closest('div.select').removeClass('focus'); });
+
+            // NAVIGATION FOCUS
+            $('.cccform .nav li button')
+                .bind('focus', function (e) { $(e.target).closest('li').addClass('focus'); })
+                .bind('blur',  function (e) { $(e.target).closest('li').removeClass('focus'); });
+
+            //cccco-20 - removed bg styling on focus
+            // YES/NO RADIO SETS
+            // $('li.yesno > fieldset input[type=radio]')
+            //     .bind('focus', function (e) { $(e.target).closest('fieldset').css('background-color', 'rgba(0,0,0,.15)'); })
+            //     .bind('blur', function (e) { $(e.target).closest('fieldset').css('background-color', ''); });
+        }, 0);
+
+        // OPTIONAL YES/NO RADIO SETS
+        radioSetClearer();
+
+        ccc.gaWrapper = ccc.Module.get('ccc.GAWrapper');
+        ccc.gaWrapper.registerListeners();
+    });
+
+// fix the My Applications link to add the _eventId for proper new user flow
+    $(document).ready(function() {
+        $("#link-my-applications").attr("href", configData.myAppsURL);
+    });
+})(ccc || {}, JSON);

@@ -1,0 +1,50 @@
+/*globals up, jQuery, _, Backbone */
+
+var up = up || {};
+
+(function(window, jQuery, _, Backbone) {
+    "use strict";
+
+    if (!window.ccc) {
+        window.ccc = {
+            // attach my custom versions to ccc.
+            jQuery: jQuery.noConflict(true),
+            _: _.noConflict(),
+            Backbone: Backbone.noConflict()
+        };
+        window.$ = jQuery;
+        window.jQuery = jQuery;
+    }
+
+
+    window.ccc.jQuery(document).ready(function() {
+        window.ccc.jQuery(document).ready(function($) {
+            var skipLinks_module = window.ccc.Module.get('ccc.SkipLinks');
+            skipLinks_module.initSkipLinks({containDivID : 'portalSkipNav'});
+            $("#gsfn_search_query").select();
+        });
+    });
+} (window, up.jQuery || jQuery, up._ || _, up.Backbone || Backbone));
+
+/* global prototype enhancements */
+String.prototype.i18nArgs = function(args) {
+    var str = this.toString();
+    if(!str || !args) return str;
+    args = Array.isArray(args) ? args : [args];
+    args.forEach(function(v, i){
+        str = str.replace('{'+i+'}', v);
+    });
+    return str;
+};
+
+var cccUtils = {
+    truncateEmail : function(email) {
+        if (email.length > 25) {
+            var atIdx = email.indexOf("@");
+            var beforeAt = email.slice(0, atIdx);
+            beforeAt = email.slice(0, 2).concat("..").concat(email.slice(atIdx - 2, atIdx));
+            return beforeAt.concat(email.slice(atIdx, email.length));
+        }
+        return email;
+    }
+};

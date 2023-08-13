@@ -1,0 +1,62 @@
+/*globals window, document, jQuery*/
+
+var ccc = window.ccc || {};
+
+ccc.Module.defineModule({
+    name: 'ccc.AutoPopulationHandler',
+    inject: ['window', 'ccc.jQuery'],
+    initFn: function(window, $) {
+        'use strict';
+
+        var AUTO_COMPLETE_CLASS = "auto-completed";
+        var fields;
+        var thisController = this;
+
+        var setFields,
+            changeAutoPopulatedField,
+            findFields,
+            initialize;
+
+        setFields = function (passedFields) {
+            fields = $.parseJSON(passedFields);
+        };
+
+        changeAutoPopulatedField = function (field) {
+            var jField = $(field);
+            var fieldName = jField.attr('name');
+            var allFields = $('[name*="'+fieldName+'"]');
+            allFields.removeClass(AUTO_COMPLETE_CLASS);
+        };
+
+        findFields = function(fieldName) {
+            var field = $('[name*="'+fieldName+'"]:visible').filter(function() {
+                return this.value.length > 0;
+            });
+            return field;
+        };
+
+        initialize = function() {
+            if(fields !== null) {
+                $.each(fields, function(i, fieldName) {
+                    var fields = findFields(fieldName);
+                    if(fields.length > 0) {
+                        fields.addClass(AUTO_COMPLETE_CLASS);
+                        fields.bind('blur', function() {
+                            changeAutoPopulatedField(this);
+                        });
+                        fields.bind('change', function(evt, data) {
+                            if (!data || !data.loading) {
+                                changeAutoPopulatedField(this);
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+        return {
+            initialize: initialize,
+            setFields: setFields
+        };
+
+}});

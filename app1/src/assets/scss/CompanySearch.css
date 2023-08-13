@@ -1,0 +1,20 @@
+/* Your CompanySearch.css */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: center;
+}
+.submit-stock-box {
+  margin-right: 30px;
+  margin-left: 60px;
+  max-width: 550px;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.customizer-title {
+    text-align: center;
+    margin-top:50px;
+    font-size: 3em;
+}

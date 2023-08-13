@@ -5,6 +5,7 @@ It makes the app.py file with the routes look simple but all the
 detailed coding will be here and utilized there in a simple manner.
 
 So far this is just being used for login/registration purposes but as
+
 we need features those will go here too (like API stuff ya feel).
 
 

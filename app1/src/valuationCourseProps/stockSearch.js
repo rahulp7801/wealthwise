@@ -1,86 +1,89 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import 'assets/scss/CompanySearch.css'; // Import your CSS file
 
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [stockInput, setStockInput] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [userCorrected, setUserCorrected] = useState(false);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const fetchAlphaVantageData = async () => {
-      const apiKey = 'P0JY4A01Y8RUNKGI';
-      const apiUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockInput}&apikey=${apiKey}`;
+    const fetchPolygonData = async () => {
+      const apiKey = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
+      const apiUrl = `https://api.polygon.io/v3/reference/tickers?search=${stockInput}&apiKey=${apiKey}`;
 
       try {
-        setLoading(true);
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        console.log('Data from API:', data); // Check the API response in the console
-
-        // Assuming the API returns a 'bestMatches' array with company information.
-        setSearchResults(data.bestMatches);
+        setSearchResults(data.results);
       } catch (error) {
         console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
-    // Call the API only if there is a valid input (stock symbol)
     if (stockInput.trim() !== '') {
-      fetchAlphaVantageData();
-      setDropdownOpen(true); // Open the dropdown when the user starts typing
+      fetchPolygonData();
+      setDropdownOpen(true);
     } else {
-      // Clear search results when stockInput is empty
       setSearchResults([]);
-      setDropdownOpen(false); // Close the dropdown when the input is empty
+      setDropdownOpen(false);
     }
   }, [stockInput]);
 
-  const handleSelectItem = async (symbol) => {
-    setStockInput(symbol);   // Set the input field to the selected stock symbol
-    setDropdownOpen(false);  // Close the dropdown after selecting an item
-    const response = await axios.post('http://localhost:5000/api/post-portfolio-info', { symbol });
-    console.log("hello weetad");
-    console.log(response);
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
+  const handleSelectItem = (symbol) => {
+    setStockInput(symbol);
+    setDropdownOpen(false);
+    setUserCorrected(true);
   };
 
   const handleTextareaChange = (e) => {
-    setStockInput(e.target.value);
+    const newText = e.target.value;
+    setStockInput(newText);
+    setDropdownOpen(newText.trim() !== '' && !userCorrected);
   };
 
-  const handleTextareaFocus = () => {
-    if (searchResults && searchResults.length > 0) {
-      setDropdownOpen(true);
-    }
-  };
-
-  const handleDropdownBlur = () => {
-    // Check if the blur event happened within the dropdown before closing it
-    if (dropdownRef.current && !dropdownRef.current.contains(document.activeElement)) {
+  const handleTextareaBlur = () => {
+    if (!stockInput.trim()) {
       setDropdownOpen(false);
     }
   };
 
+  const handleDropdownItemClick = (e, symbol) => {
+    e.preventDefault();
+    handleSelectItem(symbol);
+  };
+
   return (
-    <div>
-      <div className='submit-stock-box'>
-        <h2>Enter an Asset</h2>
-        <form>
-          <div className="user-box">
+    <div className='submit-stock-box'>
+      <h2>Enter an Asset</h2>
+      <form>
+        <div className="user-box">
+          <div style={{ position: 'relative' }}>
             <textarea
               ref={dropdownRef}
               value={stockInput}
               onChange={handleTextareaChange}
-              onFocus={handleTextareaFocus}
-              onBlur={handleDropdownBlur}
+              onBlur={handleTextareaBlur}
               placeholder="Submit Stock"
               style={{
-                background: '#444', // Grayish background color
-                color: 'white',     // White text color
+                background: '#444',
+                color: 'white',
                 width: '100%',
                 padding: '10px',
                 border: 'none',
@@ -91,42 +94,42 @@ const CompanySearch = () => {
               <ul
                 className="dropdown"
                 style={{
-                  background: '#666', // Grayish background color for the dropdown
-                  color: '#ffffff', // White text color for the dropdown// White text color for the dropdown
+                  position: 'absolute',
+                  top: '70%',
+                  left: 0,
+                  background: '#666',
+                  color: '#ffffff',
                   listStyleType: 'none',
                   padding: '0',
                   margin: '5px 0 0 0',
                   borderRadius: '5px',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 }}
               >
-                {searchResults.map((result) => (
-                  <li key={result['1. symbol']}>
-                    <button
-                      type="button"
-                      onClick={() => handleSelectItem(result['1. symbol'])}
+                {searchResults.slice(0, 4).map((result) => (
+                  <li key={result.ticker}>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        handleDropdownItemClick(e, result.ticker);
+                      }}
                       style={{
-                        width: '100%',
+                        display: 'block',
                         padding: '8px 10px',
-                        textAlign: 'left',
-                        border: 'none',
-                        background: 'transparent',
+                        textDecoration: 'none',
+                        color: 'inherit',
                         cursor: 'pointer',
                       }}
                     >
-                      {result['2. name']} - {result['1. symbol']} - {result['3. type']}
-                    </button>
+                      {result.name} - {result.ticker}
+                    </a>
                   </li>
                 ))}
               </ul>
             )}
           </div>
-          <div>
-            {loading ? (
-              <p>Loading...</p>
-            ) : null /* Remove the previous code to display search results */}
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

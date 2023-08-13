@@ -1,0 +1,175 @@
+/*globals ccc */
+
+(function($) {
+    'use strict';
+
+    var focusCaptured = false,
+        SPACEBAR = 32,
+        ENTER = 13,
+
+        captureFocus,
+        releaseFocus,
+        getOverlay,
+        ariaToggleNonSidebarElements,
+        recurseAndToggleAria,
+        toggleCapture,
+        toggleLeftSide,
+        toggleRightSide,
+        downloadApp;
+
+    captureFocus = function(focusElement) {
+        // already captured...
+        if (focusCaptured) {
+            return;
+        }
+
+        $(document).bind('focusin.ccc-sidebar', function (evt) {
+            if (!focusElement) {
+                return;
+            }
+
+            if (!(focusElement.is(evt.target) || focusElement.has(evt.target).length)
+                    && !(($("#appSidebarRight").is(evt.target) || $("#appSidebarRight").has(evt.target).length) && $("#sessionExpiration").css('display') !== 'none')) {
+                evt.preventDefault();
+                var firstButton = focusElement.find("button:first");
+                firstButton.focus();
+            }
+        });
+    }
+
+    releaseFocus = function() {
+        $(document).unbind('focusin.ccc-sidebar');
+    }
+
+    getOverlay = function() {
+        var div = $('#ccc-sidebar-overlay');
+        if (div.length) {
+            return div;
+        }
+
+        div = $('<div>', {'id': 'ccc-sidebar-overlay', 'class': 'ccc-overlay'})
+            .appendTo($('body'));
+
+        return div;
+    }
+
+    ariaToggleNonSidebarElements = function(sidebar) {
+        recurseAndToggleAria(sidebar, $('form.cccform'));
+        // hide portal header, top navigation, footer
+        $("#portalPageHeader, #portalNavigation, .portal-header, #region-page-top-hidden, #region-header-right, #region-header-left, #region-footer-second, #portalPageFooter, #portalCASLogin").attr('aria-hidden', !focusCaptured);
+    }
+
+    recurseAndToggleAria = function(sidebar, element) {
+        var children = element.children();
+        if (children.length) {
+            children.each(function () {
+                var isHidden = ($(this).hasClass("d-none") || $(this).css('display') === 'none'),
+                    isSideBar = $(this).is(sidebar),
+                    isSidebarAncestor = $(this).has(sidebar).length > 0,
+                    isChildOfMain = $(this).parents($('main')).length > 0;
+
+
+                if (isSideBar) {
+                    $(this).attr('aria-hidden', focusCaptured);
+                } else if (isHidden) {
+                    $(this).attr('aria-hidden', true);
+                } else if (isChildOfMain && isSidebarAncestor) {
+                    //if ancestor of target sidebar, exclude from hiding, or exclude from
+                    //hiding if it was the ancestor of the sidebar but still part of
+                    //the main display after closing
+                    $(this).attr('aria-hidden', false);
+                    recurseAndToggleAria(sidebar, $(this));
+                } else if (isSidebarAncestor) {
+                    $(this).attr('aria-hidden', !focusCaptured);
+                    recurseAndToggleAria(sidebar, $(this));
+                } else {
+                    $(this).attr('aria-hidden', !focusCaptured);
+                }
+            });
+        }
+    }
+
+    toggleCapture = function(focusElement, triggeringElement) {
+        var overlay;
+        if (focusCaptured) {
+            overlay = getOverlay();
+            overlay.hide();
+            ariaToggleNonSidebarElements(focusElement);
+            releaseFocus();
+            triggeringElement.focus();
+        } else {
+            captureFocus(focusElement);
+            ariaToggleNonSidebarElements(focusElement)
+            overlay = getOverlay();
+            overlay.show();
+        }
+        focusCaptured = !focusCaptured;
+    }
+
+    toggleLeftSide = function() {
+        $("#portalPageBody").toggleClass("sidebar-left-open");
+        $("body").toggleClass("sidebar-left-open");
+        $("#appSidebarLeft").toggleClass("d-none");
+        $("#appNavToggle button").attr("aria-expanded", !$("#appNavToggle button").attr("aria-expanded"));
+
+        toggleCapture($("#appSidebarLeft"), $(document.activeElement));
+        $(document).trigger('focusin.ccc-sidebar');
+    }
+
+    toggleRightSide = function() {
+        $("#portalPageBody").toggleClass("sidebar-right-open");
+        $("body").toggleClass("sidebar-right-open");
+        $("#appSidebarRight").toggleClass("d-none");
+        $("#appSidebarRight").attr("aria-hidden",
+            $("#rightSidebarLinks").attr("aria-hidden") === 'true' ? 'false' : 'true');
+        $("header-container").toggleClass("right-drawer-open");
+    }
+
+    $(document).ready(function() {
+
+        if (!$("#mypath-nav-item").length) {
+            $("#about-sub-nav").css("left", "-110px");
+        }
+
+        $("#appNavToggle").click(function() {
+            toggleLeftSide();
+        });
+
+        $("#closeLeftSidebar").click(function() {
+           toggleLeftSide();
+       });
+
+        $("#closeRightSidebar").click(function() {
+            toggleRightSide();
+        });
+
+        $("#closeNotification").click(function() {
+            $(event.target).closest(".iconMessageBlock").hide();
+        });
+
+        //trigger right side overlay/capture based on attributes mutation,
+        //since the form validator and session timeout can also trigger
+        //and close the right side drawer
+        var observer = new MutationObserver(function(mutations) {
+            toggleCapture($("#rightSidebarLinks"), $(document.activeElement));
+            $(document).trigger('focusin.ccc-sidebar');
+        });
+        var target = document.querySelector('#rightSidebarLinks');
+        if (target) {
+            observer.observe(target, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        }
+    });
+}) (ccc.jQuery);
+
+function downloadApp(downloadAppUrl, appTypeUri) {
+    $.ajax({
+        url: downloadAppUrl,
+        type: 'POST',
+        success: function() {
+            document.location.href= appTypeUri + '/ajax/pdf/application';
+        }
+    });
+}

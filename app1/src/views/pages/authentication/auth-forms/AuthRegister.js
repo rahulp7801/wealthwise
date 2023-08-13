@@ -65,6 +65,7 @@ firebase.initializeApp(firebaseConfig);
   const customization = useSelector((state) => state.customization);
   const [showPassword, setShowPassword] = useState(false);
   const [checked, setChecked] = useState(true);
+  const navigate = useNavigate();
 
   const [strength, setStrength] = useState(0);
   const [level, setLevel] = useState();
@@ -91,7 +92,7 @@ firebase.initializeApp(firebaseConfig);
         alert("Internal Server Error, try again later.");
     } else if (response.data === "success") {
         alert("Successfully added Google Sign in to DB");
-
+        navigate('/dashboard');
     }
   } catch (error) {
     console.error('Google Sign-In Error:', error);

@@ -1,12 +1,16 @@
 import utils  # our own utils file
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from Stock_Chart import graphStock
 from flask_cors import CORS
 from firebase_admin import db
 from bardapi import Bard
+from bardapi import BardCookies
+
 
 from utils import User, init_curs, agg_vals, agg_vals_login
+import jwt
+import os
 
 # Initialize Flask APP and initialize CORS Policy
 app = Flask(__name__)
@@ -47,6 +51,17 @@ def login():
     email, pwd = agg_vals_login(data)  # get form values
     user = utils.User(email, pwd)  # create USER object
     stat, err = user.login_user(True)  # login
+    user1 = {"email": user.email}
+    secret_key = os.urandom(24)
+
+    # Generate JWT token
+    jwt_token = jwt.encode(user1, secret_key, algorithm='HS256')
+
+    # Set HttpOnly cookie
+    response = make_response("Logged in successfully")
+    response.set_cookie("jwt_token", jwt_token, httponly=True)
+    print(response.headers)
+
     if not stat:  # oh nah they monkey up
         if err == 401:
             return "Incorrect password"
@@ -97,7 +112,7 @@ def post_user_info():
 def get_answer():
     data = request.json
     user_prompt = data.get('prompt')  # Receive the user input from the frontend
-    token = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
+    token = 'ZwgJ-np3mc6Ixmr-LWTQtQW0uW911XMvv6ecRyZE_d1tYtdk3G8HbweCdIu6n8MxzrAhQg.'
     bard = Bard(token=token)
     print(f"Received prompt from frontend: {user_prompt}")
 
