@@ -1,4 +1,8 @@
-import utils  # our own utils file
+import os
+print("Current working directory:", os.getcwd())
+
+
+import utils  
 
 from flask import Flask, request, jsonify, make_response
 from Stock_Chart import graphStock
@@ -11,6 +15,7 @@ from bardapi import BardCookies
 from utils import User, init_curs, agg_vals, agg_vals_login
 import jwt
 import os
+
 
 # Initialize Flask APP and initialize CORS Policy
 app = Flask(__name__)
