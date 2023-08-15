@@ -8,9 +8,9 @@ const apiKey = "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";
 const EVtoEBITDA = () => {
   const [stock1, setStock1] = useState("");
   const [stock2, setStock2] = useState("");
-  const [enterpriseValueMultiple1, setEnterpriseValueMultiple1] = useState(null);
-  const [enterpriseValueMultiple2, setEnterpriseValueMultiple2] = useState(null);
-  const [enterpriseValueMultiple3, setEnterpriseValueMultiple3] = useState(null);
+  const [enterpriseValueMultiple1, setEnterpriseValueMultiple1] = useState("");
+  const [enterpriseValueMultiple2, setEnterpriseValueMultiple2] = useState("");
+  const [enterpriseValueMultiple3, setEnterpriseValueMultiple3] = useState("");
   const [validity, setValidity]  = useState("");
 
 
@@ -53,6 +53,7 @@ const EVtoEBITDA = () => {
     
         const data = await response.json();
         const stocksList = data.choices[0].message.content; // Example: "GM, F"
+
         const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
         setStock1(firstStock);
         setStock2(secondStock);
@@ -64,11 +65,8 @@ const EVtoEBITDA = () => {
         async function fetchData() {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
-            const data = await response.json();
-        
-
+            const data = await response.json();   
             setEnterpriseValueMultiple1(data[0].enterpriseValueMultipleTTM);
-            console.log(enterpriseValueMultiple1)
 
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -93,11 +91,11 @@ const EVtoEBITDA = () => {
       useEffect(() => {
         const terms = apiData.trim().split(' ');
         const STOCK_SYMBOL = terms[terms.length - 1]
+
         async function fetchData() {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            console.log(data)
             setEnterpriseValueMultiple3(data[0].enterpriseValueMultipleTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -107,16 +105,12 @@ const EVtoEBITDA = () => {
         fetchData();
       }, []);
       useEffect(() => {
-        if (apiData && enterpriseValueMultiple3 !== null) {
+        if (apiData && enterpriseValueMultiple3 && enterpriseValueMultiple1 !== null) {
           callOpenAIAPI2(apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1, enterpriseValueMultiple2);
         }
       }, [apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1]);
       async function callOpenAIAPI2(apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1, enterpriseValueMultiple2) {
-        console.log(enterpriseValueMultiple3)
-        console.log(stock1)
-        console.log(enterpriseValueMultiple1)
-        console.log(stock2)
-        console.log(enterpriseValueMultiple2)
+
 
 
         const APIBody = {
@@ -132,7 +126,7 @@ const EVtoEBITDA = () => {
             },
           ],
           "temperature": 1,
-          "max_tokens": 500,
+          "max_tokens": 300,
         };
     
         try {
@@ -146,7 +140,6 @@ const EVtoEBITDA = () => {
             });
         
             const data = await response.json();
-            console.log(data)
             setValidity(data.choices[0].message.content) 
     
             

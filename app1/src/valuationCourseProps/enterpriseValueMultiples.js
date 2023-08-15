@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
-
+import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
 const EnterpriseValueMultiples = () => {
     return (
         <div>
@@ -56,15 +56,27 @@ const EnterpriseValueMultiples = () => {
                                 </div>
                             </div>
                             <div className='card'>
-                            <div className='card-content'>
-                                <EVtoEBITDA />
+                                <div className='card-content'>
+                                    <EVtoEBITDA />
 
                             </div>
                     </div>
-                    <div className="gap2"></div>
+                        <div className="gap2"></div>
+                        <div className='container-2'>
+                                <div className='get-started'>
+                                    <div className='get-started-content'>
+                                        <h6 className='get-started-title'>Price/Free Cashflow</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='card'>
+                                <div className='card-content'>
+                                    <PtoCashflow />
+
+                            </div>
+                            </div>
                     </div>
                     <div className="gap2"></div>
-
                 </PersistGate>
             </Provider >
         </div>
