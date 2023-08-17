@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
 import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
+import EVtoSales from "./relativeValuationCourseProps/evsales";
 const EnterpriseValueMultiples = () => {
     return (
         <div>
@@ -35,7 +36,7 @@ const EnterpriseValueMultiples = () => {
                             <strong>EV/EBITDA</strong> 
                             </li>
                             <li>
-                            <strong>EV/EBIT</strong> 
+                            <strong>P/Cashflow</strong> 
                             </li>
                             <li>
                             <strong>EV/Sales</strong> 
@@ -57,25 +58,50 @@ const EnterpriseValueMultiples = () => {
                             </div>
                             <div className='card'>
                                 <div className='card-content'>
-                                    <EVtoEBITDA />
-
-                            </div>
-                    </div>
-                        <div className="gap2"></div>
-                        <div className='container-2'>
-                                <div className='get-started'>
-                                    <div className='get-started-content'>
-                                        <h6 className='get-started-title'>Price/Free Cashflow</h6>
-                                    </div>
                                 </div>
                             </div>
                             <div className='card'>
                                 <div className='card-content'>
-                                    <PtoCashflow />
-
-                            </div>
+                                    <EVtoEBITDA />
                             </div>
                     </div>
+                        <div className="card-body">
+                            <div className="gap2"></div>
+
+                            <div className='container-2'>
+                                    <div className='get-started'>
+                                        <div className='get-started-content'>
+                                            <h6 className='get-started-title'>Price / Free Cashflow</h6>
+                                        </div>
+                                    </div>
+                            </div>
+                                <div className='card'>
+                                    <div className='card-content'>
+                                    </div>
+                                </div>
+                                <div className='card'>
+                                    <div className='card-content'>
+                                        <PtoCashflow />
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div className="gap2"></div>
+                    <div className="card-body">
+                        <div className='container-2'>
+                                    <div className='get-started'>
+                                        <div className='get-started-content'>
+                                            <h6 className='get-started-title'>EV / Sales</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="gap2"></div>
+                                <div className='card'>
+                                    <div className='card-content'>
+                                        <EVtoSales />
+                                    </div>
+                                </div>
+                            </div>
                     <div className="gap2"></div>
                 </PersistGate>
             </Provider >
