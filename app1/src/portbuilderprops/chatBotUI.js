@@ -3,7 +3,7 @@ import { useState } from 'react'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = "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";
+// const API_KEY = "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";
 const systemMessage = { 
   "role": "system", "content": `
   You are a financial advisor. Ask each question after the user replies to the previous question.
@@ -22,7 +22,7 @@ const systemMessage = {
 function StockSurvey() {
   const [messages, setMessages] = useState([
     {
-      message: "What is your investment goal?",
+      message: "Hello",
     //   sentTime: "just now",
       sender: "ChatGPT"
     }
@@ -67,25 +67,51 @@ function StockSurvey() {
       ]
     }
 
-    await fetch("https://api.openai.com/v1/chat/completions", 
-    {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + API_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(apiRequestBody)
-    }).then((data) => {
-      return data.json();
-    }).then((data) => {
-      console.log(data);
-      setMessages([...chatMessages, {
-        message: data.choices[0].message.content,
-        sender: "ChatGPT"
-      }]);
-      setIsTyping(false);
-    });
-  }
+//     await fetch("https://api.openai.com/v1/chat/completions", 
+//     {
+//       method: "POST",
+//       headers: {
+//         "Authorization": "Bearer " + API_KEY,
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(apiRequestBody)
+//     }).then((data) => {
+//       return data.json();
+//     }).then((data) => {
+//       console.log(data);
+//       setMessages([...chatMessages, {
+//         message: data.choices[0].message.content,
+//         sender: "ChatGPT"
+//       }]);
+//       setIsTyping(false);
+//     });
+//   }
+  await fetch('http://localhost:5000/api/get_answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userInput }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+
+        const data = await response.json();
+        console.info("data: " + JSON.stringify(data));
+        const botResponse = { text: data.content, type: 'bot', sender: "ChatGPT"
+    };
+        setMessages([...messages, botResponse]);
+      } 
+    //   catch (error) {
+    //     console.error('Error occurred during API request:', error);
+    //     // Handle the error or show a message to the user
+    //   }
+    
+    // useEffect(() => {
+    //   chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    // }, [messages]);
 
   return (
     <div className="App">
