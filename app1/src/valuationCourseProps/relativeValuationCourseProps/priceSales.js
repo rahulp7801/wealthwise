@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-// import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
 
 const apiKey = "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";
 
-const EVtoEBITDA = () => {
+const PricetoSales = () => {
   const [stock1, setStock1] = useState("");
   const [stock2, setStock2] = useState("");
-  const [enterpriseValueMultiple1, setEnterpriseValueMultiple1] = useState("");
-  const [enterpriseValueMultiple2, setEnterpriseValueMultiple2] = useState("");
-  const [enterpriseValueMultiple3, setEnterpriseValueMultiple3] = useState("");
+  const [pricetoSales1, setPricetoSales1] = useState("");
+  const [pricetoSales2, setPricetoSales2] = useState("");
+  const [pricetoSales3, setPricetoSales3] = useState("");
   const [validity, setValidity]  = useState("");
 
 
@@ -69,8 +68,8 @@ const EVtoEBITDA = () => {
             const data = await response.json();   
             console.log(data)
 
-            setEnterpriseValueMultiple1(data[0].enterpriseValueMultipleTTM);
-            console.log(enterpriseValueMultiple1)
+            setPricetoSales1(data[0].priceToSalesRatioTTM);
+            console.log(pricetoSales1)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -83,7 +82,7 @@ const EVtoEBITDA = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setEnterpriseValueMultiple2(data[0].enterpriseValueMultipleTTM);
+            setPricetoSales2(data[0].priceToSalesRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -99,7 +98,7 @@ const EVtoEBITDA = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setEnterpriseValueMultiple3(data[0].enterpriseValueMultipleTTM);
+            setPricetoSales3(data[0].priceToSalesRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -108,11 +107,11 @@ const EVtoEBITDA = () => {
         fetchData();
       }, []);
       useEffect(() => {
-        if (apiData && enterpriseValueMultiple3 && enterpriseValueMultiple1 && enterpriseValueMultiple2 !== null) {
-          callOpenAIAPI2(apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1, enterpriseValueMultiple2);
+        if (apiData && pricetoSales3 && pricetoSales1 && pricetoSales2 !== null) {
+          callOpenAIAPI2(apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2);
         }
-      }, [apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1, enterpriseValueMultiple2]);
-      async function callOpenAIAPI2(apiData, enterpriseValueMultiple3, stock1, stock2, enterpriseValueMultiple1, enterpriseValueMultiple2) {
+      }, [apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2]);
+      async function callOpenAIAPI2(apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2) {
 
 
 
@@ -121,7 +120,7 @@ const EVtoEBITDA = () => {
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's EV/EBITDA ${enterpriseValueMultiple3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${enterpriseValueMultiple1} and ${stock2}:${enterpriseValueMultiple2}`,
+              "content": `Write an analysis on the inputed company's Price/Book Multiple ${pricetoSales3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${pricetoSales1} and ${stock2}:${pricetoSales2}`,
             },
             {
               "role": "user",
@@ -156,13 +155,13 @@ const EVtoEBITDA = () => {
   return (
     <div>
       <div>
-        {apiData}:{enterpriseValueMultiple3}
+        {apiData}:{pricetoSales3}
       </div> 
       <div>
-        {stock1}:{enterpriseValueMultiple1}
+        {stock1}:{pricetoSales1}
       </div>
       <div>
-        {stock2}:{enterpriseValueMultiple2}
+        {stock2}:{pricetoSales2}
       </div>
       <div>
         {validity}
@@ -172,4 +171,4 @@ const EVtoEBITDA = () => {
   );
 };
 
-export default EVtoEBITDA;
+export default PricetoSales;

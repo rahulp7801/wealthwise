@@ -23,6 +23,7 @@ const UnderstandBiz = Loadable(lazy(() => import('valuationCourseProps/understan
 const FinancialKPI = Loadable(lazy(() => import('valuationCourseProps/financialKPI.js')))
 const RelativeValuationIntro = Loadable(lazy(() => import('valuationCourseProps/relValIntro.js')))
 const EnterpriseValueMultiples = Loadable(lazy(() => import('valuationCourseProps/enterpriseValueMultiples.js')))
+const EquityValueMultiples = Loadable(lazy(() => import('valuationCourseProps/equityValueMultiples.js')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
@@ -151,6 +152,15 @@ const MainRoutes = {
         {
           path: 'enterprise-multiples',
           element: <EnterpriseValueMultiples />
+        }
+      ]
+    },
+    {
+      path: 'icons',
+      children: [
+        {
+          path: 'equity-multiples',
+          element: <EquityValueMultiples />
         }
       ]
     },

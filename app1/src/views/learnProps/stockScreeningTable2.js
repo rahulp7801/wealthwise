@@ -7,6 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 import Paper from '@mui/material/Paper';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   width: '100%',
@@ -18,14 +19,24 @@ const style = {
 };
 
 export default function StockTaskTable() {
+  const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({});
-
+  const handleButtonClick1 = () => {
+    navigate('/icons/rel-val-intro');
+  };
+  const handleButtonClick2 = () => {
+    navigate('/icons/enterprise-multiples')
+  }
+  const handleButtonClick3 = () => {
+    navigate('/icons/equity-multiples')
+  }
   const handleToggle = (value) => {
     setCheckedItems((prevState) => ({
       ...prevState,
       [value]: !prevState[value],
     }));
   };
+
 
   return (
     <Paper sx={style} elevation={0}>
@@ -42,7 +53,7 @@ export default function StockTaskTable() {
         >
           Relative Valuation/Understanding Multiples
         </ListSubheader>
-        <ListItemButton>
+        <ListItemButton onClick={handleButtonClick1}>
           <ListItemIcon>
             <Checkbox
               edge="start"
@@ -53,8 +64,8 @@ export default function StockTaskTable() {
             />
           </ListItemIcon>
           <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Introduction to the Multiple</Typography>} />
-        </ListItemButton>
-        <ListItemButton divider>
+        </ListItemButton >
+        <ListItemButton onClick={handleButtonClick2}>
           <ListItemIcon>
             <Checkbox
               edge="start"
@@ -66,7 +77,7 @@ export default function StockTaskTable() {
           </ListItemIcon>
           <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Enterprise Value Multiples</Typography>} />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={handleButtonClick3}>
           <ListItemIcon>
             <Checkbox
               edge="start"

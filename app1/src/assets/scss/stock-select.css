@@ -110,6 +110,102 @@ h1, h2, h3, p {
       font-size: 2.2rem;
     }
   }
+/* Card Wide */
+.card2 {
+  width: 1000px;
+  position: relative;
+  background-color: #111936;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  box-shadow: 3px;
+}
+
+.card2:after {  
+  content: "";
+  height: 150px;
+  width: 3px;  
+  position: absolute;  
+  left: -1px;
+  top: 65%;
+  transition: top, opacity;
+  transition-duration: 600ms;
+  transition-timing-function: ease;
+  background: linear-gradient(
+    transparent,
+    #4527A0,
+    transparent
+  );
+  opacity: 0;
+}
+
+.card2:after {  
+  top: 65%;
+  opacity: 0;
+}
+
+.card2:hover:after {
+  top: 25%;
+  opacity: 1;
+}
+
+.card2-content {  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.1) 1px, 
+    transparent 1px
+  );
+  background-position: 50% 50%;
+  background-size: 1.1rem 1.1rem;
+  padding: 3rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  text-align: left;
+  line-height: 2rem;
+}
+
+.card2-content > :is(h1, h3, p) {
+  text-align: center;
+}
+
+.card2-content > h1 {
+  color: #4527A0; 
+  font-size: 2.6rem;
+}
+
+.card2-content > h3 {
+  color: mediumslateblue;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+}
+
+.card2-content > p {
+  color: rgb(255 255 255 / 75%);
+  line-height: 1.5rem;
+}
+
+@media(max-width: 700px) {
+  .card2 {
+    width: calc(100% - 2rem);
+    margin: 0rem 1rem;
+    padding: 0.75rem;
+    border-radius: 1rem;
+  }
+}
+
+@media(max-width: 600px) {
+  .card2-content {
+    padding: 3rem;
+  }
+  
+  .card2-content > h1 {
+    font-size: 2.2rem;
+  }
+}
 .gape {
   height: 25px;
 }
