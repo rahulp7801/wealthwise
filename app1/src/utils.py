@@ -122,6 +122,20 @@ class User(object):
         else:
             user_data = users_ref.child(self._get_user_email()).get()  # If they used Google Sign In
         return user_data  # realest code
+    def post_portfolio_info(self, portfolio:dict):
+        users_ref = db.reference('users')
+        user_data = users_ref.child(f'{self._encode_emailHTML()}/portfolio').get()
+        user_data.update(portfolio)
+        print(user_data)
+        print(self._encode_emailHTML())# DB connection
+        user_poof = users_ref.child(self._encode_emailHTML()).update(
+            {
+                'portfolio': user_data
+            }
+        )
+    def get_portfolio_info(self):
+        users_ref = db.reference('users')
+        return users_ref.child(f'{self._encode_emailHTML()}/portfolio').get()
 
     # The ACTUAL authentication block behind the login (obviously protected method, DO NOT FIDDLE)
     # I put a "pwd" boolean parameter so the app.py file which gets the POST request can tell me
@@ -206,21 +220,21 @@ class User(object):
         user_name = decoded_token.get("name")
         self.fullname = user_name
         return self.fullname
-    def post_portfolio_info(self, stock_portfolio_data):
-        try:
-            users_ref = db.reference('users')
-            if not self._check_user_exists():
-                print("User not registered")
-                return False, 401
-
-            users_ref.child(self._encode_emailHTML()).child('stock_portfolio').set(stock_portfolio_data)
-
-            self.portfolio = stock_portfolio_data
-            print("User's stock portfolio has been successfully stored in Firebase.")
-            return True, self.portfolio, 200
-        except Exception as e:
-            print("An error occurred:", e)
-            return False, None, 401
+    # def post_portfolio_info(self, stock_portfolio_data):
+    #     try:
+    #         users_ref = db.reference('users')
+    #         if not self._check_user_exists():
+    #             print("User not registered")
+    #             return False, 401
+    #
+    #         users_ref.child(self._encode_emailHTML()).child('stock_portfolio').set(stock_portfolio_data)
+    #
+    #         self.portfolio = stock_portfolio_data
+    #         print("User's stock portfolio has been successfully stored in Firebase.")
+    #         return True, self.portfolio, 200
+    #     except Exception as e:
+    #         print("An error occurred:", e)
+    #         return False, None, 401
 
 class BardAI(object):
 

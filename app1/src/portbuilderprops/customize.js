@@ -1,7 +1,8 @@
 import 'assets/scss/styles.css';
 import CompanySearch from 'valuationCourseProps/stockSearch';
+import Portstuff from './getportfoliostuff';
 import 'assets/scss/header-aurora.css';
-
+import 'assets/scss/stock-select.css'
 
 const LilPortfolioCustomizer  = () => {
 
@@ -28,8 +29,8 @@ const LilPortfolioCustomizer  = () => {
             </div>
             <div className="gird-item3">
                 <h1 className="customizer-title"> Portfolio</h1>
+                <Portstuff />
             </div>
-
         </div>
       </div>
   );

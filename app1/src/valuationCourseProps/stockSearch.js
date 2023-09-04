@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
+import Axios from 'axios';
 
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -7,6 +8,16 @@ const CompanySearch = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userCorrected, setUserCorrected] = useState(false);
   const dropdownRef = useRef(null);
+  const handleSubmit = () => {
+      Axios.post('http://localhost:5000/api/post-portfolio-info', {searchResults, "email": localStorage.getItem('userEmail')})
+        .then((response) => {
+          // Handle the response from the server here
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
 
   useEffect(() => {
     const fetchPolygonData = async () => {
@@ -128,6 +139,19 @@ const CompanySearch = () => {
               </ul>
             )}
           </div>
+            <a>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <button
+                    className="submit-button-reset-style"
+                    type="button"
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </button>
+            </a>
         </div>
       </form>
     </div>

@@ -88,6 +88,8 @@ const FirebaseLogin = ({ ...others }) => {
     if (response.data === "Login Successful") {
         alert("Login Successful");
         localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userEmail', values.email)
+        console.log(localStorage.getItem('userEmail'));
         navigate('/dashboard');
     } else if (response.data === "Incorrect password") {
         alert("Incorrect password");
