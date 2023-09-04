@@ -1,44 +1,12 @@
-import React, { Component } from 'react';
-import Axios from 'axios';
 
-class Portstuff extends Component {
-  constructor() {
-    super();
-    this.state = {
-      responseData: null,
-    };
-  }
+import StockDisplay from './StockDisplay.js'
 
-  componentDidMount() {
-    Axios.post('http://localhost:5000/api/get-portfolio-info', { "email": localStorage.getItem('userEmail') })
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ responseData: response.data });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
-
-  render() {
-    const { responseData } = this.state;
-
+const Portstuff = () => {
     return (
       <div>
-        <h1>Portstuff Component</h1>
-        {responseData ? (
-          <div>
-            <p>GOOGL: {responseData.GOOGL}</p>
-            <p>HEPA: {responseData.HEPA}</p>
-            <p>TSLA: {responseData.TSLA}</p>
-            {/* Render other properties as needed */}
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+        <StockDisplay />
       </div>
     );
-  }
 }
 
 export default Portstuff;

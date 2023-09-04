@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
 import Axios from 'axios';
-
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [stockInput, setStockInput] = useState('');
@@ -139,11 +138,19 @@ const CompanySearch = () => {
               </ul>
             )}
           </div>
-            <a>
+            <a style={{ marginTop: '20rem' }}>
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
                 <button
                     className="submit-button-reset-style"
                     type="button"

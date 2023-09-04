@@ -27,6 +27,7 @@ const EquityValueMultiples = Loadable(lazy(() => import('valuationCourseProps/eq
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
+const CustomizeBard = Loadable(lazy(() => import('portbuilderprops/customizebard')))
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -190,6 +191,11 @@ const MainRoutes = {
       path: 'customize',
       element: <Customize />
     },
+    {
+      path: 'customizebard',
+      element: <CustomizeBard />
+    },
+
     {
       path: 'sample-page',
       element: <SamplePage />
