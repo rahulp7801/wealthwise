@@ -29,7 +29,7 @@ const EnterpriseValueMultiples = () => {
             <div className="card-body">
                 <div className='card'>
                     <div className='card-content'>
-                        <div>Enterprise Value (EV) multiples serve as financial metrics for valuation, allowing assessment of a company&apos;s relative worth. These metrics are derived by dividing the Enterprise Value by specific financial indicators like EBITDA, EBIT, or Sales. They prove valuable for investors, analysts, and stakeholders to compare companies within an industry or across sectors, considering their financial structure and operational performance.</div>
+                        <div>Enterprise Value (EV) multiples serve as financial metrics for valuation, allowing assessment of a company&apos;s relative worth. These metrics are derived by dividing the Enterprise Value by specific financial indicators like EBITDA, Cashflow, or Sales. They prove valuable for investors, analysts, and stakeholders to compare companies within an industry or across sectors, considering their financial structure and operational performance.</div>
                         <div>The Three Multiples Introduced in this Section:</div>
                         <ul>
                             <li>
@@ -42,6 +42,7 @@ const EnterpriseValueMultiples = () => {
                             <strong>EV/Sales</strong> 
                             </li>
                         </ul>
+                        <div> We will take your company&apos;s financial metrics and put them up against two leading competitors in your company&apos;s industry to make judgments on its performance and whether or not to buy.</div>
                     </div>
                 </div>
                 <div className="gap2"></div>
@@ -56,10 +57,7 @@ const EnterpriseValueMultiples = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='card'>
-                                <div className='card-content'>
-                                </div>
-                            </div>
+
                             <div className='card'>
                                 <div className='card-content'>
                                     <EVtoEBITDA />

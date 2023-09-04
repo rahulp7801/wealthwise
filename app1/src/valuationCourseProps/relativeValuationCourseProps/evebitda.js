@@ -152,7 +152,16 @@ const EVtoEBITDA = () => {
 
   return (
     <div>
+      <div>
+        {apiData}:{enterpriseValueMultiple1}
+        {stock1}:{enterpriseValueMultiple2}
+        {stock2}:{enterpriseValueMultiple3}
+      </div>
+
+        
+      <div>
         {validity}
+      </div>
           
     </div>
   );

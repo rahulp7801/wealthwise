@@ -7,7 +7,7 @@ import React from 'react';
 // import LanguageProcessorComponent from "trainingSelector.js/trainer";
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
-
+import ChatBot from "portbuilderprops/chatBotUI.js"
 // import SurveyForm from "valuationCourseProps/surveyForm"
 import StockSurvey from "valuationCourseProps/stockSurveyv2";
 // import InteractiveSkill from "valuationCourseProps/interactIcon";
@@ -38,6 +38,11 @@ function SamplePage() {
       <div className="chat-survey">
       
         <StockSurvey />
+      
+      </div>
+      <div className="chat-survey">
+      
+        <ChatBot />
       
       </div>
     </div>
