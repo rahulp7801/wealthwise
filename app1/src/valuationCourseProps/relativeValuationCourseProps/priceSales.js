@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
+// import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
 
 const apiKey = "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";
 
-const PricetoSales = () => {
+const PriceSales = () => {
   const [stock1, setStock1] = useState("");
   const [stock2, setStock2] = useState("");
-  const [pricetoSales1, setPricetoSales1] = useState("");
-  const [pricetoSales2, setPricetoSales2] = useState("");
-  const [pricetoSales3, setPricetoSales3] = useState("");
+  const [priceSales1, setPriceSales1] = useState("");
+  const [priceSales2, setPriceSales2] = useState("");
+  const [priceSales3, setPriceSales3] = useState("");
   const [validity, setValidity]  = useState("");
 
 
@@ -51,9 +52,10 @@ const PricetoSales = () => {
         });
     
         const data = await response.json();
-        const stocksList = data.choices[0].message.content; // Example: "GM, F"
+        const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
+        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+
         setStock1(firstStock);
         setStock2(secondStock);
         console.log(stock1)
@@ -67,9 +69,8 @@ const PricetoSales = () => {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
             console.log(data)
-
-            setPricetoSales1(data[0].priceToSalesRatioTTM);
-            console.log(pricetoSales1)
+            setPriceSales1(data[0].priceToSalesRatioTTM);
+            console.log(peGrowth1)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -82,7 +83,7 @@ const PricetoSales = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPricetoSales2(data[0].priceToSalesRatioTTM);
+            setPriceSales2(data[0].priceToSalesRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -98,7 +99,7 @@ const PricetoSales = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPricetoSales3(data[0].priceToSalesRatioTTM);
+            setPriceSales3(data[0].priceToSalesRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -107,11 +108,11 @@ const PricetoSales = () => {
         fetchData();
       }, []);
       useEffect(() => {
-        if (apiData && pricetoSales3 && pricetoSales1 && pricetoSales2 !== null) {
-          callOpenAIAPI2(apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2);
+        if (apiData && priceSales3 && priceSales1 && priceSales2 !== null) {
+          callOpenAIAPI2(apiData, priceSales3, stock1, stock2, priceSales1, priceSales2);
         }
-      }, [apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2]);
-      async function callOpenAIAPI2(apiData, pricetoSales3, stock1, stock2, pricetoSales1, pricetoSales2) {
+      }, [apiData, priceSales3, stock1, stock2, priceSales1, priceSales2]);
+      async function callOpenAIAPI2(apiData, priceSales3, stock1, stock2, priceSales1, priceSales2) {
 
 
 
@@ -120,7 +121,7 @@ const PricetoSales = () => {
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's Price/Book Multiple ${pricetoSales3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${pricetoSales1} and ${stock2}:${pricetoSales2}`,
+              "content": `Write an analysis on the inputed company's Price to Sales Ratio which is ${priceSales3}. Compare its Price to Book Ratio to these two comapnies ${stock1}:${priceSales1} and ${stock2}:${priceSales2}. Do not explain what Price to Sales Ratio is. Response should be 6 sentences`,
             },
             {
               "role": "user",
@@ -155,13 +156,13 @@ const PricetoSales = () => {
   return (
     <div>
       <div>
-        {apiData}:{pricetoSales3}
+        {apiData}:{priceSales3}
       </div> 
       <div>
-        {stock1}:{pricetoSales1}
+        {stock1}:{priceSales1}
       </div>
       <div>
-        {stock2}:{pricetoSales2}
+        {stock2}:{priceSales2}
       </div>
       <div>
         {validity}
@@ -171,4 +172,4 @@ const PricetoSales = () => {
   );
 };
 
-export default PricetoSales;
+export default PriceSales;

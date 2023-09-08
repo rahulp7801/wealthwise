@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
+// import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
 
 const apiKey = "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";
 
-const PricetoBook = () => {
+const PriceBook = () => {
   const [stock1, setStock1] = useState("");
   const [stock2, setStock2] = useState("");
-  const [pricetoBook1, setPricetoBook1] = useState("");
-  const [pricetoBook2, setPricetoBook2] = useState("");
-  const [pricetoBook3, setPricetoBook3] = useState("");
+  const [priceBook1, setPriceBook1] = useState("");
+  const [priceBook2, setPriceBook2] = useState("");
+  const [priceBook3, setPriceBook3] = useState("");
   const [validity, setValidity]  = useState("");
 
 
@@ -51,9 +52,10 @@ const PricetoBook = () => {
         });
     
         const data = await response.json();
-        const stocksList = data.choices[0].message.content; // Example: "GM, F"
+        const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
+        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+
         setStock1(firstStock);
         setStock2(secondStock);
         console.log(stock1)
@@ -67,9 +69,8 @@ const PricetoBook = () => {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
             console.log(data)
-
-            setPricetoBook1(data[0].priceToBookRatioTTM);
-            console.log(pricetoBook1)
+            setPriceBook1(data[0].priceToBookRatioTTM);
+            console.log(peGrowth1)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -82,7 +83,7 @@ const PricetoBook = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPricetoBook2(data[0].priceToBookRatioTTM);
+            setPriceBook2(data[0].priceToBookRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -98,7 +99,7 @@ const PricetoBook = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPricetoBook3(data[0].priceToBookRatioTTM);
+            setPriceBook3(data[0].priceToBookRatioTTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -107,11 +108,11 @@ const PricetoBook = () => {
         fetchData();
       }, []);
       useEffect(() => {
-        if (apiData && pricetoBook3 && pricetoBook1 && pricetoBook2 !== null) {
-          callOpenAIAPI2(apiData, pricetoBook3, stock1, stock2, pricetoBook1, pricetoBook2);
+        if (apiData && priceBook3 && priceBook1 && priceBook2 !== null) {
+          callOpenAIAPI2(apiData, priceBook3, stock1, stock2, priceBook1, priceBook2);
         }
-      }, [apiData, pricetoBook3, stock1, stock2, pricetoBook1, pricetoBook2]);
-      async function callOpenAIAPI2(apiData, pricetoBook3, stock1, stock2, pricetoBook1, pricetoBook2) {
+      }, [apiData, priceBook3, stock1, stock2, priceBook1, priceBook2]);
+      async function callOpenAIAPI2(apiData, priceBook3, stock1, stock2, priceBook1, priceBook2) {
 
 
 
@@ -120,7 +121,7 @@ const PricetoBook = () => {
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's Price/Book Multiple ${pricetoBook3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${pricetoBook1} and ${stock2}:${pricetoBook2}`,
+              "content": `Write an analysis on the inputed company's Price to Book Ratio which is ${priceBook3}. Compare its Price to Book Ratio to these two comapnies ${stock1}:${priceBook1} and ${stock2}:${priceBook2}. Do not explain what Price to Book Ratio is. Response should be 6 sentences`,
             },
             {
               "role": "user",
@@ -155,13 +156,13 @@ const PricetoBook = () => {
   return (
     <div>
       <div>
-        {apiData}:{pricetoBook3}
+        {apiData}:{priceBook3}
       </div> 
       <div>
-        {stock1}:{pricetoBook1}
+        {stock1}:{priceBook1}
       </div>
       <div>
-        {stock2}:{pricetoBook2}
+        {stock2}:{priceBook2}
       </div>
       <div>
         {validity}
@@ -171,4 +172,4 @@ const PricetoBook = () => {
   );
 };
 
-export default PricetoBook;
+export default PriceBook;

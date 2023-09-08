@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-// import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
+// import EnterpriseValueSaless from 'valuationCourseProps/enterpriseValueMultiples';
 
 const apiKey = "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";
 
@@ -18,11 +18,13 @@ const EVtoSales = () => {
   useEffect(() => {
     if (apiData) {
       callOpenAIAPI(apiData);
+       // Pass the apiData to the API call function
     }
   }, [apiData]);
 
 
   async function callOpenAIAPI(apiData) {
+    // Construct your APIBody using apiData from the Redux store
     const APIBody = {
       "model": "gpt-4",
       "messages": [
@@ -50,11 +52,13 @@ const EVtoSales = () => {
         });
     
         const data = await response.json();
-        const stocksList = data.choices[0].message.content; 
+        const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
+        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+
         setStock1(firstStock);
         setStock2(secondStock);
+        console.log(stock1)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -62,20 +66,22 @@ const EVtoSales = () => {
     useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock1}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
-            const data = await response.json();    
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const data = await response.json();   
+            console.log(data)
             setEnterpriseValueSales1(data[0].evToSalesTTM);
+            console.log(enterpriseValueSales1)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
         }
     
         fetchData();
-      }, [enterpriseValueSales1]);
+      }, [stock1]);
       useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock2}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
             setEnterpriseValueSales2(data[0].evToSalesTTM);
           } catch (error) {
@@ -91,29 +97,31 @@ const EVtoSales = () => {
 
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${STOCK_SYMBOL}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
             setEnterpriseValueSales3(data[0].evToSalesTTM);
-
           } catch (error) {
             console.error('Error fetching data:', error);
           }
         }
     
         fetchData();
-      }, [enterpriseValueSales3]);
+      }, []);
       useEffect(() => {
-        if (apiData && enterpriseValueSales3 && enterpriseValueSales1 !== null) {
+        if (apiData && enterpriseValueSales3 && enterpriseValueSales1 && enterpriseValueSales2 !== null) {
           callOpenAIAPI2(apiData, enterpriseValueSales3, stock1, stock2, enterpriseValueSales1, enterpriseValueSales2);
         }
-      }, [apiData, enterpriseValueSales3, stock1, stock2, enterpriseValueSales1]);
+      }, [apiData, enterpriseValueSales3, stock1, stock2, enterpriseValueSales1, enterpriseValueSales2]);
       async function callOpenAIAPI2(apiData, enterpriseValueSales3, stock1, stock2, enterpriseValueSales1, enterpriseValueSales2) {
+
+
+
         const APIBody = {
           "model": "gpt-4",
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's EV/Sales ${enterpriseValueSales3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${enterpriseValueSales1} and ${stock2}:${enterpriseValueSales2}`,
+              "content": `Write an analysis on the inputed company's EV/Sales which is ${enterpriseValueSales3}. Compare its EV/Sales to these two comapnies ${stock1}:${enterpriseValueSales1} and ${stock2}:${enterpriseValueSales2}. Do not explain what EV/Sales is. Response should be 6 sentences.`,
             },
             {
               "role": "user",
@@ -121,7 +129,7 @@ const EVtoSales = () => {
             },
           ],
           "temperature": 1,
-          "max_tokens": 300,
+          "max_tokens": 3,
         };
     
         try {
@@ -147,7 +155,19 @@ const EVtoSales = () => {
 
   return (
     <div>
+      <div>
+        {apiData}:{enterpriseValueSales3}
+      </div> 
+      <div>
+        {stock1}:{enterpriseValueSales1}
+      </div>
+      <div>
+        {stock2}:{enterpriseValueSales2}
+      </div>
+      <div>
         {validity}
+      </div>
+          
     </div>
   );
 };

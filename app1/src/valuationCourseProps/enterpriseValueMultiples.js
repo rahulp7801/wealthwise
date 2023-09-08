@@ -5,9 +5,11 @@ import 'assets/scss/styles.css';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
-import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
+// import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
 // import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
 // import EVtoSales from "./relativeValuationCourseProps/evsales";
+import SparkleButton5 from "./sparkleButton5";
+
 const EnterpriseValueMultiples = () => {
     return (
         <div>
@@ -120,7 +122,7 @@ const EnterpriseValueMultiples = () => {
     
                             <div className='card2'>
                                 <div className='card2-content'>
-                                    <EVtoEBITDA />
+                                    {/* <EVtoEBITDA /> */}
                             </div>
                     </div>
                         <div className="card-body">
@@ -273,6 +275,7 @@ const EnterpriseValueMultiples = () => {
                     <div className="gap2"></div>
                 </PersistGate>
             </Provider >
+            <SparkleButton5 />
         </div>
     )
 }

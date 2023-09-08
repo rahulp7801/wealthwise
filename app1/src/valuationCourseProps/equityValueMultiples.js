@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import PEGrowth from "./relativeValuationCourseProps/pegrowth";
-import PricetoBook from "./relativeValuationCourseProps/priceBook";
-import PricetoSales from "./relativeValuationCourseProps/priceSales";
+// import PricetoBook from "./relativeValuationCourseProps/priceBook";
+// import PricetoSales from "./relativeValuationCourseProps/priceSales";
 
 const EquityValueMultiples = () => {
     return (
@@ -184,7 +184,7 @@ const EquityValueMultiples = () => {
 
                                 <div className='card'>
                                     <div className='card-content'>
-                                        <PricetoBook />
+                                        {/* <PricetoBook /> */}
                                     </div>
                                 </div>
                         </div>
@@ -255,7 +255,7 @@ const EquityValueMultiples = () => {
                                 <div className="gap2"></div>
                                 <div className='card'>
                                     <div className='card-content'>
-                                        <PricetoSales />
+                                        {/* <PricetoSales /> */}
                                     </div>
                                 </div>
                             </div>

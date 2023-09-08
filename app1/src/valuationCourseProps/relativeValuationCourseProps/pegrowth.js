@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-// import peGrowths from 'valuationCourseProps/peGrowths';
+// import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
 
 const apiKey = "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";
 
@@ -52,9 +52,10 @@ const PEGrowth = () => {
         });
     
         const data = await response.json();
-        const stocksList = data.choices[0].message.content; // Example: "GM, F"
+        const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
+        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+
         setStock1(firstStock);
         setStock2(secondStock);
         console.log(stock1)
@@ -65,11 +66,10 @@ const PEGrowth = () => {
     useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
             console.log(data)
-
-            setPeGrowth1(data[0].priceEarningsToGrowthRatioTTM);
+            setPeGrowth1(data[0].priceEarningsToGrowthRatio);
             console.log(peGrowth1)
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -81,9 +81,9 @@ const PEGrowth = () => {
       useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPeGrowth2(data[0].priceEarningsToGrowthRatioTTM);
+            setPeGrowth2(data[0].priceEarningsToGrowthRatio);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -97,9 +97,9 @@ const PEGrowth = () => {
 
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setPeGrowth3(data[0].priceEarningsToGrowthRatioTTM);
+            setPeGrowth3(data[0].priceEarningsToGrowthRatio);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -121,7 +121,7 @@ const PEGrowth = () => {
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's PE/Growth Multiple ${peGrowth3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${peGrowth1} and ${stock2}:${peGrowth2}`,
+              "content": `Write an analysis on the inputed company's Price Earnings to Growth Ratio which is ${peGrowth3}. Compare its Price Earnings to Growth Ratio to these two comapnies ${stock1}:${peGrowth1} and ${stock2}:${peGrowth2}. Do not explain what Price Earnings to Growth Ratio is. Response should be 6 sentences`,
             },
             {
               "role": "user",

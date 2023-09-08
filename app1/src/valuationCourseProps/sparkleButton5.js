@@ -2,10 +2,10 @@ import React from 'react';
 import 'assets/scss/sparkle-button.css';
 import { useNavigate } from 'react-router-dom';
 
-const SparkleButton4 = () => {
+const SparkleButton5 = () => {
     const navigate = useNavigate();
     const handleNextPage = () => {
-      navigate('/icons/enterprise-multiples')
+      navigate('/icons/equity-multiples')
     }
     return (
         <div >
@@ -14,10 +14,10 @@ const SparkleButton4 = () => {
             <div className='sparkle-button' onClick={handleNextPage}>
                 <span className="spark"></span>
                 <span className="backdrop"></span>
-                <span className="text">Enterprise Multiples</span>
+                <span className="text">Equity Multiples</span>
             </div>
             <div className="bodydrop"></div>
         </div>
     )
 }
-export default SparkleButton4
+export default SparkleButton5

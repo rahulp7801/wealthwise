@@ -52,9 +52,10 @@ const EVtoEBITDA = () => {
         });
     
         const data = await response.json();
-        const stocksList = data.choices[0].message.content; // Example: "GM, F"
+        const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(',').map(stock => stock.trim());
+        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+
         setStock1(firstStock);
         setStock2(secondStock);
         console.log(stock1)
@@ -68,7 +69,6 @@ const EVtoEBITDA = () => {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
             console.log(data)
-
             setEnterpriseValueMultiple1(data[0].enterpriseValueMultipleTTM);
             console.log(enterpriseValueMultiple1)
           } catch (error) {
@@ -121,7 +121,7 @@ const EVtoEBITDA = () => {
           "messages": [
             {
               "role": "system",
-              "content": `Write an analysis on the inputed company's EV/EBITDA ${enterpriseValueMultiple3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${enterpriseValueMultiple1} and ${stock2}:${enterpriseValueMultiple2}`,
+              "content": `Write an analysis on the inputed company's EV/EBITDA which is ${enterpriseValueMultiple3}. Compare its EV/EBITDA to these two comapnies ${stock1}:${enterpriseValueMultiple1} and ${stock2}:${enterpriseValueMultiple2}. Do not explain what EV/EBITDA is. Response should be 6 sentences`,
             },
             {
               "role": "user",
@@ -129,7 +129,7 @@ const EVtoEBITDA = () => {
             },
           ],
           "temperature": 1,
-          "max_tokens": 300,
+          "max_tokens": 2,
         };
     
         try {
