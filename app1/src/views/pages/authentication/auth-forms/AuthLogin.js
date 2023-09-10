@@ -89,7 +89,10 @@ const FirebaseLogin = ({ ...others }) => {
         alert("Login Successful");
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userEmail', values.email)
+        const userPortfolio = await axios.post('http://localhost:5000/api/get-portfolio-info', values);
+        localStorage.setItem('portfolio', JSON.stringify(userPortfolio.data));
         console.log(localStorage.getItem('userEmail'));
+        console.log(localStorage.getItem('portfolio'));
         navigate('/dashboard');
     } else if (response.data === "Incorrect password") {
         alert("Incorrect password");
@@ -164,8 +167,8 @@ const FirebaseLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
+          email: 'wealthwisehelpline@gmail.com',
+          password: 'Jayana',
           submit: null
         }}
         validationSchema={Yup.object().shape({
