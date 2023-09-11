@@ -15,12 +15,13 @@ const Guest = () => {
     setUserInput('');
 
     try {
+        const portielortie = localStorage.getItem('portfolio');
       const response = await fetch('http://localhost:5000/api/get_answer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: userInput }),
+        body: JSON.stringify({ prompt: userInput, portfolio: portielortie }),
       });
 
       if (!response.ok) {

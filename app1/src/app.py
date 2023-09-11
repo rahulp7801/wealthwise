@@ -127,12 +127,14 @@ def get_portfolio_info():
 def get_answer():
     data = request.json
     user_prompt = data.get('prompt')  # Receive the user input from the frontend
-    token = 'ZwgJ-np3mc6Ixmr-LWTQtQW0uW911XMvv6ecRyZE_d1tYtdk3G8HbweCdIu6n8MxzrAhQg.'
+    userPortfolio = data.get('portfolio')
+    print(userPortfolio)
+    token = 'awgJ-tkOIVz1WBxo2Lio6ARpBeruVLmRUqwJdIq1kQwowJCIwjd-CF0Qsjl-l8aDY4GqzQ.'
     bard = Bard(token=token)
     print(f"Received prompt from frontend: {user_prompt}")
 
     # Process the user_prompt using the Bard API (or any other logic) to generate an answer
-    answer = bard.get_answer(user_prompt)
+    answer = bard.get_answer(f'my portfolio is: {userPortfolio}\n \n{user_prompt}')
     print(f"Generated answer: {answer}")
     import json
 

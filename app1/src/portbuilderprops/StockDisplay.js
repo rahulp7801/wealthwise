@@ -1,7 +1,6 @@
 // Import necessary modules and components
 import React, { useState, useEffect } from 'react'; // Import React, useState, and useEffect from 'react'
 import PropTypes from 'prop-types'; // Import PropTypes for prop type validation
-import Axios from 'axios'; // Import Axios for making HTTP requests
 import { Avatar, Box, Grid, Menu, MenuItem, Typography, Button } from '@mui/material'; // Import material-ui components
 import { styled, useTheme } from '@mui/material/styles'; // Import styled and useTheme from material-ui
 import MainCard from 'ui-component/cards/MainCard'; // Import MainCard component
@@ -72,16 +71,13 @@ function StockDisplay() {
   };
 
   // useEffect to fetch data when the component mounts
-  useEffect(() => {
-    Axios.post('http://localhost:5000/api/get-portfolio-info', { "email": localStorage.getItem('userEmail') })
-      .then((response) => {
-        console.log(response.data);
-        setResponseData(response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
+    useEffect(() => {
+      const portie = localStorage.getItem('portfolio');
+      // Parse the JSON string into a JavaScript object
+      const parsedData = JSON.parse(portie);
+      setResponseData(parsedData);
+    }, []);
+
 
   // Return JSX for rendering the component
   return (
