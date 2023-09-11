@@ -1,13 +1,13 @@
 import { useState } from 'react'
 // import './App.css'
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import './chat-ui-kit-styles-for-WealthWise/themes/default/main.scss';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 const API_KEY = "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";
 const systemMessage = { 
   "role": "system", "content": `
   You are a financial advisor. Ask each question after the user replies to the previous question.
-  1. What is your investment goal?
+  1. Hello, My name is Wealth Wise! What is your investment goal?
   2. What is your risk tolerance level?
   3. How long do you plan to invest?
   4. Have you invested before?
@@ -22,7 +22,7 @@ const systemMessage = {
 function StockSurvey() {
   const [messages, setMessages] = useState([
     {
-      message: "What is your investment goal?",
+      message: "Hello, My name is Wealth Wise! What is your investment goal?",
     //   sentTime: "just now",
       sender: "ChatGPT"
     }
@@ -64,7 +64,8 @@ function StockSurvey() {
       "messages": [
         systemMessage,  // The system message DEFINES the logic of our chatGPT
         ...apiMessages // The messages from our chat with ChatGPT
-      ]
+      ],
+      "temperature": 1,
     }
 
     await fetch("https://api.openai.com/v1/chat/completions", 

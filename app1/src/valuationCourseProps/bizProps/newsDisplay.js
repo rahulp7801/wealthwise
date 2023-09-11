@@ -5,21 +5,26 @@ import NewsGrid from "./newsGrid";
 function NewsDisplay() {
     const [items, setItems] = useState([])
 
-    const apiKey = '09d814c562654e04b9460c5d8f9594d5';
+    const apiKey = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
     const apiData = useSelector((state) => state.apiData); // Accessing the apiData state from Redux
 
     useEffect(() => {
-        // Assuming you have additionalKeyword and sortBy variables defined somewhere in the component
-        const sortBy = "relevance";
-        const language = "en"; 
-        const pageSize = 3;
-        fetch(`https://newsapi.org/v2/everything?q=${apiData}&sortBy=${sortBy}&pageSize=${pageSize}&language=${language}&apiKey=${apiKey}`)
-            .then(res => res.json())
-            .then(data => setItems(data.articles))
-    }, [apiData])
+        const terms = apiData.trim().split(' ');
+        const STOCK_SYMBOL = terms[terms.length - 1]
+        console.log(STOCK_SYMBOL)
+        fetch(`https://api.polygon.io/v2/reference/news?ticker=${STOCK_SYMBOL}&limit=6&apiKey=${apiKey}`)
+            .then((res) => res.json())
+            .then((data) => {
+            setItems(data.results);
+            console.log(data.results); // Place console.log inside this block
+            })
+            .catch((error) => {
+            // Handle any potential errors here
+            console.error(error);
+            });
+        }, [apiData]);
     return (
         <div className="news-body">
-            <h1 className="news-title">{apiData} News</h1>
             <Menu  />
             <NewsGrid items={items}/>
         </div>

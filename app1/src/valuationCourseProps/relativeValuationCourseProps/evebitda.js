@@ -66,10 +66,10 @@ const EVtoEBITDA = () => {
     useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock1}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock1}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
             console.log(data)
-            setEnterpriseValueMultiple1(data[0].enterpriseValueMultipleTTM);
+            setEnterpriseValueMultiple1(data[0].enterpriseValueOverEBITDATTM);
             console.log(enterpriseValueMultiple1)
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -81,9 +81,9 @@ const EVtoEBITDA = () => {
       useEffect(() => {
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${stock2}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${stock2}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setEnterpriseValueMultiple2(data[0].enterpriseValueMultipleTTM);
+            setEnterpriseValueMultiple2(data[0].enterpriseValueOverEBITDATTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -97,9 +97,9 @@ const EVtoEBITDA = () => {
 
         async function fetchData() {
           try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/ratios-ttm/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+            const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/${STOCK_SYMBOL}?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();
-            setEnterpriseValueMultiple3(data[0].enterpriseValueMultipleTTM);
+            setEnterpriseValueMultiple3(data[0].enterpriseValueOverEBITDATTM);
           } catch (error) {
             console.error('Error fetching data:', error);
           }

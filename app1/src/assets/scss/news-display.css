@@ -95,7 +95,7 @@
 .article-source {
     display: flex; 
     justify-content: flex-start;
-    align-items: center;
+    align-items: left;
     gap: 0.5em;
     color: #ccc;
     width: 50px;

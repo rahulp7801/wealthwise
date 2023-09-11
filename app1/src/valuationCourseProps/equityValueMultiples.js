@@ -5,7 +5,8 @@ import 'assets/scss/styles.css';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
-import PEGrowth from "./relativeValuationCourseProps/pegrowth";
+import Test from "./relativeValuationCourseProps/apiTest";
+// import PEGrowth from "./relativeValuationCourseProps/pegrowth";
 // import PricetoBook from "./relativeValuationCourseProps/priceBook";
 // import PricetoSales from "./relativeValuationCourseProps/priceSales";
 
@@ -115,7 +116,8 @@ const EquityValueMultiples = () => {
     
                             <div className='card2'>
                                 <div className='card2-content'>
-                                    <PEGrowth />
+                                    {/* <PEGrowth /> */}
+                                    <Test />
                             </div>
                     </div>
                         <div className="card-body">
