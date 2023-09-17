@@ -24,6 +24,7 @@ const FinancialKPI = Loadable(lazy(() => import('valuationCourseProps/financialK
 const RelativeValuationIntro = Loadable(lazy(() => import('valuationCourseProps/relValIntro.js')))
 const EnterpriseValueMultiples = Loadable(lazy(() => import('valuationCourseProps/enterpriseValueMultiples.js')))
 const EquityValueMultiples = Loadable(lazy(() => import('valuationCourseProps/equityValueMultiples.js')))
+const DiscountedCashFlow = Loadable(lazy(() => import('valuationCourseProps/discountedCashflow.js')))
 const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
@@ -162,6 +163,14 @@ const MainRoutes = {
         {
           path: 'equity-multiples',
           element: <EquityValueMultiples />
+        }
+      ]
+    },{
+      path: 'icons',
+      children: [
+        {
+          path: 'discounted-cashflow',
+          element: <DiscountedCashFlow />
         }
       ]
     },

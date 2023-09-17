@@ -12,9 +12,8 @@ const PEGrowth = () => {
   const [peGrowth2, setPeGrowth2] = useState("");
   const [peGrowth3, setPeGrowth3] = useState("");
   const [validity, setValidity]  = useState("");
-
-
   const apiData = useSelector((state) => state.apiData);
+  
   useEffect(() => {
     if (apiData) {
       callOpenAIAPI(apiData);
