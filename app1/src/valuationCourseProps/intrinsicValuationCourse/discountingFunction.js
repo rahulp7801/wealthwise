@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { linearRegression} from 'simple-statistics'
 // Problems
 // costDebt
 // interestExpense
@@ -37,8 +38,37 @@ const Discounter = () => {
     // projection
     const [capEx, setCapEx] = useState("")
     const [currentFreeCashFlow, setCurrentFreeCashFlow] = useState("");
-    const [pastFreeCashFlow, setPastFreeCashFlow] = useState("");
-
+    const [freeCashFlow2018, setFreeCashFlow2018] = useState("");
+    const [freeCashFlow2019, setFreeCashFlow2019] = useState("");
+    const [freeCashFlow2020, setFreeCashFlow2020] = useState("");
+    const [freeCashFlow2021, setFreeCashFlow2021] = useState("");
+    const freeCashFlowDF = [
+      [ 2018, freeCashFlow2018 ],
+      [ 2019, freeCashFlow2019 ],
+      [ 2020, freeCashFlow2020 ],
+      [ 2021, freeCashFlow2021 ],
+      [ 2022, currentFreeCashFlow ],
+    ];
+    console.log("freeCashFlowDF",freeCashFlowDF)
+    const result = linearRegression(freeCashFlowDF);
+    console.log("result",result)
+    const slope = result.m;
+    console.log("slope",slope)
+    const intercept = result.b;
+    console.log("intercept",intercept)
+    const futureYears = [2023, 2024, 2025, 2026, 2027];
+    console.log("futureYears",futureYears)
+    const forecastCashFlow = (year) => {
+      // y = mx + b, where y is the forecasted cashflow
+      const forecastedCashFlow = slope * year + intercept;
+      return forecastedCashFlow;
+    };
+    // Calculate and log the forecasted cashflows for each future year
+    const forecastedCashFlows = futureYears.map((year) => {
+      const forecastedCashFlow = forecastCashFlow(year);
+      return  [year, forecastedCashFlow] ;
+    });
+    console.log("Forecasted Cashflows", forecastedCashFlows);
     const [currentRevenue, setCurrentRevenue] = useState("")
     const [pastRevenue, setPastRevenue] = useState("")
     const [costRevenue, setCostRevenue] = useState("")
@@ -53,10 +83,9 @@ const Discounter = () => {
     const grossMargin = grossProfit / currentRevenue
     const operatingMargin = operatingIncome / currentRevenue
     const netMargin = netIncome / currentRevenue
-    const discountedFreeCashFlow = freeCashFlow;
-    const freeCashFlowMargin = freeCashFlow / currentRevenue
+    const freeCashFlowMargin = currentFreeCashFlow / currentRevenue
     const revenueGrowthRate = ((currentRevenue - pastRevenue) / currentRevenue) * 100
-    const freeCashFlowMarginGrowthRate = ((currentFreeCashFlow - pastFreeCashFlow) / currentFreeCashFlow) * 100
+    const freeCashFlowMarginGrowthRate = ((currentFreeCashFlow - freeCashFlow2018) / currentFreeCashFlow) * 100
       // '_revenueGrowthRate': ['function:growth_rate', 'revenue'],
     // income statement
     useEffect(() => {
@@ -82,7 +111,6 @@ const Discounter = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/balance-sheet-statement/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb&limit=120`);
             const data = await response.json();   
-            console.log(data)
             setBalanceStatement(data[0].cashAndCashEquivalents)
             setTotalDebt(data[0].totalDebt)
 
@@ -98,9 +126,12 @@ const Discounter = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/cash-flow-statement/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb&limit=120`);
             const data = await response.json();   
-            console.log(data)
             setCurrentFreeCashFlow(data[0].freeCashFlow)
-            setPastFreeCashFlow(data[4].freeCashFlow)
+            setFreeCashFlow2019(data[3].freeCashFlow)
+            setFreeCashFlow2020(data[2].freeCashFlow)
+            setFreeCashFlow2018(data[4].freeCashFlow)
+            setFreeCashFlow2021(data[1].freeCashFlow)
+
             setCapEx(data[0].capitalExpenditure)
             setOperatingCashFlow(data[0].operatingCashFlow)
           } catch (error) {
@@ -115,7 +146,6 @@ const Discounter = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/profile/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
-            console.log(data)
             setBeta(data[0].beta)
             setMktCap(data[0].mktCap)
 
@@ -132,7 +162,6 @@ const Discounter = () => {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/stock_dividend/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json();   
-            console.log(data)
             setDividends(data.historical[0].dividend)
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -168,7 +197,6 @@ const Discounter = () => {
             balance_sheet: {balanceStatement}
           </div>
           <div>
-            cashflowStatement: {cashflowStatement}
           </div>
 
           <div>
@@ -213,8 +241,28 @@ const Discounter = () => {
           <div>
             discountRate: {discountRate}
           </div>
+          <div>
+            Forecasted Cashflows: {forecastedCashFlows}
+          </div>
+          <div>
+            ignore:
+            {setFreeCashFlow2019}
+            {setFreeCashFlow2020}
+            {setFreeCashFlow2021}
+            {costRevenue}
+            {setGrossProfit}
+            {weightedAverageShsOut}
+            {eps}
+            {operatingCashFlowMargin}
+            {capitalExpenditureMargin}
+            {grossMargin}
+            {operatingMargin}
+            {netMargin}
+            {freeCashFlowMargin}
+            {revenueGrowthRate}
+            {freeCashFlowMarginGrowthRate}
 
-
+          </div>
         </div>
     );
 };
