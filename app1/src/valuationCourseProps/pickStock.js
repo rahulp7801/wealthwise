@@ -13,7 +13,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { useNavigate } from 'react-router-dom';
 // import CardGridComponent from './survey_grid';
-
+import 'assets/scss/header-aurora.css';
+import 'assets/scss/stock-select.css'
 const PickStock  = () => {
 // Animation function for slide in Left
   useEffect(() => {
@@ -118,9 +119,21 @@ const PickStock  = () => {
   };
   return (
       <div>
-        <div className="top-active-stocks-container">
-          Stock Selection
+        <div className="aurora-gradient">
+        <div className="header-body">
+          <div className="aurora-content">
+            <h1 className="aurora-title"> 
+              Stock Selection
+              <div className="aurora">
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+              </div>
+            </h1>
+          </div>
         </div>
+      </div>
         <div className='gap2'></div>
 
         <div className='container-2'>

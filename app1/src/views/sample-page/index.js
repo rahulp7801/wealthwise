@@ -11,7 +11,7 @@ import 'assets/scss/stock-select.css'
 // import SurveyForm from "valuationCourseProps/surveyForm"
 import StockSurvey from "valuationCourseProps/stockSurveyv2";
 // import InteractiveSkill from "valuationCourseProps/interactIcon";
-
+import SparkleButton6 from 'valuationCourseProps/sparkleButton6';
 function SamplePage() {
 
   return (
@@ -34,7 +34,6 @@ function SamplePage() {
       
       <div className="space"></div>
     
-      <div className="space"></div>
 
       <div className="card-body">
       <div className="card2">
@@ -48,6 +47,7 @@ function SamplePage() {
 
             <StockSurvey />
           </div>
+          <SparkleButton6 />
         </div>
       </div>
     </div>
