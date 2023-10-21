@@ -6,62 +6,64 @@ import 'assets/scss/stock-select.css'
 const apiKey = "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";
 
 const PEGrowth = () => {
-  const [stock1, setStock1] = useState("");
-  const [stock2, setStock2] = useState("");
+  // const [stock1, setStock1] = useState("");
+  // const [stock2, setStock2] = useState("");
   const [peGrowth1, setPeGrowth1] = useState("");
   const [peGrowth2, setPeGrowth2] = useState("");
   const [peGrowth3, setPeGrowth3] = useState("");
   const [validity, setValidity]  = useState("");
   const apiData = useSelector((state) => state.apiData);
-  
-  useEffect(() => {
-    if (apiData) {
-      callOpenAIAPI(apiData);
-       // Pass the apiData to the API call function
-    }
-  }, [apiData]);
+  const stock1 = useSelector((state) => state.stock1);
+  const stock2 = useSelector((state) => state.stock2);
+
+  // useEffect(() => {
+  //   if (apiData) {
+  //     callOpenAIAPI(apiData);
+  //      // Pass the apiData to the API call function
+  //   }
+  // }, [apiData]);
 
 
-  async function callOpenAIAPI(apiData) {
-    // Construct your APIBody using apiData from the Redux store
-    const APIBody = {
-      "model": "gpt-4",
-      "messages": [
-        {
-          "role": "system",
-          "content": "Given a stock, find two other stocks in the same specific sector as the stock. Once found output ONLY their stock ticker.",
-        },
-        {
-          "role": "user",
-          "content": apiData,
-        },
-      ],
-      "temperature": 0,
-      "max_tokens": 100,
-    };
+  // async function callOpenAIAPI(apiData) {
+  //   // Construct your APIBody using apiData from the Redux store
+  //   const APIBody = {
+  //     "model": "gpt-4",
+  //     "messages": [
+  //       {
+  //         "role": "system",
+  //         "content": "Given a stock, find two other stocks in the same specific sector as the stock. Once found output ONLY their stock ticker.",
+  //       },
+  //       {
+  //         "role": "user",
+  //         "content": apiData,
+  //       },
+  //     ],
+  //     "temperature": 0,
+  //     "max_tokens": 100,
+  //   };
 
-    try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + apiKey,
-          },
-          body: JSON.stringify(APIBody),
-        });
+  //   try {
+  //       const response = await fetch("https://api.openai.com/v1/chat/completions", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "Authorization": "Bearer " + apiKey,
+  //         },
+  //         body: JSON.stringify(APIBody),
+  //       });
     
-        const data = await response.json();
-        const stocksList = data.choices[0].message.content;
+  //       const data = await response.json();
+  //       const stocksList = data.choices[0].message.content;
 
-        const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
+  //       const [firstStock, secondStock] = stocksList.split(/,|\s+/).map(stock => stock.trim());
 
-        setStock1(firstStock);
-        setStock2(secondStock);
-        console.log(stock1)
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
+  //       setStock1(firstStock);
+  //       setStock2(secondStock);
+  //       console.log(stock1)
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
     useEffect(() => {
         async function fetchData() {
           try {
@@ -153,21 +155,22 @@ const PEGrowth = () => {
     
 
   return (
-    <div>
+    
+    <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+      <h1>Price Earnings over Growth Relative Analysis</h1>
       <div>
-        {apiData}:{peGrowth3}
-      </div> 
-      <div>
-        {stock1}:{peGrowth1}
+        {apiData} PE/Growth:{peGrowth3}
       </div>
       <div>
-        {stock2}:{peGrowth2}
+        {stock1} PE/Growth:{peGrowth1}
+      </div>
+      <div>
+        {stock2} PE/Growth:{peGrowth2}
       </div>
       <div>
         {validity}
       </div>
-          
-    </div>
+  </div>
   );
 };
 

@@ -6,12 +6,22 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
-// import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
-// import EVtoSales from "./relativeValuationCourseProps/evsales";
+import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
+import EVtoSales from "./relativeValuationCourseProps/evsales";
 import SparkleButton5 from "./sparkleButton5";
 import CompetitorSet from "./competitorSet";
+import { useNavigate } from 'react-router-dom';
+import SparkleButton3 from "./sparkleButton3";
+import { Col, Row } from 'antd';
 
 const EnterpriseValueMultiples = () => {
+    const navigate = useNavigate();
+    const handleNextPage = () => {
+        navigate('/icons/equity-multiples')
+    }
+    const handlePreviousPage = () => {
+        navigate('/icons/rel-val-intro')
+    }
     return (
         <div>
             <div className="aurora-gradient">
@@ -194,9 +204,9 @@ const EnterpriseValueMultiples = () => {
                                 </div>
                                 <div className="gap2"></div>
 
-                                <div className='card'>
-                                    <div className='card-content'>
-                                        {/* <PtoCashflow /> */}
+                                <div className='card2'>
+                                    <div className='card2-content'>
+                                        <PtoCashflow />
                                     </div>
                                 </div>
                         </div>
@@ -271,16 +281,25 @@ const EnterpriseValueMultiples = () => {
                                     </div>
                                 </div>
                                 <div className="gap2"></div>
-                                <div className='card'>
-                                    <div className='card-content'>
-                                        {/* <EVtoSales /> */}
+                                <div className='card2'>
+                                    <div className='card2-content'>
+                                        <EVtoSales />
                                     </div>
                                 </div>
                             </div>
                     <div className="gap2"></div>
                 </PersistGate>
             </Provider >
-            <SparkleButton5 />
+            <Row>
+          <Col span={8}>
+            <SparkleButton3 onClick={handleNextPage}/>
+
+          </Col>
+          <Col span={8} offset={8}>
+            <SparkleButton5 onClick={handlePreviousPage}/>
+
+          </Col>
+        </Row>
         </div>
     )
 }

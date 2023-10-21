@@ -5,12 +5,22 @@ import 'assets/scss/styles.css';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
-import Test from "./relativeValuationCourseProps/apiTest";
-// import PEGrowth from "./relativeValuationCourseProps/pegrowth";
-// import PricetoBook from "./relativeValuationCourseProps/priceBook";
-// import PricetoSales from "./relativeValuationCourseProps/priceSales";
+import { Col, Row } from 'antd';
+import SparkleButton7 from "./SparkleButton7";
+import SparkleButton2 from "./sparkleButton2";
+import PEGrowth from "./relativeValuationCourseProps/pegrowth";
+import PricetoBook from "./relativeValuationCourseProps/priceBook";
+import PricetoSales from "./relativeValuationCourseProps/priceSales";
+import { useNavigate } from 'react-router-dom';
 
 const EquityValueMultiples = () => {
+    const navigate = useNavigate();
+    const handleNextPage = () => {
+        navigate('/icons/discounted-cashflow')
+    }
+    const handlePreviousPage = () => {
+        navigate('/icons/enterprise-multiples')
+    }
     return (
         <div>
             <div className="aurora-gradient">
@@ -116,8 +126,8 @@ const EquityValueMultiples = () => {
     
                             <div className='card2'>
                                 <div className='card2-content'>
-                                    {/* <PEGrowth /> */}
-                                    <Test />
+                                    <PEGrowth />
+                                    {/* <Test /> */}
                             </div>
                     </div>
                         <div className="card-body">
@@ -184,9 +194,9 @@ const EquityValueMultiples = () => {
                                 </div>
                                 <div className="gap2"></div>
 
-                                <div className='card'>
-                                    <div className='card-content'>
-                                        {/* <PricetoBook /> */}
+                                <div className='card2'>
+                                    <div className='card2-content'>
+                                        <PricetoBook />
                                     </div>
                                 </div>
                         </div>
@@ -255,15 +265,25 @@ const EquityValueMultiples = () => {
                                     </div>
                                 </div>
                                 <div className="gap2"></div>
-                                <div className='card'>
-                                    <div className='card-content'>
-                                        {/* <PricetoSales /> */}
+                                <div className='card2'>
+                                    <div className='card2-content'>
+                                        <PricetoSales />
                                     </div>
                                 </div>
                             </div>
                     <div className="gap2"></div>
                 </PersistGate>
             </Provider >
+            <Row>
+          <Col span={8}>
+            <SparkleButton2 onClick={handleNextPage}/>
+
+          </Col>
+          <Col span={8} offset={8}>
+            <SparkleButton7 onClick={handlePreviousPage}/>
+
+          </Col>
+        </Row>
         </div>
     )
 }

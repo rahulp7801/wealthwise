@@ -1,6 +1,4 @@
-import { Grid } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
-import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
 // import StockSurvey from './stockSurvey';
 import StockSelector from './stockSelect';
@@ -149,6 +147,16 @@ const PickStock  = () => {
         </div>
         <div className='gap'></div>
           <TopActive />
+        <div className='gap'></div>
+        <div className='container-2'>
+          <div className='hidden'>
+            <div className='get-started'>
+              <div className='get-started-content'>
+                <h6 className='get-started-title'>Understand the 11 GICS Sectors and their Risk Profile in the Economy </h6>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className='gap'></div>
         <SectorCarousel />
         <div className="gap2"></div>

@@ -2,10 +2,23 @@ import React from "react";
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
 import 'assets/scss/styles.css';
+import CompetitorSet from "./competitorSet";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './store';
+import { Col, Row } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-
+import SparkleButton2 from "./sparkleButton2";
+import SparkleButton4 from "./sparkleButton4";
 const RelValIntro = () => {
-  
+    const navigate = useNavigate();
+    const handleNextPage = () => {
+        navigate('/icons/enterprise-multiples')
+    }
+    const handlePreviousPage = () => {
+        navigate('/icons/understand-business')
+    }
     return (
         <div>
             <div className="aurora-gradient">
@@ -63,7 +76,29 @@ const RelValIntro = () => {
                     </div>
                 </div>
                 <div className="gap2"></div>
+                <Provider store={store}>
+                    <PersistGate loading={null} persistor={persistor}>
+                <div className='card2'>
+                                <div className='card2-content'>
+                                    <CompetitorSet />
+                            </div>
+                    </div>
+                        </PersistGate>
+                    </Provider>
+                    
+                                    <div className="gap2"></div>
+
             </div>
+            <Row>
+          <Col span={8}>
+            <SparkleButton2 onClick={handleNextPage}/>
+
+          </Col>
+          <Col span={8} offset={8}>
+            <SparkleButton4 onClick={handlePreviousPage}/>
+
+          </Col>
+        </Row>
             
         </div>
     );

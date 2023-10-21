@@ -7,20 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import ProfitMargin1 from "./financialKPI/profitMargin1";
 import OperatingCashflow1 from "./financialKPI/opCashflow1";
 import TotalRevComponent1 from "./financialKPI/totalRevenue1";
-import SparkleButton3 from "./sparkleButton3";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
-import SparkleButton4 from "valuationCourseProps/sparkleButton4";
+import SparkleButton3 from "./sparkleButton3";
 import SparkleButton1 from "./sparkleButton1";
 import { Col, Row } from 'antd';
 const FinancialKPI = () => {
     const navigate = useNavigate();
     const handleNextPage = () => {
-        navigate('/icons/enterprise-multiples')
+        navigate('/icons/rel-val-intro')
     }
     const handlePreviousPage = () => {
-        navigate('/icons/understand-business')
+        navigate('/icons/financial-kpi')
     }
     return (
         <div>
@@ -114,7 +113,7 @@ const FinancialKPI = () => {
 
           </Col>
           <Col span={8} offset={8}>
-            <SparkleButton4 onClick={handlePreviousPage}/>
+            <SparkleButton3 onClick={handlePreviousPage}/>
 
           </Col>
         </Row>
