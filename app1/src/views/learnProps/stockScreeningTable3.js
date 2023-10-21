@@ -58,32 +58,8 @@ export default function StockTaskTable3() {
               onChange={() => handleToggle('Drafts')}
             />
           </ListItemIcon>
-          <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Introduction to the Multiple</Typography>} />
+          <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Discounted Cashflow Valuation</Typography>} />
         </ListItemButton >
-        <ListItemButton onClick={handleButtonClick2}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={checkedItems['Trash']}
-              tabIndex={-1}
-              disableRipple
-              onChange={() => handleToggle('Trash')}
-            />
-          </ListItemIcon>
-          <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Enterprise Value Multiples</Typography>} />
-        </ListItemButton>
-        <ListItemButton onClick={handleButtonClick3}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={checkedItems['Spam']}
-              tabIndex={-1}
-              disableRipple
-              onChange={() => handleToggle('Spam')}
-            />
-          </ListItemIcon>
-          <ListItemText primary={<Typography sx={{ color: 'white', fontWeight: 'bold' }}>Equity Value Multiples</Typography>} />
-        </ListItemButton>
       </List>
     </Paper>
   );

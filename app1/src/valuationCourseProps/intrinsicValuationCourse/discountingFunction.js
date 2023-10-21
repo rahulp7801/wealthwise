@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { linearRegression} from 'simple-statistics'
+import HistoricalCashflowChart from './historicalCashflowChart';
+import FutureCashflowChart from './futureCashflowChart';
 
 const Discounter = () => {
     const apiData = useSelector((state) => state.apiData);
@@ -37,13 +39,17 @@ const Discounter = () => {
       [ 2021, freeCashFlow2021 ],
       [ 2022, currentFreeCashFlow ],
     ];
+    console.log("freecaashflowDF", freeCashFlowDF)
     const result = linearRegression(freeCashFlowDF);
+    console.log("result", result)
+
     const slope = result.m;
     const intercept = result.b;
     const futureYears = [2023, 2024, 2025, 2026, 2027];
     const forecastCashFlow = (year) => {
       // y = mx + b, where y is the forecasted cashflow
       const forecastedCashFlow = slope * year + intercept;
+      console.log("forecastedCashFlow", forecastedCashFlow)
       return forecastedCashFlow;
     };
     // Calculate and log the forecasted cashflows for each future year
@@ -51,6 +57,17 @@ const Discounter = () => {
       const forecastedCashFlow = forecastCashFlow(year);
       return  [year, forecastedCashFlow] ;
     });
+    console.log(forecastedCashFlows)
+
+    // const array = [
+    //   [2023, 118765900000],
+    //   [2024, 131636000000],
+    //   [2025, 144506100000],
+    //   [2026, 157376200000],
+    //   [2027, 170246300000],
+    // ];
+  
+    
 
     const discountedCashFlows = freeCashFlowDF.map(([year, cashFlow]) => {
       // Calculate the present value for each cash flow
@@ -78,6 +95,7 @@ const Discounter = () => {
       [ 2021, eps2021 ],
       [ 2022, eps2022 ],
     ];
+   
     const resultEPS = linearRegression(growthEPS);
     // const perpetualGrowthRate = resultEPS.m;
     const perpetualGrowthRate = 0.0449;
@@ -175,72 +193,179 @@ const Discounter = () => {
         }
         fetchData();
       }, [STOCK_SYMBOL]);
+      // graph stuff
+      const [historicalData, setHistoricalData] = useState({
+        labels: [],
+        datasets: [
+          {
+            label: "Cashflow",
+            data: [],
+          },
+        ],
+      });
+    
+      // Update UserData whenever any of the freeCashFlow variables change
+      useEffect(() => {
+        const updatedHistoricalData = freeCashFlowDF.map(([year, cashflow], index) => ({
+          id: index + 1,
+          year,
+          cashflow,
+        }));
+    
+        setHistoricalData({
+          labels: freeCashFlowDF.map(([year]) => year),
+          datasets: [
+            {
+              label: "Cashflow",
+              data: updatedHistoricalData.map((data) => data.cashflow),
+            },
+          ],
+        });
+      }, [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow]);
+
+      const calculateForecastedCashFlows = () => {
+        const result = linearRegression(freeCashFlowDF);
+        console.log("result2", result)
+        const slope = result.m;
+        const intercept = result.b;
+        const futureYears = [2023, 2024, 2025, 2026, 2027];
+    
+        const forecastedCashFlowsCharting = futureYears.map((year) => {
+          const futureCashFlow = (slope * year) + intercept;
+          return futureCashFlow;
+        });
+        console.log("forecastedCashFlowsCharting", forecastedCashFlowsCharting);
+        return forecastedCashFlowsCharting;
+      };
+    
+      // Initialize forecastedCashFlows
+      const [forecastedCashFlowsCharting, setForecastedCashFlowsCharting] = useState(calculateForecastedCashFlows());
+    
+      // Define the userData state and setUserData function
+      const [forecastedCashFlowsChart, setForecastedCashFlowsChart] = useState({
+        labels: [2023, 2024, 2025, 2026, 2027],
+        datasets: [
+          {
+            label: "Cashflow",
+            data: forecastedCashFlowsCharting, // Use forecastedCashFlowsCharting directly
+          },
+        ],
+      });
+    
+      // Update UserData whenever any of the freeCashFlow variables or forecastedCashFlows change
+      useEffect(() => {
+        const updatedForecastedCashFlowsChart = forecastedCashFlowsCharting.map((cashflow, index) => ({
+          id: index + 1,
+          cashflow,
+        }));
+    
+        setForecastedCashFlowsChart({
+          labels: [2023, 2024, 2025, 2026, 2027],
+          datasets: [
+            {
+              label: "Cashflow",
+              data: updatedForecastedCashFlowsChart.map(({ cashflow }) => cashflow),
+            },
+          ],
+        });
+      }, [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow]);
+    
+      console.log("forecastedCashFlowsChart", forecastedCashFlowsChart);
+    
 
       
     return (
         <div>
-          DCF Value: {dcfValue}
           <div className="card-body">
                 <div className='card2'>
                     <div className='card2-content'>
                       <div>
-                        <h2>Discounted Cash Flow (DCF) Valuation</h2>
+                        <h1 style={{textAlign:'center'}}>Discounted Cash Flow (DCF) Valuation</h1>
                         
-                        <h3>Part 1: Determining the Discount Rate or WACC (Weighted Average Cost of Capital)</h3>
+                        <h2 style={{textAlign:'center'}}>Part 1: Determining the Discount Rate or WACC (Weighted Average Cost of Capital)</h2>
 
-                        <p><strong>Step 1: Get the Cost of Equity</strong></p>
+                        <p style={{textAlign:'center'}}><strong>Step 1: Get the Cost of Equity</strong></p>
                         <p>Explanation: Cost of equity represents the return expected by equity investors.</p>
                         <p>Formula: Cost of Equity = (Risk-Free Rate + Beta) * Market Premium</p>
-
-                        <p><strong>Step 2: Get the Cost of Debt</strong></p>
+                        <p>Risk Free Rate: 0.429</p>
+                        <p>Beta: {beta} </p> 
+                        <p>Market Premium: 0.057 </p>
+                        <p>Cost of Equity: ${costEquity}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 2: Get the Cost of Debt</strong></p>
                         <p>Explanation: Cost of debt represents the cost of borrowing for the company.</p>
-                        <p>Formula: Cost of Debt = Interest Expense / Income Before Tax</p>
-
-                        <p><strong>Step 3: Get Tax Rate</strong></p>
+                        <p>Formula: Cost of Debt = Interest Expense / Total Debt</p>
+                        <p>Interest Expense: ${interestExpense}</p>
+                        <p>Total Debt: ${totalDebt}</p>
+                        <p>Cost of Debt: ${costDebt}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 3: Get Tax Rate</strong></p>
                         <p>Explanation: Tax rate adjusts cash flows for taxes.</p>
                         <p>Formula: Tax Rate = Income Tax Expense / Income Before Tax</p>
-
-                        <p><strong>Step 4: Calculate Weight of Debt</strong></p>
+                        <p>Income Tax Expense: ${incomeExpense}</p>
+                        <p>Income Before Tax: ${incomeBeforeTax}</p>
+                        <p>Tax Rate: {taxRate}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 4: Calculate Weight of Debt</strong></p>
                         <p>Explanation: Weight of debt shows the proportion of debt in the capital structure.</p>
                         <p>Formula: Weight of Debt = Total Debt / (Total Debt + Market Capitalization)</p>
-
-                        <p><strong>Step 5: Calculate Weight of Equity</strong></p>
+                        <p>Total Debt: ${totalDebt}</p>
+                        <p>Market Capitalization: ${mktCap}</p>
+                        <p>Weight of Debt: ${weightOfDebt}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 5: Calculate Weight of Equity</strong></p>
                         <p>Explanation: Weight of equity shows the proportion of equity in the capital structure.</p>
                         <p>Formula: Weight of Equity = Market Capitalization / (Total Debt + Market Capitalization)</p>
-
-                        <p><strong>Step 6: Calculate Discount Rate</strong></p>
+                        <p>Market Capitalization: ${mktCap}</p>
+                        <p>Total Debt: ${totalDebt}</p>
+                        <p>Weight of Equity: ${weightOfEquity}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 6: Calculate Discount Rate</strong></p>
                         <p>Explanation: The discount rate is the weighted average of cost of debt and cost of equity, adjusted for the tax rate.</p>
                         <p>Formula: Discount Rate = ((Weight of Debt * Cost of Debt) + (Weight of Equity * Cost of Equity)) * (1 - Tax Rate)</p>
+                        <p>Weight of Debt: ${weightOfDebt}</p>
+                        <p>Cost of Debt: ${costDebt}</p>
+                        <p>Weight of Equity: ${weightOfEquity}</p>
+                        <p>Cost of Equity: ${costEquity}</p>
+                        <p>Discount Rate: {discountRate}</p>
 
-                        <h3>Part 2: Project and Discount Cash Flows</h3>
+                        <h2 style={{textAlign:'center'}}>Part 2: Project and Discount Cash Flows</h2>
 
-                        <p><strong>Step 1: Get 5 Years of Historical Data Cash Flows</strong></p>
+                        <p style={{textAlign:'center'}}><strong>Step 1: Get 5 Years of Historical Data Cash Flows</strong></p>
+                        <HistoricalCashflowChart chartData={historicalData} />
+                        <p style={{textAlign:'center'}}><strong>Step 2: Use Linear Regression to Project Next 5 Years of Cash Flows</strong></p>
+                        <FutureCashflowChart futureChartData={forecastedCashFlowsChart} />
 
-                        <p><strong>Step 2: Use Linear Regression to Project Next 5 Years of Cash Flows</strong></p>
+                        <p style={{textAlign:'center'}}><strong>Step 3: Discount Each Future Year with the Discount Rate</strong></p>
 
-                        <p><strong>Step 3: Discount Each Future Year with the Discount Rate</strong></p>
-
-                        <p><strong>Step 4: Calculate Terminal Value</strong></p>
+                        <p style={{textAlign:'center'}}><strong>Step 4: Calculate Terminal Value</strong></p>
                         <p>Explanation: Terminal value represents the value beyond the projection period.</p>
                         <p>Formula: Terminal Value = (Year 5 Cash Flow * (1 + Perpetual Growth Rate)) / (Discount Rate - Perpetual Growth Rate)</p>
-
-                        <p><strong>Step 5: Discount Terminal Value</strong></p>
+                        <p>Year 5 Cash Flow: ${year5Cash}</p>
+                        <p>Perpetual Growth Rate: {perpetualGrowthRate}</p>
+                        <p>Discount Rate: {discountRate}</p>
+                        <p>Terminal Value: ${terminalValue}</p>
+                        <p> </p>
+                        <p style={{textAlign:'center'}}><strong>Step 5: Discount Terminal Value</strong></p>
                         <p>Explanation: Discount terminal value back to its present value.</p>
                         <p>Formula: Discounted Terminal Value = Terminal Value / (1 + Discount Rate)^5</p>
-
-                        <p><strong>Step 6: Calculate Projected Enterprise Value</strong></p>
+                        <p>Terminal Value: ${terminalValue}</p>
+                        <p>Discount Rate: ${discountRate}</p>
+                        <p></p>
+                        <p style={{textAlign:'center'}}><strong>Step 6: Calculate Projected Enterprise Value</strong></p>
                         <p>Explanation: Projected enterprise value is the sum of discounted terminal value and total discounted cash flows.</p>
                         <p>Formula: Projected Enterprise Value = Discounted Terminal Value + Total Discounted Cash Flow</p>
-
-                        <p><strong>Step 7: Calculate Equity Value</strong></p>
+                        <p>Discounted Terminal Value: ${discountedTerminalValue}</p>
+                        <p>Total Discounted Cash Flow: ${totalDiscountedCashFlow}</p>
+                        <p>Projected Enterprise Value: ${projectedEnterpriseValue}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 7: Calculate Equity Value</strong></p>
                         <p>Explanation: Equity value is projected enterprise value adjusted for cash and short-term investments minus total debt.</p>
                         <p>Formula: Equity Value = Projected Enterprise Value + Cash and Short-Term Investments - Total Debt</p>
-
-                        <p><strong>Step 8: Calculate Estimated DCF Value</strong></p>
+                        <p>Projected Enterprise Value: ${projectedEnterpriseValue}</p>
+                        <p>Cash and Short Investments: ${cashAndShortTermInvestments}</p>
+                        <p>Total Debt: ${totalDebt}</p>
+                        <p style={{textAlign:'center'}}><strong>Step 8: Calculate Estimated DCF Value</strong></p>
                         <p>Explanation: DCF value is the equity value divided by weighted average shares outstanding, providing an intrinsic value per share.</p>
                         <p>Formula: DCF Value = Equity Value / Weighted Average Shares Outstanding</p>
+                        <p>Equity Value: ${equityValue}</p>
+                        <p>Weighted Average Shares Outstanding: {weightedAverageShsOut}</p>
+                        <p>DCF Value: ${dcfValue}</p>
                       </div>
-
                     </div>
                 </div>
                 <div className="gap2"></div>

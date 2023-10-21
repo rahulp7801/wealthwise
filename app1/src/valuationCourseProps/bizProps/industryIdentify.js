@@ -3,53 +3,29 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
 
-const apiKey = "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";
 
 const IndustryIdentify = () => {
   const [validity, setValidity] = useState("");
   const apiData = useSelector((state) => state.apiData);
-
+  
   useEffect(() => {
-    if (apiData) {
-      callOpenAIAPI(apiData); // Pass the apiData to the API call function
+    const terms = apiData.trim().split(' ');
+    const STOCK_SYMBOL = terms[terms.length - 1]
+
+    async function fetchData() {
+      try {
+        const response = await fetch(`https://financialmodelingprep.com/api/v3/profile/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+        const data = await response.json();
+        setValidity(data[0].industry);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
-  }, [apiData]);
 
-  async function callOpenAIAPI(apiData) {
-    // Construct your APIBody using apiData from the Redux store
-    const APIBody = {
-      "model": "gpt-4",
-      "messages": [
-        {
-          "role": "system",
-          "content": "Given a company, state the industry it is in. Capitalize each word",
-        },
-        {
-          "role": "user",
-          "content": apiData,
-        },
-      ],
-      "temperature": 0,
-      "max_tokens": 100,
-    };
+    fetchData();
+  }, []);
 
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + apiKey,
-        },
-        body: JSON.stringify(APIBody),
-      });
-
-      const data = await response.json();
-      console.log(data.choices[0].message.content);
-      setValidity(data.choices[0].message.content);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
+  
 
   return (
     <div className='industry-title'>

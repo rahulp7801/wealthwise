@@ -3,10 +3,9 @@ import React, { useEffect, useRef } from 'react';
 import MainCard from 'ui-component/cards/MainCard';
 import TopActive from './topActiveComponent';
 // import StockSurvey from './stockSurvey';
-import 'assets/scss/styles.css';
 import StockSelector from './stockSelect';
+import SectorCarousel from './sectorCarouselProps/sectorCarousel';
 // import TenInputSlotsComponent from './animationTest';
-import TopESGStocks from './topESG';
 import SparkleButton1 from './sparkleButton1';
 // import CompanySearch from './stockSearch';
 import { Provider } from 'react-redux';
@@ -15,6 +14,9 @@ import { useNavigate } from 'react-router-dom';
 // import CardGridComponent from './survey_grid';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
+import 'assets/scss/styles.css';
+import 'assets/scss/sectorCarousel.css'
+
 const PickStock  = () => {
 // Animation function for slide in Left
   useEffect(() => {
@@ -38,17 +40,17 @@ const PickStock  = () => {
       };
     });
     // Animation Function for hover effect
-    const blocksElement = document.getElementById('blocks');
-    blocksElement.onmousemove = (e) => {
-      for (const block of document.getElementsByClassName('block')) {
-        const rect = block.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    // const blocksElement = document.getElementById('blocks');
+    // blocksElement.onmousemove = (e) => {
+    //   for (const block of document.getElementsByClassName('block')) {
+    //     const rect = block.getBoundingClientRect();
+    //     const x = e.clientX - rect.left;
+    //     const y = e.clientY - rect.top;
 
-        block.style.setProperty('--mouse-x', `${x}px`);
-        block.style.setProperty('--mouse-y', `${y}px`);
-      }
-    };
+    //     block.style.setProperty('--mouse-x', `${x}px`);
+    //     block.style.setProperty('--mouse-y', `${y}px`);
+    //   }
+    // };
   }, []);
   const observerRef = useRef(null);
 
@@ -146,43 +148,11 @@ const PickStock  = () => {
           </div>
         </div>
         <div className='gap'></div>
-        <div className='fat'>
-          <div id='blocks'>
-            <Grid  container spacing={1}>
-              <Grid item xs={4}>
-                <div className='hidden'>
-                    <TopESGStocks />
-                </div>
-              </Grid>
-              <Grid item xs={4}>
-                <div className='hidden'>
-                  <div className="block">
-                    <div className="block-border"> 
-                      <div className='block-content'>
-                        <MainCard>
-                          <TopActive />
-                        </MainCard>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Grid>
-              <Grid item xs={4}>
-                <div className='hidden'>
-                  <div className="block">
-                    <div className="block-border"> 
-                      <div className='block-content'>
-                        <MainCard>
-                          <TopActive />
-                        </MainCard>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+          <TopActive />
+        <div className='gap'></div>
+        <SectorCarousel />
+        <div className="gap2"></div>
+        
         <div className='container-2'>
           <div className='hidden'>
             <div className='get-started-2'>

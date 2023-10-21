@@ -10,8 +10,10 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {store, persistor} from './store';
 import SparkleButton2 from "./sparkleButton2";
+import SparkleButton6 from "./sparkleButton6";
 import { useNavigate } from 'react-router-dom';
 import InvestorPage from "./bizProps/investorSrc";
+import { Col, Row } from 'antd';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
 import 'assets/scss/news-display.css';
@@ -20,6 +22,9 @@ const UnderstandBiz  = () => {
   const navigate = useNavigate();
   const handleNextPage = () => {
     navigate('/icons/financial-kpi')
+  }
+  const handlePreviousPage = () => {
+    navigate('/icons/pick-stock')
   }
   return (
       <div>
@@ -45,8 +50,8 @@ const UnderstandBiz  = () => {
               <InvestorPage />
               {/* <StockTitle /> */}
               <div className="card-body">
-                <div className='card'>
-                  <div className='card-content'>
+                <div className='card2'>
+                  <div className='card2-content'>
                     <h1>Stock Description</h1>
                     <StockDescription />
                   </div>
@@ -77,7 +82,15 @@ const UnderstandBiz  = () => {
           
 
         </div>
-        <SparkleButton2 onClick={handleNextPage}/>
+        <Row>
+          <Col span={8}>
+            <SparkleButton6 onClick={handlePreviousPage}/>
+          </Col>
+          <Col span={8} offset={8}>
+            <SparkleButton2 onClick={handleNextPage}/>
+          </Col>
+        </Row>
+        
 
       </div>
   );

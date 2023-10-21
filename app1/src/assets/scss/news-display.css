@@ -98,17 +98,16 @@
     align-items: left;
     gap: 0.5em;
     color: #ccc;
-    width: 50px;
+    width: 100%;
     height: 50px;
 }
 .article-image {
     overflow: hidden;
     margin-bottom: 0.5em;
     position: relative;
-    height: 5em;
+    height: 150px;
     color: #ccc;
-    /* width: 50px;
-    height: 50px; */
+    
 
 }
 .article-image img {
@@ -117,7 +116,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%; 
-    height: 100%;
+    height: 100px;
     transition: 0.7s ease-in-out;
 }
 .article:hover .article-image img {

@@ -1,28 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin&display=swap'); */
 .header-body {
     height: 200px;
     display: grid;
     background-color: rgba(17, 25, 54);
     color: #fff;
-    font-family: 'Libre Franklin', sans-serif;
+    /* font-family: 'Libre Franklin', sans-serif; */
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 100px;
     place-items: center;
     text-align: center;
     border-radius: 10px;
   }
-  *,
+  /* *,
   *::before,
   *::after {
     font-family: inherit;
     box-sizing: border-box;
-  }
+  } */
   
   .aurora-content {
     text-align: center;
   }
   
   .aurora-title {
-    font-size: 50px;
-    font-weight: 10;
+    font-size: 75px;
+    font-weight: 30;
     letter-spacing: clamp(-1.75px, -0.25vw, -3.5px);
     /* position: relative;
     overflow: hidden; */
@@ -35,8 +37,7 @@
     text-align: center;
   }
   
-  .aurora-subtitle {
-  }
+  
   
   .aurora {
     position: absolute;

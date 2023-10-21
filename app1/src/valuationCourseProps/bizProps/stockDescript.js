@@ -10,46 +10,21 @@ const StockDescription = () => {
   const apiData = useSelector((state) => state.apiData);
 
   useEffect(() => {
-    if (apiData) {
-      callOpenAIAPI(apiData); // Pass the apiData to the API call function
+    const terms = apiData.trim().split(' ');
+    const STOCK_SYMBOL = terms[terms.length - 1]
+
+    async function fetchData() {
+      try {
+        const response = await fetch(`https://financialmodelingprep.com/api/v3/profile/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+        const data = await response.json();
+        setValidity(data[0].description);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     }
-  }, [apiData]);
 
-  async function callOpenAIAPI(apiData) {
-    // Construct your APIBody using apiData from the Redux store
-    const APIBody = {
-      "model": "gpt-4",
-      "messages": [
-        {
-          "role": "system",
-          "content": "You are a financial advisor. Give a 3 sentence description of the company's business model.",
-        },
-        {
-          "role": "user",
-          "content": apiData,
-        },
-      ],
-      "temperature": 0,
-      "max_tokens": 1024,
-    };
-
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + apiKey,
-        },
-        body: JSON.stringify(APIBody),
-      });
-
-      const data = await response.json();
-      console.log(data.choices[0].message.content);
-      setValidity(data.choices[0].message.content);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
+    fetchData();
+  }, []);
 
   return (
     <div>

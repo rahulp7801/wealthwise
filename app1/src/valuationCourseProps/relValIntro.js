@@ -2,8 +2,10 @@ import React from "react";
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
 import 'assets/scss/styles.css';
-import SparkleButton4 from "valuationCourseProps/sparkleButton4";
+
+
 const RelValIntro = () => {
+  
     return (
         <div>
             <div className="aurora-gradient">
@@ -62,7 +64,7 @@ const RelValIntro = () => {
                 </div>
                 <div className="gap2"></div>
             </div>
-            <SparkleButton4 />
+            
         </div>
     );
 }

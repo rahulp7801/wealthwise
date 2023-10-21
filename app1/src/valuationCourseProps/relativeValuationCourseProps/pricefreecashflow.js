@@ -37,8 +37,8 @@ const PriceFreeCashflow = () => {
           "content": apiData,
         },
       ],
-      "temperature": 0,
-      "max_tokens": 100,
+      "temperature": 1,
+      "max_tokens": 250,
     };
 
     try {

@@ -24,7 +24,7 @@
 	align-items: center;
 	gap: 0.25em;
 	white-space: nowrap;
-	border-radius: 100px;
+	border-radius: 10px;
 	position: relative;
 	box-shadow:
 		0 0 calc(var(--active) * 6em) calc(var(--active) * 3em) hsl(260 97% 61% / 0.75),
@@ -86,7 +86,7 @@ svg {
 	inset: -0.25em;
 	z-index: -1;
 	border: 0.25em solid hsl(260 97% 50% / 0.5);
-	border-radius: 100px;
+	border-radius: 10px;
 	opacity: var(--active, 0);
 	transition: opacity 0.25s;
 }
@@ -94,7 +94,7 @@ svg {
 .spark {
 	position: absolute;
 	inset: 0;
-	border-radius: 100px;
+	border-radius: 10px;
 	rotate: 0deg;
 	overflow: hidden;
 	mask: linear-gradient(white, transparent 50%);
@@ -132,14 +132,14 @@ svg {
 	content: "";
 	position: absolute;
 	inset: var(--cut);
-	border-radius: 100px;
+	border-radius: 10px;
 }
 
 .backdrop {
 	position: absolute;
 	inset: var(--cut);
 	background: var(--bg);
-	border-radius: 100px;
+	border-radius: 10px;
 	transition: 0.25s;
 }
 
@@ -240,6 +240,10 @@ svg {
 	transition: 0.25s;
 	padding-top: 6px;
 	padding-bottom: 7px;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Nunito Sans', sans-serif;
+
 }
 
 .sparkle-button svg {
