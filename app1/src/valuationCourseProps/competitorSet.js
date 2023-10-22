@@ -73,7 +73,7 @@ const CompetitorSet = () => {
         <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
             <h1>{apiData} Competitors</h1>
             <div>{competitorMessage}</div>
-            <h2>This section will talk about two of your company's competitors. Either enter their tickers into the inputs below or use the tickers of your choosing to relatively value your company.</h2>
+            <h2>This section will talk about two of your company&apos;s competitors. Either enter their tickers into the inputs below or use the tickers of your choosing to relatively value your company.</h2>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <ConfigProvider
                 theme={{

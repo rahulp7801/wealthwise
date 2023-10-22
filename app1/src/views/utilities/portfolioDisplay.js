@@ -1,7 +1,11 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 import classNames from 'classnames'; // Please install 'classnames' package if not already
-import Chart from 'chart.js'; // Please install 'chart.js' package if not already
+// import { Line } from "react-chartjs-2"
+import { Chart as ChartJS } from "chart.js/auto";
+import { CategoryScale } from 'chart.js';
+import 'assets/scss/portfolioTracker.scss';
+// const apiKey = "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";
 
 const AppContext = createContext();
 
@@ -9,6 +13,8 @@ const CoinGeckoApi = {
   AllCoins: "coins/markets?vs_currency=usd&page=1&per_page=30&sparkline=false",
   Base: "https://api.coingecko.com/api/v3"
 };
+
+
 
 const LoadingSpinner = () => {
   return (
@@ -58,7 +64,21 @@ const CryptoListItem = (props) => {
   const { state, selectCrypto } = React.useContext(AppContext);
 
   const { crypto } = props;
+  const [name, setName] = useState("");
 
+    async function fetchData() {
+      try {
+        const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/AAPL?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+        const data = await response.json();   
+        console.log(data)
+        setName(data[0].enterpriseValueOverEBITDATTM);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+  
+    fetchData();
+  
   const getClasses = () => {
     const selected = state.selectedCrypto && state.selectedCrypto.id === crypto.id;
 
@@ -76,7 +96,8 @@ const CryptoListItem = (props) => {
         <img className="crypto-list-item-image" src={crypto.image} />
         <div className="crypto-list-item-details">
           <h1 className="crypto-list-item-name">{crypto.name}</h1>
-          <h1 className="crypto-list-item-price">{crypto.price}</h1>
+          <h1 className="crypto-list-item-price">{name}</h1>
+          <h1 className="crypto-list-item-price">{CryptoUtility.formatPercent(crypto.change)}</h1>
         </div>
       </div>
     </button>
@@ -176,7 +197,7 @@ const CryptoDetails = () => {
       <div id="crypto-details" className={classNames(sign, { transitioning: state.transitioning })}>
         <div id="crypto-details-content">
           <div id="crypto-fields">
-            <CryptoField label="Rank" value={crypto.rank} />
+            {/* <CryptoField label="Rank" value={crypto.rank} />
             <CryptoField label="Name" value={crypto.name} />
             <CryptoField label="Price" value={crypto.price} />
             <CryptoField label="Market Cap" value={crypto.marketCap} />
@@ -186,7 +207,7 @@ const CryptoDetails = () => {
               className={sign}
               label="24H Change"
               value={CryptoUtility.formatPercent(crypto.change)}
-            />
+            /> */}
           </div>
           <CryptoPriceChart />
           <h1 id="crypto-details-symbol">{crypto.symbol}</h1>
@@ -277,7 +298,7 @@ const ChartUtility = {
 
     if (canvas) {
       const context = canvas.getContext("2d");
-      return new Chart(context, {
+      return new ChartJS(context, {
         type: "line",
         data: {
           datasets: [{
@@ -360,7 +381,7 @@ const ChartUtility = {
 };
 
 
-const App = () => {
+const PortfolioDisplay = () => {
   const [state, setState] = useState({
     cryptos: [],
     listToggled: true,
@@ -417,6 +438,9 @@ const App = () => {
     }
   }
 
+  ChartJS.register(CategoryScale);
+
+
   return (
     <AppContext.Provider value={{ state, selectCrypto, setState, toggleList }}>
       <div id="app" className={classNames({ "list-toggled": state.listToggled })}>
@@ -429,4 +453,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default PortfolioDisplay;

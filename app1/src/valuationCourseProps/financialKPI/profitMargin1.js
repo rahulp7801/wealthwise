@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import {  Col, Row, Statistic } from 'antd';
 import { ConfigProvider } from 'antd';
-import { Layout } from 'antd';
 
 
 const API_KEY = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
