@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
 // import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
+import { Spin, Space } from 'antd';
 
 const apiKey = "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";
 
@@ -171,7 +172,19 @@ const PriceFreeCashflow = () => {
               {stock2} Price/Cashflow:{pricefcfratio2}
             </div>
             <div>
-              {validity}
+              {loading ? ( // Render Spin when loading is true
+              <div style={{ paddingTop: '20px', height: '100%' }}>
+                <Space>
+                  <Spin  size="large" className="custom-spin" >
+                    <div className="content" />
+                  </Spin>
+                </Space>
+              </div>
+              ) : (
+                <div>
+                  {validity}
+                </div>
+              )}
             </div>
           </div> 
     

@@ -1,12 +1,25 @@
 import React from "react"
-import { Line } from "react-chartjs-2"
+import { Bar  } from "react-chartjs-2"
+import { Chart } from "chart.js/auto";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-const FutureCashflowChart = ({futureChartData}) => {
-
-      
+const DCFValueChart = ({chartData}) => {
+    const options = {
+        indexAxis: 'y',
+        plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'end',
+              formatter: (value) => `$${value}`, // Display the actual value
+              color: 'white', // Color of the displayed value
+              clip: true,
+            } } , 
+    
+    }
+    
     return (
-        <Line data={futureChartData}  />
+        <Bar  options={options} data={chartData} plugins={[ChartDataLabels]}  />
     );
 };
 
-export default FutureCashflowChart;
+export default DCFValueChart;

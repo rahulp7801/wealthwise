@@ -132,7 +132,7 @@ const EVtoSales = () => {
             },
           ],
           "temperature": 1,
-          "max_tokens": 3,
+          "max_tokens": 300,
         };
     
         try {
@@ -170,23 +170,23 @@ const EVtoSales = () => {
               {stock2} EV/Sales:{enterpriseValueSales2}
             </div>
             <div>
-              {validity}
+              {loading ? ( // Render Spin when loading is true
+                <div style={{ paddingTop: '20px', height: '100%' }}>
+                  <Space>
+                    <Spin  size="large" className="custom-spin" >
+                      <div className="content" />
+                    </Spin>
+                  </Space>
+                </div>
+                ) : (
+                  <div>
+                    {validity}
+                  </div>
+                )}
             </div>
-    {loading ? ( // Render Spin when loading is true
-    <div style={{ paddingTop: '20px', height: '100%' }}>
-      <Space>
-        <Spin  size="large" className="custom-spin" >
-          <div className="content" />
-        </Spin>
-      </Space>
-    </div>
-    ) : (
-      <div>
-        {validity}
-      </div>
-    )}
-  </div>
-  );
-};
+              
+            </div>
+            );
+          };
 
 export default EVtoSales;

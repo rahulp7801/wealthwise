@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
 // import EnterpriseValueMultiples from 'valuationCourseProps/enterpriseValueMultiples';
+import { Spin, Space } from 'antd';
 
 const apiKey = "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";
 
@@ -14,6 +15,7 @@ const PriceBook = () => {
   const [validity, setValidity]  = useState("");
   const stock1 = useSelector((state) => state.stock1);
   const stock2 = useSelector((state) => state.stock2);
+  const [loading, setLoading] = useState(true); // Add loading state
 
 
   const apiData = useSelector((state) => state.apiData);
@@ -146,11 +148,14 @@ const PriceBook = () => {
         
             const data = await response.json();
             setValidity(data.choices[0].message.content) 
-    
+            setLoading(false)
+
             
     
           } catch (error) {
             console.error("Error fetching data:", error);
+            setLoading(false)
+
           }
         }
     
@@ -168,7 +173,19 @@ const PriceBook = () => {
         {stock2} Price/Book:{priceBook2}
       </div>
       <div>
-        {validity}
+        {loading ? ( // Render Spin when loading is true
+            <div style={{ paddingTop: '20px', height: '100%' }}>
+              <Space>
+                <Spin  size="large" className="custom-spin" >
+                  <div className="content" />
+                </Spin>
+              </Space>
+            </div>
+            ) : (
+              <div>
+                {validity}
+              </div>
+            )}
       </div>
   </div>
   );

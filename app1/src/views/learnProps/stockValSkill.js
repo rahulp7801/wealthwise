@@ -9,6 +9,8 @@ import SkillsTable3 from './stockValuationTables.js/intrinsicValuationTable';
 
 
 export default function StockValSkill() {
+  
+  
   // const inlineFontStyle = {
   //   fontFamily: "'Nunito Sans', sans-serif",
   // };

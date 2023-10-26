@@ -1,11 +1,11 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext, useRef  } from 'react';
 import axios from 'axios';
 import classNames from 'classnames'; // Please install 'classnames' package if not already
 // import { Line } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto";
 import { CategoryScale } from 'chart.js';
 import 'assets/scss/portfolioTracker.scss';
-// const apiKey = "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";
+
 
 const AppContext = createContext();
 
@@ -15,16 +15,15 @@ const CoinGeckoApi = {
 };
 
 
-
-const LoadingSpinner = () => {
-  return (
-    <div className="loading-spinner-wrapper">
-      <div className="loading-spinner">
-        <i className="fa-regular fa-spinner-third" />
-      </div>
-    </div>
-  );
-}
+// const LoadingSpinner = () => {
+//   return (
+//     <div className="loading-spinner-wrapper">
+//       <div className="loading-spinner">
+//         <i className="fa-regular fa-spinner-third" />
+//       </div>
+//     </div>
+//   );
+// }
 
 const RequestStatus = {
   Error: "Error",
@@ -37,93 +36,128 @@ const Color = {
   Green: "76, 175, 80",
   Red: "198, 40, 40"
 };
+// const CryptoListToggle = () => {
+//   const { state, toggleList } = React.useContext(AppContext);
 
-const CryptoListToggle = () => {
-  const { state, toggleList } = React.useContext(AppContext);
+//   if (state.status === RequestStatus.Success && state.cryptos.length > 0) {
+//     const classes = classNames("fa-regular", {
+//       "fa-bars": !state.listToggled,
+//       "fa-xmark": state.listToggled
+//     });
 
-  if (state.status === RequestStatus.Success && state.cryptos.length > 0) {
-    const classes = classNames("fa-regular", {
-      "fa-bars": !state.listToggled,
-      "fa-xmark": state.listToggled
-    });
+//     return (
+//       <button
+//         id="crypto-list-toggle-button"
+//         onClick={() => toggleList(!state.listToggled)}
+//       >
+//         <i className={classes} />
+//       </button>
+//     );
+//   }
 
-    return (
-      <button
-        id="crypto-list-toggle-button"
-        onClick={() => toggleList(!state.listToggled)}
-      >
-        <i className={classes} />
-      </button>
-    );
-  }
+//   return null;
+// }
 
-  return null;
-}
 
-const CryptoListItem = (props) => {
-  const { state, selectCrypto } = React.useContext(AppContext);
+  
+  const specificStocks = [
+    { symbol: 'MSFT' },
+    { symbol: 'GOOGL' },
+    { symbol: 'TSLA' },
+    { symbol: 'LLY' },
+    { symbol: 'GM' },
 
-  const { crypto } = props;
-  const [name, setName] = useState("");
 
-    async function fetchData() {
+  ];
+
+  const StockListItem = (props) => {
+    const { state, selectStock } = React.useContext(AppContext);
+    const { symbol } = props;
+    const [stock, setStock] = useState("")
+
+    const [name, setName] = useState('');
+    const [image, setImage] = useState('');
+    const [price, setPrice] = useState('');
+    const [percentChange, setPercentChange] = useState('');
+
+  useEffect(() => {
+    async function fetchStockData() {
       try {
-        const response = await fetch(`https://financialmodelingprep.com/api/v3/key-metrics-ttm/AAPL?limit=40&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
-        const data = await response.json();   
-        console.log(data)
-        setName(data[0].enterpriseValueOverEBITDATTM);
+        const response = await fetch(
+          `https://api.polygon.io/v3/reference/tickers/${symbol}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
+        );
+        const data = await response.json();
+        const nameWords = data.results.name.split(' ');
+        const truncatedName = nameWords.slice(0, 2).join(' ');
+        setName(truncatedName);
+        const logoUrl = `${data.results.branding.logo_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
+        setImage(logoUrl);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
-  
-    fetchData();
-  
-  const getClasses = () => {
-    const selected = state.selectedCrypto && state.selectedCrypto.id === crypto.id;
 
-    return classNames("crypto-list-item", { selected });
+    fetchStockData();
+  }, [symbol]);
+
+  useEffect(() => {
+    async function fetchStockData2() {
+      try {
+        const response = await fetch(
+          `https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers/${symbol}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
+        );
+        const data = await response.json();
+        const formattedPercentChange = (data.ticker.todaysChangePerc ).toFixed(2) + '%';
+        setPercentChange(formattedPercentChange);
+        setPrice(data.ticker.day.o);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchStockData2();
+  }, [symbol]);
+
+  const getClasses = () => {
+    const selected = state.selectedStock && state.selectedStock.symbol === symbol;
+    return classNames('stock-list-item', { selected });
   };
 
   return (
-    <button type="button" className={getClasses()} onClick={() => selectCrypto(crypto.id)}>
-      <div className="crypto-list-item-background">
-        <h1 className="crypto-list-item-symbol">{crypto.symbol}</h1>
-        <img className="crypto-list-item-background-image" src={crypto.image} />
+    <button type="button" className={getClasses()} onClick={() => {
+      // Log the stock state when a button is clicked
+      selectStock(symbol)
+    }}>
+      <div className="stock-list-item-background">
+        <h1 className="stock-list-item-symbol">{symbol}</h1>
+        <img className="stock-list-item-background-image" src={image} alt={`${symbol} Logo`} />
       </div>
-      <div className="crypto-list-item-content">
-        <h1 className="crypto-list-item-rank">{crypto.rank}</h1>
-        <img className="crypto-list-item-image" src={crypto.image} />
-        <div className="crypto-list-item-details">
-          <h1 className="crypto-list-item-name">{crypto.name}</h1>
-          <h1 className="crypto-list-item-price">{name}</h1>
-          <h1 className="crypto-list-item-price">{CryptoUtility.formatPercent(crypto.change)}</h1>
+      <div className="stock-list-item-content">
+        <img className="stock-list-item-image" src={image} alt={`${symbol} Logo`} />
+        <div className="stock-list-item-details">
+          <h1 className="stock-list-item-name">{name}</h1>
+          <h1 className="stock-list-item-price"><strong> Current Price: </strong>{price}</h1>
+          <h1 className="stock-list-item-price"><strong>Percent Change: </strong>{percentChange}</h1>
         </div>
       </div>
     </button>
   );
-}
-
-const CryptoList = () => {
-  const { state } = React.useContext(AppContext);
-
-  if (state.status === RequestStatus.Success && state.cryptos.length > 0) {
-    const getItems = () => {
-      return state.cryptos.map(crypto => (
-        <CryptoListItem key={crypto.id} crypto={crypto} />
-      ));
-    };
-
-    return (
-      <div id="crypto-list">
-        {getItems()}
-      </div>
-    );
-  }
-
-  return null;
-}
-
+};
+  const StockList = () => {
+    const { state } = React.useContext(AppContext);
+  
+    if (state.status === RequestStatus.Success && specificStocks.length > 0) {
+      return (
+        <div id="stock-list">
+          {specificStocks.map((stock) => (
+            <StockListItem key={stock.symbol} symbol={stock.symbol} />
+          ))}
+        </div>
+      );
+    }
+  
+    return null;
+  };
 const CryptoUtility = {
   formatPercent(value) {
     return (value / 100).toLocaleString("en-US", { style: "percent", minimumFractionDigits: 2 });
@@ -153,18 +187,55 @@ const CryptoUtility = {
   }
 };
 
-const CryptoField = (props) => {
-  return (
-    <div className={classNames("crypto-field", props.className)}>
-      <h1 className="crypto-field-value">{props.value}</h1>
-      <h1 className="crypto-field-label">{props.label}</h1>
-    </div>
-  );
-}
+// const CryptoField = (props) => {
+//   return (
+//     <div className={classNames("crypto-field", props.className)}>
+//       <h1 className="crypto-field-value">{props.value}</h1>
+//       <h1 className="crypto-field-label">{props.label}</h1>
+//     </div>
+//   );
+// }
 
-const CryptoDetails = () => {
-  const { selectedCrypto } = useContext(AppContext).state;
+const CryptoDetails = (props) => {
+    const { selectedCrypto } = useContext(AppContext).state;
+    const [percentChange, setPercentChange] = useState('');
 
+    const [priceData, setPriceData] = useState({ results: [] });
+    const symbol = props.selectedStockSymbol;
+    console.log("price dAata:", priceData)
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetch(
+                    `https://api.polygon.io/v2/aggs/ticker/${symbol}/range/1/minute/2023-10-24/2023-10-24?adjusted=true&sort=asc&limit=120&apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
+                );
+                const data = await response.json();
+                setPriceData(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchData();
+    }, [symbol]);
+    useEffect(() => {
+        async function fetchStockData2() {
+          try {
+            const response = await fetch(
+              `https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers/${symbol}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
+            );
+            const data = await response.json();
+            const formattedPercentChange = (data.ticker.todaysChangePerc ).toFixed(2);
+            setPercentChange(formattedPercentChange);
+            setPrice(data.ticker.day.o);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+    
+        fetchStockData2();
+      }, [symbol]);
+
+  
   const [state, setState] = useState({
     crypto: null,
     transitioning: true
@@ -176,121 +247,214 @@ const CryptoDetails = () => {
 
   const { crypto } = state;
 
-  useEffect(() => {
-    if (selectedCrypto) {
-      setTransitioning(true);
+  
 
-      const timeout = setTimeout(() => {
-        setState(prevState => ({ crypto: selectedCrypto, transitioning: false }));
-      }, 500);
-
-      return () => {
-        clearTimeout(timeout);
-      }
-    }
-  }, [selectedCrypto]);
-
-  if (crypto) {
-    const sign = crypto.change >= 0 ? "positive" : "negative";
+  
 
     return (
-      <div id="crypto-details" className={classNames(sign, { transitioning: state.transitioning })}>
-        <div id="crypto-details-content">
-          <div id="crypto-fields">
-            {/* <CryptoField label="Rank" value={crypto.rank} />
-            <CryptoField label="Name" value={crypto.name} />
-            <CryptoField label="Price" value={crypto.price} />
-            <CryptoField label="Market Cap" value={crypto.marketCap} />
-            <CryptoField label="24H Volume" value={crypto.volume} />
-            <CryptoField label="Circulating Supply" value={crypto.supply} />
-            <CryptoField
-              className={sign}
-              label="24H Change"
-              value={CryptoUtility.formatPercent(crypto.change)}
-            /> */}
-          </div>
-          <CryptoPriceChart />
-          <h1 id="crypto-details-symbol">{crypto.symbol}</h1>
+        <div id="crypto-details" >
+            <div id="crypto-details-content">
+                <div id="crypto-fields">
+                    {/* ... */}
+                </div>
+                <h1 id="crypto-details-symbol">{symbol}</h1>
+                <div>
+                    <StockPriceGraph priceData={priceData} percentChange={percentChange} /> {/* Pass priceData as a prop */}
+                </div>
+            </div>
         </div>
+    );
+
+
+}
+
+
+
+
+
+
+// const StockPriceGraph = ({priceData}) => {
+//     // You don't need to declare a local priceData state variable here
+//     // It's already passed as a prop
+
+//     // You can access selectedStockSymbol directly if needed
+//     // console.log("Selected Stock Symbol:", selectedStockSymbol);
+
+//     return (
+//         <div id="crypto-price-chart-wrapper">
+//             <div>
+//                 <PriceChart id="crypto-price-chart" priceData={priceData}  /> {/* Pass priceData as a prop */}
+//             </div>
+//         </div>
+//     );
+// };
+const StockPriceGraph = ({ priceData, percentChange }) => {
+    const canvasRef = useRef(null);
+    const animationFrameRef = useRef(null);
+    console.log("percent change", percentChange)
+    const lineColor = percentChange >= 0 ? 'green' : 'red';
+    const fillColor = percentChange >= 0 ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 0, 0, 0.1)';
+    useEffect(() => {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+  
+      let animationStartTime;
+      const animationDuration = 1000; // 1 second animation
+  
+      const renderFrame = (timestamp) => {
+        if (!animationStartTime) {
+          animationStartTime = timestamp;
+        }
+        const progress = (timestamp - animationStartTime) / animationDuration;
+      
+        if (progress < 1) {
+          // Clear the canvas
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+          const openingPrices = priceData.results.map((item) => item.o);
+          const labels = openingPrices.map((_, index) => (index + 1).toString());
+      
+          const minY = Math.min(...openingPrices);
+          const maxY = Math.max(...openingPrices);
+      
+          const yMinZoomFactor = 0.001;
+          const yMaxZoomFactor = 1.05;
+      
+          const suggestedMin = minY - 1;
+          const suggestedMax = maxY + 1;
+      
+          // Calculate the new position for each point based on the progress
+          const width = canvas.width;
+          const height = canvas.height;
+          const stepX = width / (labels.length - 1);
+          const stepY = (height - 40) / (suggestedMax - suggestedMin);
+      
+          // Begin the path for the fill
+          ctx.beginPath();
+          ctx.moveTo(0, height - (openingPrices[0] - suggestedMin) * stepY * progress);
+          
+          for (let i = 1; i < openingPrices.length; i++) {
+            const yPos = height - (openingPrices[i] - suggestedMin) * stepY * progress;
+            ctx.lineTo(i * stepX, yPos);
+          }
+          
+          // Close the path by connecting the last point to the bottom of the chart
+          ctx.lineTo((openingPrices.length - 1) * stepX, height);
+          ctx.lineTo(0, height);
+          
+          ctx.fillStyle = fillColor; // Light green fill color
+          ctx.fill();
+          
+          // Draw the line on top of the filled area
+          ctx.beginPath();
+          ctx.moveTo(0, height - (openingPrices[0] - suggestedMin) * stepY * progress);
+          
+          for (let i = 1; i < openingPrices.length; i++) {
+            const yPos = height - (openingPrices[i] - suggestedMin) * stepY * progress;
+            ctx.lineTo(i * stepX, yPos);
+          }
+          
+          ctx.strokeStyle = lineColor;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+      
+          animationFrameRef.current = requestAnimationFrame(renderFrame);
+        }
+      };
+      
+  
+      if (priceData.results && priceData.results.length > 0) {
+        animationFrameRef.current = requestAnimationFrame(renderFrame);
+      }
+  
+      return () => {
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      };
+    }, [priceData]);
+  
+    return (
+      <div>
+         <canvas ref={canvasRef} width={1000} height={750}></canvas>
       </div>
     );
-  }
+  };
+  
 
-  return null;
-}
 
-const CryptoPriceChart = () => {
-  const { selectedCrypto: crypto } = useContext(AppContext).state;
+// const CryptoPriceChart = (props) => {
+//   const { selectedCrypto: crypto } = useContext(AppContext).state;
 
-  const id = "crypto-price-chart";
+//   const id = "crypto-price-chart";
 
-  const [state, setState] = useState({
-    chart: null,
-    points: [],
-    status: RequestStatus.Loading
-  });
+//   const [state, setState] = useState({
+//     chart: null,
+//     points: [],
+//     status: RequestStatus.Loading
+//   });
 
-  const setStatus = (status) => {
-    setState(prevState => ({ ...prevState, status }));
-  }
+//   const setStatus = (status) => {
+//     setState(prevState => ({ ...prevState, status }));
+//   }
 
-  const setChart = (chart) => {
-    setState(prevState => ({ ...prevState, chart }));
-  }
+//   const setChart = (chart) => {
+//     setState(prevState => ({ ...prevState, chart }));
+//   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setStatus(RequestStatus.Loading);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         setStatus(RequestStatus.Loading);
 
-        const res = await axios.get(ChartUtility.getUrl(crypto.id));
+//         const res = await axios.get(ChartUtility.getUrl(crypto.id));
 
-        setState(prevState => ({
-          ...prevState,
-          points: ChartUtility.mapPoints(res.data),
-          status: RequestStatus.Success
-        }));
-      } catch (err) {
-        console.error(err);
+//         setState(prevState => ({
+//           ...prevState,
+//           points: ChartUtility.mapPoints(res.data),
+//           status: RequestStatus.Success
+//         }));
+//       } catch (err) {
+//         console.error(err);
 
-        setStatus(RequestStatus.Error);
-      }
-    }
+//         setStatus(RequestStatus.Error);
+//       }
+//     }
 
-    fetchData();
-  }, [crypto]);
+//     fetchData();
+//   }, [crypto]);
 
-  useEffect(() => {
-    if(!state.chart && state.status === RequestStatus.Success) {
-      setChart(ChartUtility.draw(id, state.points, crypto.change));
-    }
-  }, [state.status]);
+//   useEffect(() => {
+//     if(!state.chart && state.status === RequestStatus.Success) {
+//       setChart(ChartUtility.draw(id, state.points, crypto.change));
+//     }
+//   }, [state.status]);
 
-  useEffect(() => {
-    if(state.chart) {
-      const update = () => ChartUtility.update(state.chart, state.points, crypto.change);
+//   useEffect(() => {
+//     if(state.chart) {
+//       const update = () => ChartUtility.update(state.chart, state.points, crypto.change);
 
-      update();
-    }
-  }, [state.chart, state.points]);
+//       update();
+//     }
+//   }, [state.chart, state.points]);
 
-  const renderLoadingSpinner = () => {
-    if(state.status === RequestStatus.Loading) {
-      return (
-        <div id="crypto-price-chart-loading-spinner">
-          <LoadingSpinner />
-        </div>
-      );
-    }
-  }
+// //   const renderLoadingSpinner = () => {
+// //     if(state.status === RequestStatus.Loading) {
+// //       return (
+// //         <div id="crypto-price-chart-loading-spinner">
+// //           <LoadingSpinner />
+// //         </div>
+// //       );
+// //     }
+// //   }
 
-  return (
-    <div id="crypto-price-chart-wrapper">
-      <canvas id={id} />
-      {renderLoadingSpinner()}
-    </div>
-  );
-}
+//   return (
+//     <div id="crypto-price-chart-wrapper">
+//       <canvas id={id} />
+//       {/* {renderLoadingSpinner()} */}
+//     </div>
+//   );
+// }
 
 const ChartUtility = {
   draw(id, points, change) {
@@ -382,24 +546,30 @@ const ChartUtility = {
 
 
 const PortfolioDisplay = () => {
-  const [state, setState] = useState({
-    cryptos: [],
-    listToggled: true,
-    selectedCrypto: null,
-    status: RequestStatus.Loading
-  });
-
-  const setStatus = (status) => {
-    setState({ ...state, status });
-  }
-
-  const selectCrypto = (id) => {
-    setState({
-      ...state,
-      listToggled: window.innerWidth > 800,
-      selectedCrypto: CryptoUtility.getByID(id, state.cryptos)
+    const [selectedStockSymbol, setSelectedStockSymbol] = useState(''); // Step 1
+  
+    const [state, setState] = useState({
+      cryptos: [],
+      listToggled: true,
+      selectedCrypto: null,
+      status: RequestStatus.Loading
     });
-  }
+  
+    const setStatus = (status) => {
+      setState({ ...state, status });
+    }
+  
+    const selectCrypto = (id) => {
+      setState({
+        ...state,
+        listToggled: window.innerWidth > 800,
+        selectedCrypto: CryptoUtility.getByID(id, state.cryptos)
+      });
+    }
+  
+    const selectStock = (symbol) => {
+      setSelectedStockSymbol(symbol); // Step 2
+    }
 
   const toggleList = (listToggled) => {
     setState({ ...state, listToggled });
@@ -432,22 +602,26 @@ const PortfolioDisplay = () => {
     }
   }, [state.status]);
 
-  const renderLoadingSpinner = () => {
-    if(state.status === RequestStatus.Loading) {
-      return <LoadingSpinner />;
-    }
-  }
+//   const renderLoadingSpinner = () => {
+//     if(state.status === RequestStatus.Loading) {
+//       return <LoadingSpinner />;
+//     }
+//   }
 
   ChartJS.register(CategoryScale);
 
 
   return (
-    <AppContext.Provider value={{ state, selectCrypto, setState, toggleList }}>
+    <AppContext.Provider value={{ state, selectCrypto, setState, toggleList, selectStock  }}>
       <div id="app" className={classNames({ "list-toggled": state.listToggled })}>
-        <CryptoList />
-        <CryptoDetails />
-        <CryptoListToggle />
-        {renderLoadingSpinner()}
+        <StockList />
+        <CryptoDetails selectedStockSymbol={selectedStockSymbol}/>
+        {/* <CryptoPriceChart  /> */}
+        
+        {/* <StockPriceGraph  /> */}
+
+        {/* <CryptoListToggle /> */}
+        {/* {renderLoadingSpinner()} */}
       </div>
     </AppContext.Provider>
   );

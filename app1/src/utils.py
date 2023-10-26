@@ -25,7 +25,7 @@ from bardapi import Bard
 # Constants
 DATABASE_URL = 'https://wealthwise-46f60-default-rtdb.firebaseio.com/'
 ORIGINS = 'http://localhost:3000'
-BARD_API_TOKEN = 'YggJ-puM3oOTP1xvhMbFpYE1jxMMkB45FK8WZxUzTKnL1nt12-s7KDXzHa1NQOo8UeVf5w.'
+BARD_API_TOKEN = 'cAiclw8w-nHQTyb-mplVL40YN7zcU5Zj9b600WXPEJTM_FCENUhZXjEiDvl3QYCqKe0PIg.'
 
 # Authenticate Firebase, Establish Connection
 cred = credentials.Certificate("app1/src/creds.json")
