@@ -25,7 +25,8 @@ from bardapi import Bard
 # Constants
 DATABASE_URL = 'https://wealthwise-46f60-default-rtdb.firebaseio.com/'
 ORIGINS = 'http://localhost:3000'
-BARD_API_TOKEN = 'cAiclw8w-nHQTyb-mplVL40YN7zcU5Zj9b600WXPEJTM_FCENUhZXjEiDvl3QYCqKe0PIg.'
+BARD_API_TOKEN = 'cQjLfV7M1KDnnnAaI3ZuX3oqFLU0yF4iunh59vfMqWe0JwRvyi3ZyliDXCL0uEBMFSQgsA.'
+
 
 # Authenticate Firebase, Establish Connection
 cred = credentials.Certificate("app1/src/creds.json")
@@ -239,8 +240,7 @@ class User(object):
 class BardAI(object):
 
     def __init__(self):
-        self.bard = Bard(token=BARD_API_TOKEN)
-
+        self.bard = Bard(token=BARD_API_TOKEN, timeout = 60)
     def get_response(self, query):
         response = self.bard.get_answer(query)
         return response

@@ -249,6 +249,7 @@
             transform: translateY(100px);
             font-size: larger;
             animation: fadeInFromLeft 1s ease-in;
+            margin-bottom: 200px;
 
           }
         }
@@ -346,6 +347,9 @@
           text-transform: uppercase;
           transition: all 0.25s;
           z-index: 1;
+          transform: translateY(100px);
+          animation: fadeInFromLeft 1s ease-in;
+          margin-bottom: 200px;
         }
       }
     }

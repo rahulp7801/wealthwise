@@ -11213,6 +11213,11 @@
     "tinyqueue" "^2.0.3"
     "vt-pbf" "^3.1.1"
 
+"marked@^9.1.2":
+  "integrity" "sha512-qoKMJqK0w6vkLk8+KnKZAH6neUZSNaQqVZ/h2yZ9S7CbLuFHyS2viB0jnqcWF9UKjwsAbMrQtnQhdmdvOVOw9w=="
+  "resolved" "https://registry.npmjs.org/marked/-/marked-9.1.2.tgz"
+  "version" "9.1.2"
+
 "material-ui-popup-state@^4.0.1":
   "integrity" "sha512-YAxLT10XALsUuuo46sc81NKD6oKJzlkcKP3e+IqC0pKwzAhOAZIQ+RUHXT6Mz3bXHKoHCsM+NdIQxR4mOH/KEQ=="
   "resolved" "https://registry.npmjs.org/material-ui-popup-state/-/material-ui-popup-state-4.1.0.tgz"

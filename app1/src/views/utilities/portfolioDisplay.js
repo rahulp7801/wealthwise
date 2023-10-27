@@ -15,15 +15,7 @@ const CoinGeckoApi = {
 };
 
 
-// const LoadingSpinner = () => {
-//   return (
-//     <div className="loading-spinner-wrapper">
-//       <div className="loading-spinner">
-//         <i className="fa-regular fa-spinner-third" />
-//       </div>
-//     </div>
-//   );
-// }
+
 
 const RequestStatus = {
   Error: "Error",
@@ -376,7 +368,7 @@ const StockPriceGraph = ({ priceData, percentChange }) => {
   
     return (
       <div>
-         <canvas ref={canvasRef} width={1000} height={750}></canvas>
+         <canvas ref={canvasRef} width={1000} height={750} style={{ marginBottom: '500px' }}></canvas>
       </div>
     );
   };
@@ -595,7 +587,12 @@ const PortfolioDisplay = () => {
 
     fetchData();
   }, []);
-
+  useEffect(() => {
+    if (state.status === RequestStatus.Success && specificStocks.length > 0) {
+      // Select the first stock in the specificStocks list
+      selectStock(specificStocks[0].symbol);
+    }
+  }, [state.status]);
   useEffect(() => {
     if(state.status === RequestStatus.Success && state.cryptos.length > 0) {
       selectCrypto(state.cryptos[0].id);

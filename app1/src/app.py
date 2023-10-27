@@ -129,7 +129,7 @@ def get_answer():
     user_prompt = data.get('prompt')  # Receive the user input from the frontend
     userPortfolio = data.get('portfolio')
     print(userPortfolio)
-    token = 'awgJ-tkOIVz1WBxo2Lio6ARpBeruVLmRUqwJdIq1kQwowJCIwjd-CF0Qsjl-l8aDY4GqzQ.'
+    token = 'cQjLfV7M1KDnnnAaI3ZuX3oqFLU0yF4iunh59vfMqWe0JwRvyi3ZyliDXCL0uEBMFSQgsA.'
     bard = Bard(token=token)
     print(f"Received prompt from frontend: {user_prompt}")
 
