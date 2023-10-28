@@ -16,6 +16,9 @@ Introduce the firebase module to work with Google Authentication (trust)
 
 import bcrypt
 
+import requests
+from bs4 import BeautifulSoup
+
 from flask import make_response
 from datetime import datetime
 from firebase_admin import initialize_app, db, credentials, auth
@@ -254,6 +257,63 @@ class BardAI(object):
     def get_response(self, query):
         response = self.bard.get_answer(query)
         return response
+
+class WebScraper(object):
+    def __init__(self):
+        self.url = "https://finance.yahoo.com/news/"
+        self.page = requests.get(self.url)
+        self.soup = BeautifulSoup(self.page.content, "html.parser")
+        self.headlines_list = []
+        self.load_data()
+
+    def load_data(self):
+        items = self.soup.find_all('li', class_='js-stream-content')
+        for item in items:
+            # Extract source or date
+            date_source_div = item.find('div', class_='C(#959595)')
+            if date_source_div:
+                date_source = date_source_div.get_text(strip=True)
+            else:
+                date_source = None
+
+            # Extract title and URL
+            title_anchor = item.find('a', class_='mega-item-header-link') or item.find('a',
+                                                                                       class_='Fz(13px) LineClamp(4,96px) C(#0078ff):h Td(n) C($c-fuji-blue-4-b) smartphone_C(#000) smartphone_Fz(19px)')
+            if title_anchor:
+                title = title_anchor.get_text(strip=True)
+                url = title_anchor['href']
+                if url.startswith('/news'):
+                    url = "https://finance.yahoo.com"+url
+            else:
+                title, url = None, None
+
+
+
+            # Extract content
+            content_p = item.find('p')
+            if content_p:
+                content = content_p.get_text(strip=True)
+            else:
+                content = None
+
+            # Extracting image URL from the first type of snippet
+            img_tag = item.find('img')
+            if img_tag and 'src' in img_tag.attrs:
+                img_url = img_tag['src']
+            else:
+                # Extracting image URL from the second type of snippet (background-image style)
+                div_with_bg = item.find('div', style=lambda value: value and "background-image" in value)
+                if div_with_bg:
+                    style_content = div_with_bg['style']
+                    # Extracting URL from the style content
+                    img_url = style_content.split('url(')[-1].split(')')[0].replace('"', '')
+                else:
+                    img_url = None
+
+            # (0) article source, (1) article title, (2) short summary, (3) article url, (4) image url
+            self.headlines_list.append((date_source, title, content, url, img_url))
+
+
 
 
 

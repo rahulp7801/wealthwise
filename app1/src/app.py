@@ -152,7 +152,9 @@ def get_answer():
     print(f"Sending answer to frontend: {ans}")
     return ans
 
+webscraper = utils.WebScraper()
 
+print(webscraper.headlines_list)
 
 if __name__=="__main__":
     app.run(debug=True, port=5000)
