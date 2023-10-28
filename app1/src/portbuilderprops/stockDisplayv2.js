@@ -5,6 +5,7 @@ import Axios from 'axios';
 const portfolioData = JSON.parse(localStorage.getItem('portfolio'));
 
 const StockDisplay = () => {
+  const initialPortfolioData = JSON.parse(localStorage.getItem('portfolio'));
   const [stockLogos, setStockLogos] = useState({});
   const [stocks, setStocks] = useState(portfolioData);
 
@@ -15,20 +16,32 @@ const StockDisplay = () => {
           `https://api.polygon.io/v3/reference/tickers/${symbol}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
         );
         const data = await response.json();
-        const logoUrl = `${data.results.branding.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
-        setStockLogos((prevLogos) => ({
-          ...prevLogos,
-          [symbol]: logoUrl,
-        }));
+        const logoUrl = `${data?.results?.branding?.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
+        if (logoUrl) {
+          setStockLogos((prevLogos) => ({
+            ...prevLogos,
+            [symbol]: logoUrl,
+          }));
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
 
-    for (const symbol of Object.keys(portfolioData)) {
+    for (const symbol of Object.keys(initialPortfolioData)) {
       fetchStockData(symbol);
     }
-  }, []);
+
+    const handleStorageChange = () => {
+      console.log("HIIIIIIIII")
+      const updatedPortfolioData = JSON.parse(localStorage.getItem('portfolio'));
+        setStocks(updatedPortfolioData);
+    };
+
+    // Add event listener for storage changes
+    window.addEventListener('portfolioChanged', handleStorageChange);
+
+  }, [stocks]);
 
   const handleRemoveStock = (symbol) => {
     const updatedStocks = { ...stocks };
@@ -48,6 +61,7 @@ const StockDisplay = () => {
 
   return (
     <ConfigProvider
+    key={Math.random()}
     theme={{
       algorithm: theme.darkAlgorithm,
 

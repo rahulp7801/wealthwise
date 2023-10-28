@@ -26,8 +26,11 @@ const handleSubmit = () => {
             .catch((error) => {
               console.error('Error:', error);
             });
-
         localStorage.setItem('portfolio', JSON.stringify(parsedData));
+
+        const event = new Event('portfolioChanged');
+        window.dispatchEvent(event);
+
 
 //        console.log(searchResults[0].ticker, searchResults[1])
     };
