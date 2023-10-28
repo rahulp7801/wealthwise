@@ -3,8 +3,8 @@ import CompanySearch from 'valuationCourseProps/stockSearch';
 // import Portstuff from './getportfoliostuff';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
-// import Bardie from './BardButton';
-import TextEffectComponent from './bardCard';
+import Bardie from './BardButton';
+import WealthWiseCard from './bardCard';
 import StockDisplay from './stockDisplayv2';
 import { Row, Col } from 'antd';
 // import StockSelector from './stockSearchv2';
@@ -37,8 +37,8 @@ const LilPortfolioCustomizer  = () => {
         {/* Right column for Bardie and StockDisplay */}
         <Col span={8}>
             <div className="gap2"></div>
-                {/* <Bardie /> */}
-                <TextEffectComponent />
+                <WealthWiseCard />
+                {/* <TextEffectComponent /> */}
                 <div className="gap2"></div>
                 <StockDisplay />
         </Col>
