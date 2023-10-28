@@ -15,7 +15,7 @@ Introduce the firebase module to work with Google Authentication (trust)
 
 
 import bcrypt
-
+import json
 import requests
 from bs4 import BeautifulSoup
 
@@ -32,7 +32,7 @@ BARD_API_TOKEN = 'cQjLfV7M1KDnnnAaI3ZuX3oqFLU0yF4iunh59vfMqWe0JwRvyi3ZyliDXCL0uE
 
 
 # Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("creds.json")
+cred = credentials.Certificate("app1/src/creds.json")
 initialize_app(cred, {
     'databaseURL': DATABASE_URL
 })
@@ -283,11 +283,9 @@ class WebScraper(object):
                 title = title_anchor.get_text(strip=True)
                 url = title_anchor['href']
                 if url.startswith('/news'):
-                    url = "https://finance.yahoo.com"+url
+                    url = "https://finance.yahoo.com" + url
             else:
                 title, url = None, None
-
-
 
             # Extract content
             content_p = item.find('p')
@@ -312,6 +310,10 @@ class WebScraper(object):
 
             # (0) article source, (1) article title, (2) short summary, (3) article url, (4) image url
             self.headlines_list.append((date_source, title, content, url, img_url))
+
+        # Convert headlines_list to JSON and print it
+        # raw_json_data = json.dumps(self.headlines_list, indent=4)
+        # print(raw_json_data)
 
 
 

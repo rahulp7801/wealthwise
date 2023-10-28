@@ -1,45 +1,26 @@
-function NewsItemFind({item}) {
-    // const websiteUrl = item.article_url;
-    // const website = websiteUrl.split('https://').pop().split('/')[0]
-    const publishedUtc = item.published_utc;
+import React from "react";
+import { List } from "antd";
 
-    const date = new Date(publishedUtc)
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short',
-      };
-      const formattedDate = date.toLocaleDateString('en-US', options);
-      
-      console.log(formattedDate);
+function NewsItemFind({ item }) {
+    // Extract the relevant data from the item
+    const headline = item[1];
+    const publisherName = item[0];
+    const link = item[3];
 
     return (
-        <div className="news-body">
-            <a href={item.article_url} className="article">
-                <div className="article-image">
-                    <img src={item.image_url} alt={item.title} />
-                </div>
+        <List.Item>
+            <a href={link} className="article">
                 <div className="article-content">
                     <div className="article-source">
-                        <img src={item.publisher.favicon_url} alt={item.id} />
-                        <span>{item.publisher.name}</span>
+                        <span>{publisherName}</span>
                     </div>
                     <div className="article-title">
-                        <h2>{item.title}</h2>
+                        <h2>{headline}</h2>
                     </div>
-                    <p className="article-description">
-                        {item.description}
-                    </p>
-                    {/* <div className="article-details">
-                        <small><b>Published At: </b>{formatTime}</small>
-                    </div> */}
                 </div>
             </a>
-        </div>
-    )
+        </List.Item>
+    );
 }
-export default NewsItemFind
+
+export default NewsItemFind;

@@ -157,6 +157,7 @@ def get_news_data():
 
     webscraper = utils.WebScraper()
     filtered_list = (webscraper.headlines_list)
+    print(filtered_list)
     return filtered_list
 
 if __name__=="__main__":

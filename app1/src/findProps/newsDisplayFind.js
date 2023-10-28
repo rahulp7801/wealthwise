@@ -1,29 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
-import MenuFind from "./newsMenuFind";
-import NewsGridFind from "./newsGridFind";
-function NewsDisplayFind() {
-    const [items, setItems] = useState([])
+import NewsItemFind from "./newsItemFind";
+import { List } from "antd";
 
-    // const apiKey = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
-    // const apiData = useSelector((state) => state.apiData); // Accessing the apiData state from Redux
+
+function NewsDisplayFind() {
+    const [items, setItems] = useState([]);
+
+    const fetchData = () => {
+        fetch('http://localhost:5000/api/get-news-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            setItems(data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    };
 
     useEffect(() => {
-        fetch('/api/news')  // Replace with the actual endpoint URL
-            .then((res) => res.json())
-            .then((data) => {
-                setItems(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        // Fetch data when the component loads
+        fetchData();
     }, []);
 
     return (
         <div className="news-body">
-            <Menu  />
-            <NewsGrid items={items}/>
+            <List
+                dataSource={items}
+                renderItem={(item, index) => (
+                    <NewsItemFind key={index} item={item} />
+                )}
+            />
         </div>
-    )
+    );
 }
-export default NewsDisplayFind
+
+export default NewsDisplayFind;
+
+
+
+
+
+
