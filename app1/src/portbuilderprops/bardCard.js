@@ -1,52 +1,56 @@
-import React, { useState } from 'react';
-import 'assets/scss/bard-card.css';
+import React from 'react';
+import { Card, Col, ConfigProvider, Row, theme } from 'antd';
+import { Link } from 'react-router-dom';
+const { Meta } = Card;
 
-const TextEffectComponent = () => {
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const [intervalId, setIntervalId] = useState(null);
-  const nameRef = React.createRef();
-
-  const handleMouseEnter = () => {
-    let iteration = 0;
-
-    clearInterval(intervalId);
-
-    const interval = setInterval(() => {
-      nameRef.current.innerText = nameRef.current.innerText
-        .split("")
-        .map((letter, index) => {
-          if (index < iteration) {
-            return nameRef.current.dataset.value[index];
-          }
-
-          return letters[Math.floor(Math.random() * 26)];
-        })
-        .join("");
-
-      if (iteration >= nameRef.current.dataset.value.length) {
-        clearInterval(interval);
-      }
-
-      iteration += 1 / 3;
-    }, 30);
-
-    setIntervalId(interval);
-  };
-
-  return (
-    <div className="body">
-    <div className="screen" onMouseEnter={handleMouseEnter}>
-      <div className="screen-image"></div>
-      <div className="screen-overlay"></div>
-      <div className="screen-content">
-        <i className="screen-icon fa-brands fa-codepen"></i>
-        <div className="screen-user">
-          <span className="name" data-value="CODEPEN" ref={nameRef}>CODEPEN</span>
-        </div>
-      </div>
-    </div>
-    </div>
-  );
+const cardStyle = {
+  width: 400,
+  border: '3px solid #4527A0', // Add the purple border here
+  boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.3)'
 };
 
-export default TextEffectComponent;
+const WealthWiseCard = () => (
+  <ConfigProvider
+    theme={{
+      ...theme,
+      algorithm: theme.darkAlgorithm,
+    }}
+  >
+    <Row gutter={16}> {/* Add gutter to create space between cards */}
+      <Col span={12}>
+        <Link to="/wealthwise">
+          <Card
+            hoverable
+            style={cardStyle} // Apply the cardStyle here
+            cover={
+              <img
+                alt="example"
+                src="https://images.unsplash.com/photo-1625314887424-9f190599bd56?auto=format&fit=crop&q=80&w=1587&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              />
+            }
+          >
+            <Meta title="Wealth Wise" />
+          </Card>
+        </Link>
+      </Col>
+      <Col span={12}>
+        <Link to="/anotherPage"> {/* Replace with the link you want */}
+          <Card
+            hoverable
+            style={cardStyle} // Apply the cardStyle here
+            cover={
+              <img
+                alt="example"
+                src="https://example.com/another-image.jpg" // Replace with your image URL
+              />
+            }
+          >
+            <Meta title="Another Card" />
+          </Card>
+        </Link>
+      </Col>
+    </Row>
+  </ConfigProvider>
+);
+
+export default WealthWiseCard;

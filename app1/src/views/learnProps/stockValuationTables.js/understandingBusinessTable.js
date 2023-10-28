@@ -21,8 +21,6 @@ const SkillsTable1 = () => {
     grey: '#1a223f',
   };
 
-  
-
   // Define different handleButtonClick functions for each row
   const handleButtonClick = (record) => {
     switch (record.key) {
@@ -39,6 +37,10 @@ const SkillsTable1 = () => {
         // Handle other cases if needed
         break;
     }
+  };
+
+  const rowStyle = {
+    height: '200px', // Set the height of each row
   };
 
   const columns = [
@@ -107,15 +109,15 @@ const SkillsTable1 = () => {
 
   return (
     <ConfigProvider theme={{
-      // 1. Use dark algorithm
+      // Use dark algorithm
       algorithm: theme.darkAlgorithm,
-
     }}>
       <Table
         columns={columns}
         dataSource={data}
         expandedRowRender={expandedRowRender}
         pagination={false}
+        rowStyle={rowStyle} // Apply the rowStyle
       />
     </ConfigProvider>
   );
