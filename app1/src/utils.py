@@ -29,7 +29,7 @@ BARD_API_TOKEN = 'cQjLfV7M1KDnnnAaI3ZuX3oqFLU0yF4iunh59vfMqWe0JwRvyi3ZyliDXCL0uE
 
 
 # Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("app1/src/creds.json")
+cred = credentials.Certificate("creds.json")
 initialize_app(cred, {
     'databaseURL': DATABASE_URL
 })
@@ -123,10 +123,15 @@ class User(object):
         else:
             user_data = users_ref.child(self._get_user_email()).get()  # If they used Google Sign In
         return user_data  # realest code
-    def post_portfolio_info(self, portfolio:dict):
+    def post_portfolio_info(self, portfolio:dict, isDelete = False):
         users_ref = db.reference('users')
         user_data = users_ref.child(f'{self._encode_emailHTML()}/portfolio').get()
-        user_data.update(portfolio)
+        if user_data is not None and not isDelete:
+            user_data.update(portfolio)
+        else:
+            user_data = portfolio
+        if isDelete:
+            self.delete_portfolio_info()
         print(user_data)
         print(self._encode_emailHTML())# DB connection
         user_poof = users_ref.child(self._encode_emailHTML()).update(
@@ -134,6 +139,11 @@ class User(object):
                 'portfolio': user_data
             }
         )
+
+    def delete_portfolio_info(self):
+        users_ref = db.reference('users')
+        users_ref.child(f'{self._encode_emailHTML()}/portfolio').delete()
+
     def get_portfolio_info(self):
         users_ref = db.reference('users')
         return users_ref.child(f'{self._encode_emailHTML()}/portfolio').get()

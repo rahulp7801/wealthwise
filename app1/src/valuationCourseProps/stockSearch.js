@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
+import Axios from 'axios';
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [stockInput, setStockInput] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userCorrected, setUserCorrected] = useState(false);
   const dropdownRef = useRef(null);
-  const handleSubmit = () => {
+const handleSubmit = () => {
+
+
         const portiefortie = localStorage.getItem('portfolio')
         console.log(portiefortie);
         const parsedData = JSON.parse(portiefortie);
@@ -14,6 +17,15 @@ const CompanySearch = () => {
 
         parsedData[searchResults[0].ticker] = searchResults[0].name;
         console.log(2, parsedData);
+        var newPortfolio = parsedData;
+        Axios.post('http://localhost:5000/api/post-portfolio-info', {parsedData, "email": localStorage.getItem('userEmail')})
+            .then((response) => {
+              // Handle the response from the server here
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
 
         localStorage.setItem('portfolio', JSON.stringify(parsedData));
 
