@@ -104,14 +104,16 @@ def login_google():
 def post_user_info():
     init_curs()
     data = request.json
-    print(data)
-    ticker = data.get('searchResults')[0].get('ticker')
-    name = data.get('searchResults')[0].get('name')
-    email = data.get('email')
-    user = utils.User(email = email)
-    user.post_portfolio_info({ticker: name})
-    print(user.get_portfolio_info())
-    return('hey baby')
+    print(f"Request payload is: {data}")
+    email, _, _, _ = agg_vals(data)  # Get the logged-in user's email from the frontend data
+    user = User(email=email)  # Create a User object with the logged-in user's email (no need for pwd, fname, and lname)
+    portfolio_data = data.get("parsedData")  # Get the user's stock portfolio data from the frontend data
+    if portfolio_data is None:
+        portfolio_data = data.get("updatedStocks")
+    print(f"User portfolio data is: {portfolio_data}")
+    print(user.post_portfolio_info(portfolio_data, isDelete=True))  # Call the post_user_info function
+#    return jsonify(updated_portfolio)  # Return the updated stock portfolio data to the frontend
+    return('okay')
 
 @app.route("/api/get-portfolio-info", methods=["POST"])
 def get_portfolio_info():

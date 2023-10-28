@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, List, ConfigProvider, theme, Button } from 'antd';
+import Axios from 'axios';
 
 const portfolioData = JSON.parse(localStorage.getItem('portfolio'));
 
@@ -33,6 +34,15 @@ const StockDisplay = () => {
     const updatedStocks = { ...stocks };
     delete updatedStocks[symbol];
     setStocks(updatedStocks);
+    console.log('updatedStocks' + updatedStocks);
+    Axios.post('http://localhost:5000/api/post-portfolio-info', {updatedStocks, "email": localStorage.getItem('userEmail')})
+            .then((response) => {
+              // Handle the response from the server here
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
     localStorage.setItem('portfolio', JSON.stringify(updatedStocks));
   };
 
