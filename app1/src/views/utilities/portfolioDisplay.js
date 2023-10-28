@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext, useRef  } from 'react';
+import React, { useState, useEffect, createContext, useRef  } from 'react';
 import axios from 'axios';
 import classNames from 'classnames'; // Please install 'classnames' package if not already
 // import { Line } from "react-chartjs-2"
@@ -51,21 +51,31 @@ const Color = {
 // }
 
 
-  
-  const specificStocks = [
-    { symbol: 'MSFT' },
-    { symbol: 'GOOGL' },
-    { symbol: 'TSLA' },
-    { symbol: 'LLY' },
-    { symbol: 'GM' },
+
+  // const specificStocks = [
+  //   { symbol: 'MSFT' },
+  //   { symbol: 'GOOGL' },
+  //   { symbol: 'TSLA' },
+  //   { symbol: 'LLY' },
+  //   { symbol: 'GM' },
 
 
-  ];
+  // ];
+  // const portielortie = localStorage.getItem('portfolio');
+  // console.log(portielortie)
+  const portielortie = localStorage.getItem('portfolio');
+  console.log(portielortie)
+    // Parse the JSON data
+  const parsedData = JSON.parse(portielortie);
 
+  // Extract symbols (keys) from the parsed data
+  const symbols = Object.keys(parsedData);
+
+  // Create an array of objects with symbols
+  const portfolioArray = symbols.map(symbol => ({ symbol }));
   const StockListItem = (props) => {
     const { state, selectStock } = React.useContext(AppContext);
     const { symbol } = props;
-    const [stock, setStock] = useState("")
 
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
@@ -82,7 +92,7 @@ const Color = {
         const nameWords = data.results.name.split(' ');
         const truncatedName = nameWords.slice(0, 2).join(' ');
         setName(truncatedName);
-        const logoUrl = `${data.results.branding.logo_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
+        const logoUrl = `${data.results.branding.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
         setImage(logoUrl);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -128,28 +138,53 @@ const Color = {
         <img className="stock-list-item-image" src={image} alt={`${symbol} Logo`} />
         <div className="stock-list-item-details">
           <h1 className="stock-list-item-name">{name}</h1>
-          <h1 className="stock-list-item-price"><strong> Current Price: </strong>{price}</h1>
+          <h1 className="stock-list-item-price"><strong> Current Price: $</strong>{price}</h1>
           <h1 className="stock-list-item-price"><strong>Percent Change: </strong>{percentChange}</h1>
         </div>
       </div>
     </button>
   );
 };
-  const StockList = () => {
-    const { state } = React.useContext(AppContext);
-  
-    if (state.status === RequestStatus.Success && specificStocks.length > 0) {
-      return (
-        <div id="stock-list">
-          {specificStocks.map((stock) => (
-            <StockListItem key={stock.symbol} symbol={stock.symbol} />
-          ))}
-        </div>
-      );
+const StockList = () => {
+  const { state } = React.useContext(AppContext);
+  const [specificStocks, setSpecificStocks] = useState([]);
+  const [selectedStockSymbol, setSelectedStockSymbol] = useState('');
+
+  useEffect(() => {
+    // Retrieve data from local storage
+    const portielortie = localStorage.getItem('portfolio');
+
+    // Parse the JSON data
+    const parsedData = JSON.parse(portielortie);
+
+    // Extract symbols (keys) from the parsed data
+    const symbols = Object.keys(parsedData);
+
+    // Create an array of objects with symbols
+    const portfolioArray = symbols.map(symbol => ({ symbol }));
+    console.log(portfolioArray)
+    setSpecificStocks(portfolioArray);
+
+    if (portfolioArray.length > 0) {
+      // Set the selected stock symbol to the first symbol in the portfolioArray
+      setSelectedStockSymbol(portfolioArray[0].symbol);
     }
-  
-    return null;
-  };
+
+  }, []);
+
+  if (state.status === RequestStatus.Success && specificStocks.length > 0) {
+    return (
+      <div id="stock-list">
+        {specificStocks.map((item) => (
+          <StockListItem key={item.symbol} symbol={item.symbol} />
+        ))}
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const CryptoUtility = {
   formatPercent(value) {
     return (value / 100).toLocaleString("en-US", { style: "percent", minimumFractionDigits: 2 });
@@ -189,7 +224,7 @@ const CryptoUtility = {
 // }
 
 const CryptoDetails = (props) => {
-    const { selectedCrypto } = useContext(AppContext).state;
+    // const { selectedCrypto } = useContext(AppContext).state;
     const [percentChange, setPercentChange] = useState('');
 
     const [priceData, setPriceData] = useState({ results: [] });
@@ -228,16 +263,16 @@ const CryptoDetails = (props) => {
       }, [symbol]);
 
   
-  const [state, setState] = useState({
-    crypto: null,
-    transitioning: true
-  });
+  // const [state, setState] = useState({
+  //   crypto: null,
+  //   transitioning: true
+  // });
 
-  const setTransitioning = (transitioning) => {
-    setState(prevState => ({ ...prevState, transitioning }));
-  }
+  // const setTransitioning = (transitioning) => {
+  //   setState(prevState => ({ ...prevState, transitioning }));
+  // }
 
-  const { crypto } = state;
+  // const { crypto } = state;
 
   
 
@@ -309,8 +344,7 @@ const StockPriceGraph = ({ priceData, percentChange }) => {
           const minY = Math.min(...openingPrices);
           const maxY = Math.max(...openingPrices);
       
-          const yMinZoomFactor = 0.001;
-          const yMaxZoomFactor = 1.05;
+          
       
           const suggestedMin = minY - 1;
           const suggestedMax = maxY + 1;
@@ -367,8 +401,8 @@ const StockPriceGraph = ({ priceData, percentChange }) => {
     }, [priceData]);
   
     return (
-      <div>
-         <canvas ref={canvasRef} width={1000} height={750} style={{ marginBottom: '500px' }}></canvas>
+      <div id='crypto-price-chart-wrapper'>
+         <canvas id='crypto-price-chart' ref={canvasRef} width={700} height={1000} style={{ marginBottom: '500px' }}></canvas>
       </div>
     );
   };
@@ -588,9 +622,9 @@ const PortfolioDisplay = () => {
     fetchData();
   }, []);
   useEffect(() => {
-    if (state.status === RequestStatus.Success && specificStocks.length > 0) {
+    if (state.status === RequestStatus.Success) {
       // Select the first stock in the specificStocks list
-      selectStock(specificStocks[0].symbol);
+      selectStock(portfolioArray[0].symbol);
     }
   }, [state.status]);
   useEffect(() => {

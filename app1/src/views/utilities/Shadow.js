@@ -1,6 +1,8 @@
 import React from 'react';
 import 'assets/scss/styles.css';
 import 'assets/scss/style.scss';
+import 'assets/scss/header-aurora.css';
+
 import { useNavigate } from 'react-router-dom';
 
 const MyComponent = () => {
@@ -15,9 +17,23 @@ const MyComponent = () => {
 
   return (
     <div>
-        <div className="top-active-stocks-container">
-          Portfolio Builder
-        </div>
+        <div className="aurora-gradient">
+            <div className="header-body">
+                <div className="aurora-content">
+                <h1 className="aurora-title"> 
+                    Portfolio Builder
+                    <div className="aurora">
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    </div>
+                </h1>
+                </div>
+            </div>
+            </div>
+            <div className="gap2"></div>
+
         <div className="grid-container2">
             <div className="grid-item2">
                 <button onClick={handleButtonClick} className='submit-button-reset-style '>

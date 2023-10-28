@@ -4,6 +4,7 @@ import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -53,22 +54,22 @@ const FirebaseLogin = ({ ...others }) => {
   const googleHandler = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
-  try {
-    const result = await firebase.auth().signInWithPopup(provider);
-    const idToken = await result.user.getIdToken();
-    // Make an HTTP request Flask backend with the Firebase ID token
-    const response = await axios.post('http://localhost:5000/api/login-google', { idToken });
-    console.log(response.data);
-    if (response.data === "notexist") {
-        alert("User does not exist in DB (GOOGLE SIGN IN ONLY)!");
-    } else if (response.data === "interr") {
-        alert("Internal Server Error, try again later.");
-    } else if (response.data === "success") {
-        alert("Successfully logged in");
+    try {
+      const result = await firebase.auth().signInWithPopup(provider);
+      const idToken = await result.user.getIdToken();
+      const response = await axios.post('http://localhost:5000/api/login-google', { idToken });
+      console.log(response.data);
+      if (response.data === "notexist") {
+        message.error("User does not exist in DB (GOOGLE SIGN IN ONLY)!");
+      } else if (response.data === "interr") {
+        message.error("Internal Server Error, try again later.");
+      } else if (response.data === "success") {
+        message.success("Successfully logged in");
+      }
+    } catch (error) {
+      console.error('Google Sign-In Error:', error);
+      message.error('An error occurred while signing in with Google.');
     }
-  } catch (error) {
-    console.error('Google Sign-In Error:', error);
-  }
   };
 
   const [showPassword, setShowPassword] = useState(false);

@@ -1,10 +1,12 @@
 import 'assets/scss/styles.css';
 import CompanySearch from 'valuationCourseProps/stockSearch';
-import Portstuff from './getportfoliostuff';
+// import Portstuff from './getportfoliostuff';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
 import Bardie from './BardButton';
-
+import StockDisplay from './stockDisplayv2';
+import { Row, Col } from 'antd';
+// import StockSelector from './stockSearchv2';
 const LilPortfolioCustomizer  = () => {
 
   return (
@@ -24,25 +26,23 @@ const LilPortfolioCustomizer  = () => {
             </div>
           </div>
         </div>
-        <div className="grid-container3">
-            <div className="grid-item2">
-                <CompanySearch />
-            </div>
-            <div className="gird-item3">
+        <Row gutter={0}>
+        {/* Left column for CompanySearch */}
+        <Col span={16}>
+            {/* <CompanySearch /> */}
+            <CompanySearch />
+        </Col>
+        {/* Right column for Bardie and StockDisplay */}
+        <Col span={8}>
+            <div className="gap2"></div>
+                <Bardie />
                 <div className="gap2"></div>
-
-                <div className="skill-grid-container">
-                  <div className="skill-item">
-                    <Bardie />
-                    <div className="gap2"></div>
-                    <Portstuff />
-                  </div>
-                </div>
-
-            </div>
-        </div>
-      </div>
+                <StockDisplay />
+        </Col>
+      </Row>
+    </div>
   );
 };
+
 
 export default LilPortfolioCustomizer;

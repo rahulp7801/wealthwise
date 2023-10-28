@@ -1,6 +1,6 @@
 
-import StockDisplay from './StockDisplay.js'
-
+// import StockDisplay from './StockDisplay.js'
+import StockDisplay from "./stockDisplayv2";
 const Portstuff = () => {
     return (
       <div>

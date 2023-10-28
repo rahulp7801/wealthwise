@@ -16,24 +16,28 @@ function StockSurvey() {
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
-  const createMarkup = (textMark) => {
-    return { __html: marked(textMark) };
+  function MarkdownRenderer({ markdown }) {
+  const createMarkup = (text) => {
+    return { __html: marked(text) };
   };
+
+  return <div dangerouslySetInnerHTML={createMarkup(markdown)} />;
+}
   const handleSend = async (message) => {
     if (message.trim() === '') return;
-  
+
     const newMessage = {
       message,
       direction: 'outgoing',
       sender: "user"
     };
-  
+
     const newMessages = [...messages, newMessage];
-    
+
     setMessages(newMessages);
-  
+
     setIsTyping(true);
-  
+
     try {
       const portielortie = localStorage.getItem('portfolio');
       const response = await fetch('http://localhost:5000/api/get_answer', {
@@ -43,16 +47,17 @@ function StockSurvey() {
         },
         body: JSON.stringify({ prompt: message, portfolio: portielortie }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }
-  
+
       const data = await response.json();
-  
+
       setMessages((prevMessages) => [...prevMessages, {
         message: data.content,
-        sender: "ChatGPT"
+        sender: "ChatGPT",
+        direction: "incoming"
       }]);
       setIsTyping(false);
     } catch (error) {
@@ -106,26 +111,31 @@ function StockSurvey() {
 //     });
 //   }
 
-  return (
-    <div className="App">
-      <div style={{ position:"relative", height: "700px", width: "700px"  }}>
+return (
+  <div className="App">
+<div style={{ position:"relative", height: "700px", width: "100%"  }}>
         <MainContainer>
-          <ChatContainer>       
-            <MessageList 
-              scrollBehavior="smooth" 
-              typingIndicator={isTyping ? <TypingIndicator content="Wealth Wise is typing" /> : null}
-            >
-              {messages.map((message, i) => {
-                console.log(message)
-                return <Message key={i} model={message} />
-              })}
-            </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />        
-          </ChatContainer>
-        </MainContainer>
-      </div>
+        <ChatContainer>
+          <MessageList
+            scrollBehavior="smooth"
+            typingIndicator={isTyping ? <TypingIndicator content="Wealth Wise is typing" /> : null}
+          >
+            {messages.map((message, i) => {
+              console.log(message)
+              return (<Message key={i} model={{ sender: message.sender, message: message.message, direction: message.direction }}>
+                <Message.CustomContent>
+                  <MarkdownRenderer markdown={message.message.trim()} />
+                </Message.CustomContent>
+              </Message>
+                      )
+            })}
+          </MessageList>
+          <MessageInput placeholder="Type message here" onSend={handleSend} />
+        </ChatContainer>
+      </MainContainer>
     </div>
-  )
+  </div>
+)
 }
 
 export default StockSurvey
