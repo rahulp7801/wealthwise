@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
 import Axios from 'axios';
-const CompanySearch = () => {
+import CryptoDetails from './graphingStock.js'
+const CompanySearchv2 = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [stockInput, setStockInput] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -155,7 +156,7 @@ const handleSubmit = () => {
               </ul>
             )}
           </div>
-            <a style={{ marginTop: '20rem' }}>
+            <a style={{ marginTop: '20rem', marginRight: '13rem' }}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -173,7 +174,27 @@ const handleSubmit = () => {
                     type="button"
                     onClick={handleSubmit}
                 >
-                    Submit
+                    Add Stock
+                </button>
+            </a>
+            <a style={{top: '-5rem',marginLeft: '13rem'}}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <button
+                    className="submit-button-reset-style"
+                    type="button"
+                >
+                    Stock Specifics
                 </button>
             </a>
         </div>
@@ -182,4 +203,4 @@ const handleSubmit = () => {
   );
 };
 
-export default CompanySearch;
+export default CompanySearchv2;

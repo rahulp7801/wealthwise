@@ -1,9 +1,9 @@
 import 'assets/scss/styles.css';
-import CompanySearch from 'valuationCourseProps/stockSearch';
-// import Portstuff from './getportfoliostuff';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
-import Bardie from './BardButton';
+import CompanySearch from 'valuationCourseProps/stockSearch';
+// import Portstuff from './getportfoliostuff';
+//import Bardie from './BardButton';
 import WealthWiseCard from './bardCard';
 import StockDisplay from './stockDisplayv2';
 import { Row, Col } from 'antd';
