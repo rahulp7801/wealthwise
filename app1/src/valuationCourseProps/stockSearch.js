@@ -1,18 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
-import { Input, Button } from 'antd';
-
 const CompanySearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [stockInput, setStockInput] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userCorrected, setUserCorrected] = useState(false);
-  const [submittedTexts, setSubmittedTexts] = useState([]); // State to store submitted texts
   const dropdownRef = useRef(null);
   const handleSubmit = () => {
-        const submittedText = stockInput; // Get the submitted text
-        setSubmittedTexts([...submittedTexts, submittedText]);        
-        setStockInput('');
         const portiefortie = localStorage.getItem('portfolio')
         console.log(portiefortie);
         const parsedData = JSON.parse(portiefortie);
@@ -28,11 +22,9 @@ const CompanySearch = () => {
 
   useEffect(() => {
     const fetchPolygonData = async () => {
-      // const apiKey = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
-      const apiKey = 'AMXAOB5BNQ7TZK65'
-      const apiUrl = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockInput}&apikey=${apiKey}`;
-      // https://api.polygon.io/v3/reference/tickers?search=${stockInput}&apiKey=${apiKey}
-      // https://api.polygon.io/v3/reference/tickers?ticker=${stockInput}&active=true&apiKey=${apiKey}
+      const apiKey = 'CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble';
+      const apiUrl = `https://api.polygon.io/v3/reference/tickers?search=${stockInput}&apiKey=${apiKey}`;
+
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -95,7 +87,7 @@ const CompanySearch = () => {
       <form>
         <div className="user-box">
           <div style={{ position: 'relative' }}>
-            <Input 
+            <textarea
               ref={dropdownRef}
               value={stockInput}
               onChange={handleTextareaChange}
@@ -110,9 +102,6 @@ const CompanySearch = () => {
                 borderRadius: '5px',
               }}
             />
-            <Button type="primary" onClick={handleSubmit} >
-                    Submit
-            </Button>
             {isDropdownOpen && searchResults && searchResults.length > 0 && (
               <ul
                 className="dropdown"
@@ -164,21 +153,18 @@ const CompanySearch = () => {
                 <span></span>
                 <span></span>
 
-                
+                <button
+                    className="submit-button-reset-style"
+                    type="button"
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </button>
             </a>
         </div>
       </form>
-      <div className="submit-queue">
-        <h3>Submit Queue:</h3>
-        {/* Display the submitted texts in separate divs */}
-        {submittedTexts.map((text, index) => (
-          <div key={index}>{text}</div>
-        ))}
-      </div>
     </div>
   );
 };
 
 export default CompanySearch;
-// className="submit-button-reset-style"
-                    // type="button"
