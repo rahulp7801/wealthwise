@@ -30,13 +30,12 @@ const Header = ({ handleLeftDrawerToggle }) => {
         <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
           <LogoSection />
         </Box>
-        <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
+        <ButtonBase sx={{ borderRadius: '12px', overflow: 'visible' }}>
           <Avatar
             variant="rounded"
             sx={{
               ...theme.typography.commonAvatar,
               ...theme.typography.mediumAvatar,
-              transition: 'all .2s ease-in-out',
               background: theme.palette.secondary.light,
               color: theme.palette.secondary.dark,
               '&:hover': {
@@ -53,13 +52,10 @@ const Header = ({ handleLeftDrawerToggle }) => {
       </Box>
 
       {/* header search */}
-      <Box sx={{ flexGrow: 0.65, zIndex:1 }} />
-                <b>
-                <h1 className="aurora-titlev2">
+    <Box sx={{flexGrow: 0.5}}/>
+                <h1>
                     Wealth Wise
                 </h1>
-                </b>
-      <Box sx={{ flexGrow: 1 }} />
 
       {/* notification & profile */}
     </>

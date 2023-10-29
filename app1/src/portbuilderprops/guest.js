@@ -1,5 +1,4 @@
 import StockSurvey from "./stockSurveyGuest";
-import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
 const Guest = () => {
   return (

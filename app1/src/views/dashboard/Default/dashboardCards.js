@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon, { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } from '@ant-design/icons';
+import { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } from '@ant-design/icons';
 import { Card, Row, Col, ConfigProvider, theme, Typography, Button, Divider } from 'antd';
 import styles from 'assets/scss/NewsCard.module.css';
 
