@@ -134,6 +134,7 @@
   text-align: center;
   font-size: 3vmin;
   font-weight: bolder;
+  align-items: center;
 
 }
 
@@ -631,7 +632,7 @@ background: linear-gradient(0deg, #B39DDB 0%, #5E35B1 100%);
 .get-started-title-button {
   font-size: 4vmin;
   line-height: 1.25;
-  text-align: left;
+  text-align: center;
   font-size: 2.5vmin;
   font-weight: bolder;
 

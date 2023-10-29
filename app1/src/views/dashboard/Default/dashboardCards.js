@@ -42,7 +42,7 @@ const DashboardCards = () => {
   }
 
   const handleNav5 = () => {
-    navigate('/portfolio-advisor');
+    navigate('/utils/portfolio-advisor-home');
   }
 
   return (

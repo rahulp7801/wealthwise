@@ -44,7 +44,7 @@ const utilities = {
       id: 'util-shadow',
       title: 'Portfolio Advisor',
       type: 'item',
-      url: '/portfolio-advisor',
+      url: '/utils/portfolio-advisor-home',
       icon: icons.FundViewOutlined,
       breadcrumbs: false
     }
