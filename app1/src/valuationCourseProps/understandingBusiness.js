@@ -12,7 +12,6 @@ import {store, persistor} from './store';
 import SparkleButton2 from "./sparkleButton2";
 import SparkleButton6 from "./sparkleButton6";
 import { useNavigate } from 'react-router-dom';
-import InvestorPage from "./bizProps/investorSrc";
 import { Col, Row } from 'antd';
 import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css'
@@ -47,7 +46,6 @@ const UnderstandBiz  = () => {
           <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
               
-              <InvestorPage />
               {/* <StockTitle /> */}
               <div className="card-body">
                 <div className='card2'>

@@ -9,7 +9,6 @@ import EVtoEBITDA from "./relativeValuationCourseProps/evebitda";
 import PtoCashflow from "./relativeValuationCourseProps/pricefreecashflow";
 import EVtoSales from "./relativeValuationCourseProps/evsales";
 import SparkleButton5 from "./sparkleButton5";
-import CompetitorSet from "./competitorSet";
 import { useNavigate } from 'react-router-dom';
 import SparkleButton3 from "./sparkleButton3";
 import { Col, Row } from 'antd';
@@ -132,7 +131,6 @@ const EnterpriseValueMultiples = () => {
                                 <div className="gap2"></div>
                                 <div className='card2'>
                                 <div className='card2-content'>
-                                    <CompetitorSet />
                             </div>
                     </div>
                             <div className='card2'>
