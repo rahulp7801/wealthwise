@@ -3,6 +3,14 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px;
+  width: 100% !important;
+}
+
+.cardContainer1 {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100% !important;
 }
 
 .card {
@@ -31,6 +39,36 @@
 }
 
 .card p {
+    margin-top: 10px;
+    color: #666;
+}
+
+.card1 {
+  flex-basis: calc(33% - 10px) !important;
+  margin: 5px;
+  transition: all 0.3s;
+  border-radius: 20px;
+}
+
+.card1:hover {
+    transform: scale(1.03);
+    boxShadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card1 img {
+    width: 100%;
+    object-fit: cover;
+    borderTopLeftRadius: 5px;
+    borderTopRightRadius: 5px;
+}
+
+.card1 h2 {
+    font-size: 18px;
+    margin-top: 15px;
+    color: #000 !important;
+}
+
+.card1 p {
     margin-top: 10px;
     color: #666;
 }

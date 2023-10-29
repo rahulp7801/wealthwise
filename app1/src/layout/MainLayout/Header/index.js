@@ -53,7 +53,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
       </Box>
 
       {/* header search */}
-      <Box sx={{ flexGrow: 0.75 }} />
+      <Box sx={{ flexGrow: 0.65, zIndex:1 }} />
                 <b>
                 <h1 className="aurora-titlev2">
                     Wealth Wise

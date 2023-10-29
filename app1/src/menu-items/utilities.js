@@ -23,13 +23,6 @@ const utilities = {
       icon: icons.IconWindmill,
       children: [
         {
-          id: 'learn-home',
-          title: 'Home',
-          type: 'item',
-          url: '/icons/learn-home',
-          breadcrumbs: false
-        },
-        {
           id: 'stock-val',
           title: 'Stocks',
           type: 'item',

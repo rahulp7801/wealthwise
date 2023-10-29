@@ -17,10 +17,16 @@ const StockDisplay = () => {
         );
         const data = await response.json();
         const logoUrl = `${data?.results?.branding?.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
-        if (logoUrl) {
+        console.log(logoUrl + "\nLOGO URL");
+        if (!logoUrl.startsWith("undefined")) {
           setStockLogos((prevLogos) => ({
             ...prevLogos,
             [symbol]: logoUrl,
+          }));
+        } else {
+            setStockLogos((prevLogos) => ({
+            ...prevLogos,
+            [symbol]: 'https://t3.ftcdn.net/jpg/02/81/14/10/360_F_281141027_p3QurYdJnzbnf3Aola5uu0X6ElC5zVpf.jpg',
           }));
         }
       } catch (error) {
@@ -81,7 +87,7 @@ const StockDisplay = () => {
               description={entry[1]} // Use the symbol as the description
               avatar={
                 <Avatar
-                  src={stockLogos[entry[0]] || 'default_image_url'}
+                  src={stockLogos[entry[0]] || 'https://t3.ftcdn.net/jpg/02/81/14/10/360_F_281141027_p3QurYdJnzbnf3Aola5uu0X6ElC5zVpf.jpg'}
                   // Use a default image URL in case the logo isn't available
                 />
               }
