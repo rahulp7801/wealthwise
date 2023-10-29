@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon, { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } from '@ant-design/icons';
+import { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } from '@ant-design/icons';
 import { Card, Row, Col, ConfigProvider, theme, Typography, Button, Divider } from 'antd';
 
 const { Meta } = Card;
@@ -8,7 +8,7 @@ const { Title } = Typography;
 const cardStyle = {
   width: '400px',
   height: '525px',
-  backgroundColor: '#30344c'
+  backgroundColor: '#30344c',
 };
 
 const avatarStyle = {
@@ -35,8 +35,8 @@ const DashboardCards = () => (
       }}
     >
       <div>
-      <Title level={3} style={{titleStyle}}>Learn Features</Title>
-
+      <Title level={3} style={{titleStyle, paddingRight: '50px'}}></Title>
+    <div style = {{marginLeft: '220px !important'}}>
         <Row gutter={16}>
 
           <Col span={12}>
@@ -142,6 +142,7 @@ const DashboardCards = () => (
             </Card>
           </Col>
         </Row>
+        </div>
       </div>
     </ConfigProvider>
   </div>
