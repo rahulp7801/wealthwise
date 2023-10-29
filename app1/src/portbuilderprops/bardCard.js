@@ -17,7 +17,7 @@ const WealthWiseCard = () => (
       ...theme,
       algorithm: theme.darkAlgorithm,
     }}>
-    <Link to="/wealthwise">
+    <Link to="/customizebard">
       <Card
         hoverable
         style={cardStyle} // Apply the cardStyle here
