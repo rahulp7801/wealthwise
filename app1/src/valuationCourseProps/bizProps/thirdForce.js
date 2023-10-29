@@ -69,7 +69,7 @@ const ThirdForce = () => {
             </Space>
           </div>
           ) : (
-            <div>
+            <div style={{ border: '2px solid #4527A0', padding: '20px'}}>
               {validity}
             </div>
           )}

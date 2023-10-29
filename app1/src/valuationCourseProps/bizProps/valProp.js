@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-import { Spin, Space } from 'antd';
+import { Spin, Space, Card } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons'; // for a customized loading icon
+
 
 const apiKey = "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";
 
@@ -56,24 +58,39 @@ const ValProposition = () => {
     }
   }
 
+    const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />; // Customized loading icon for dark theme
+
+
   return (
-    // Your JSX for the StockDescription component, including rendering the 'validity' variable
-    <div>
-        
-        {loading ? ( // Render Spin when loading is true
-          <div style={{ paddingTop: '20px', height: '100%' }}>
-            <Space>
-              <Spin  size="large" className="custom-spin" >
-                <div className="content" />
-              </Spin>
-            </Space>
-          </div>
-          ) : (
-            <div>
-              {validity}
-            </div>
-          )}
-    </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Card
+        title="Company Value Proposition"
+        bordered={false}
+        style={{
+            width: 450,
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid',
+            borderRadius: '15px'
+        }}
+        headStyle={{
+            backgroundColor: '#20243c',
+            color: '#fff',
+            fontSize: '25px',
+            fontWeight: '600',
+            textAlign: 'center',
+
+        }}
+        bodyStyle={{
+            padding: '20px',
+            display: loading ? 'flex' : 'block',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}
+        loading={loading}
+    >
+        {validity}
+    </Card>
+</div>
   );
 };
 

@@ -46,22 +46,18 @@ const UnderstandBiz  = () => {
         <div>
           <Provider store={store} >
             <PersistGate loading={null} persistor={persistor}>
-              
-              <InvestorPage />
-              {/* <StockTitle /> */}
+                            {/* <StockTitle /> */}
               <div className="card-body">
-                <div className='card2'>
-                  <div className='card2-content'>
-                    <h1>Stock Description</h1>
-                    <StockDescription />
-                  </div>
-                </div>
+
                 <div className="gape"></div>
-                <div className='card'>
-                  <div className='card-content'>
-                    <h1>Value Proposition</h1>
-                    <ValProposition />
-                  </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div style={{ flex: 1, paddingRight: '10px' }}>
+                        <StockDescription />
+                    </div>
+
+                    <div style={{ flex: 1, paddingLeft: '10px' }}>
+                        <ValProposition />
+                    </div>
                 </div>
                 <IndustryIdentify />
                 <FiveForces />
