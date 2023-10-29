@@ -84,7 +84,6 @@ const RequestStatus = {
 
   useEffect(() => {
     async function fetchStockData() {
-      try {
         const response = await fetch(
           `https://api.polygon.io/v3/reference/tickers/${symbol}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`
         );
@@ -92,11 +91,14 @@ const RequestStatus = {
         const nameWords = data.results.name.split(' ');
         const truncatedName = nameWords.slice(0, 2).join(' ');
         setName(truncatedName);
-        const logoUrl = `${data.results.branding.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
+        var logoUrl = ""
+        try {
+            logoUrl = `${data.results.branding.icon_url}?apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`;
+        } catch (err) {
+            logoUrl = 'https://t3.ftcdn.net/jpg/02/81/14/10/360_F_281141027_p3QurYdJnzbnf3Aola5uu0X6ElC5zVpf.jpg'
+        }
+        console.log(logoUrl + "\nLOGO URL");
         setImage(logoUrl);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
     }
 
     fetchStockData();
