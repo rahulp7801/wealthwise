@@ -28,22 +28,21 @@ const LilPortfolioCustomizer  = () => {
             </div>
           </div>
         </div>
-        <Row gutter={0}>
-        {/* Left column for CompanySearch */}
-        <Col span={16}>
-            {/* <CompanySearch /> */}
-            <CompanySearch />
-        </Col>
-        {/* Right column for Bardie and StockDisplay */}
-        <Col span={8}>
-            <div className="gap2"></div>
-                <WealthWiseCard />
-                {/* <TextEffectComponent /> */}
-                <div className="gap2"></div>
+        <Row gutter={8}>
+            {/* Left column for CompanySearch */}
+            <Col span={10}>
+                <CompanySearch />
+            </Col>
+            {/* Middle column for WealthWiseCard with added spacing */}
+            <Col span={7} >
                 <StockDisplay />
-        </Col>
-      </Row>
-    </div>
+            </Col>
+            {/* Right column for StockDisplay */}
+            <Col span={3}>
+                <WealthWiseCard />
+            </Col>
+        </Row>
+</div>
   );
 };
 

@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 const { Meta } = Card;
 
 const cardStyle = {
-  width: 400,
+  width: 365,
   border: '3px solid #4527A0', // Add the purple border here
-  boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.3)'
+  boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.3)',
+  marginTop: '3rem',
+  marginLeft: '3rem'
 };
 
 const WealthWiseCard = () => (

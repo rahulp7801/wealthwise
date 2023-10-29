@@ -68,6 +68,7 @@ const StockDisplay = () => {
       
     }}
     >
+    <div style = {{marginTop: '3rem'}}>
       <List
         itemLayout="horizontal"
         bordered
@@ -91,6 +92,7 @@ const StockDisplay = () => {
           </List.Item>
         )}
       />
+      </div>
     </ConfigProvider>
   );
 };

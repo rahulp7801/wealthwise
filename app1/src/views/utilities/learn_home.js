@@ -8,8 +8,8 @@ import styled from 'styled-components';
 
 import TotalIncomeDarkCard from 'views/dashboard/Default/TotalIncomeDarkCard'
 import StockValCard from 'views/sample-page/StockValCard.js';
-import ETF_Guide_Card from 'views/sample-page/etfGuideCard.js';
-import PortMang_Guide_Card from 'views/sample-page/portMangCard.js'
+//import ETF_Guide_Card from 'views/sample-page/etfGuideCard.js';
+//import PortMang_Guide_Card from 'views/sample-page/portMangCard.js'
 class Greeter extends Component {
 
 
@@ -44,14 +44,13 @@ class Greeter extends Component {
 
             </MainCard>
                 <div className="grid-item">
+                    <StockValCard />
+
                     <div className="skill-grid-container">
                       <div className="skill-item">
-                        <StockValCard />
                         <div className="gap2"></div>
-                        <PortMang_Guide_Card />
                       </div>
                       <div className="skill-item">
-                        <ETF_Guide_Card />
                       </div>
                     </div>
                  </div>
