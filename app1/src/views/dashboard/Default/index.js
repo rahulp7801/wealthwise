@@ -8,6 +8,7 @@ const contentStyle = {
   height: '100%',
   color: '#fff',
   backgroundColor: '#20243c',
+  paddingLeft: '25px'
 };
 const siderStyle = {
   textAlign: 'center',
