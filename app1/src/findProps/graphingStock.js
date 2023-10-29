@@ -51,7 +51,6 @@ const CryptoDetails = (props) => {
                 </div>
                 <h1 id="crypto-details-symbol">{symbol}</h1>
                 <div>
-                    <StockPriceGraph priceData={priceData} percentChange={percentChange} /> {/* Pass priceData as a prop */}
                 </div>
             </div>
         </div>

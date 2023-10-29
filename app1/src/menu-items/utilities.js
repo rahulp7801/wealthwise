@@ -13,7 +13,7 @@ const icons = {
 
 const utilities = {
   id: 'utilities',
-  title: 'Utilities',
+  title: 'Menu',
   type: 'group',
   children: [
     {
@@ -36,13 +36,13 @@ const utilities = {
           url: '/icons/stock-val',
           breadcrumbs: false
         },
-        {
-          id: 'etf-guide',
-          title: 'ETFs',
-          type: 'item',
-          url: '/icons/etf-guide',
-          breadcrumbs: false
-        },
+//        {
+//          id: 'etf-guide',
+//          title: 'ETFs',
+//          type: 'item',
+//          url: '/icons/etf-guide',
+//          breadcrumbs: false
+//        },
 
       ]
     },
