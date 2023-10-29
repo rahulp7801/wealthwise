@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import NewsCard from "portbuilderprops/newsCard.js";
+import styles from 'assets/scss/NewsCard.module.css';
 
 const Color = () => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/get_news') // Replace this with your Flask server's URL if necessary
+    fetch('http://localhost:5000/api/get-news-data') // Replace this with your Flask server's URL if necessary
       .then((response) => response.json())
       .then((data) => {
         console.log(data); // Log the fetched data to the console
@@ -23,19 +25,21 @@ const Color = () => {
   }
 
   return (
-    <div>
-      <h1>Financial News from Yahoo Finance</h1>
-      {news.length > 0 ? (
-        <ul>
-          {news.map((headline, index) => (
-            <li key={index}>{headline}</li>
-          ))}
-        </ul>
-      ) : (
-        <div>No headlines found.</div>
-      )}
+    <div className={styles.cardContainer}>
+      {news.map((article, index) => (
+        <div key={index} className={styles.card}>
+          <NewsCard
+                    key={index}
+                    imageUrl={article[4]}
+                    header={article[1]}
+                    paragraph={article[2]}
+                    link={article[3]}
+                />
+        </div>
+      ))}
     </div>
   );
+
 };
 
 export default Color;

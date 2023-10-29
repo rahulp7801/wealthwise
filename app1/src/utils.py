@@ -293,6 +293,7 @@ class WebScraper(object):
             content_p = item.find('p')
             if content_p:
                 content = content_p.get_text(strip=True)
+                content = f"{content[0:150]}..."
             else:
                 content = None
 
@@ -308,7 +309,7 @@ class WebScraper(object):
                     # Extracting URL from the style content
                     img_url = style_content.split('url(')[-1].split(')')[0].replace('"', '')
                 else:
-                    img_url = None
+                    img_url = 'https://childrenshospitals.ca/wp-content/themes/sme-cchf-child/images/placeholder-news.jpg'
 
             # (0) article source, (1) article title, (2) short summary, (3) article url, (4) image url
             self.headlines_list.append((date_source, title, content, url, img_url))

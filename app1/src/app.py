@@ -152,11 +152,12 @@ def get_answer():
     print(f"Sending answer to frontend: {ans}")
     return ans
 
-@app.route("/api/get-news-data", methods=["POST"])
+@app.route("/api/get-news-data", methods=["GET", "POST"])
 def get_news_data():
-
+    print(f"Getting news data")
     webscraper = utils.WebScraper()
     filtered_list = (webscraper.headlines_list)
+    print(filtered_list)
     return filtered_list
 
 if __name__=="__main__":
