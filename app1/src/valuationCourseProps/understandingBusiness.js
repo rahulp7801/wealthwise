@@ -69,8 +69,7 @@ const UnderstandBiz  = () => {
                 <div className='card3'>
                   <div className='card3-content'>
                     <h1>Related News Articles</h1>
-                    <div>It&apos;s crucial to read news articles about a company before investing because they provide valuable insights into the company&apos;s performance, strategy, and potential risks. News articles help you stay informed about recent developments, such as earnings reports, partnerships, or regulatory changes, which can impact stock prices. By staying updated, investors can make more informed decisions and adapt their investment strategies to market dynamics, ultimately aiming for better financial outcomes.
-</div>
+                    <div>It&apos;s crucial to read news articles about a company before investing because they provide valuable insights into the company&apos;s performance, strategy, and potential risks. News articles help you stay informed about recent developments, such as earnings reports, partnerships, or regulatory changes, which can impact stock prices. By staying updated, investors can make more informed decisions and adapt their investment strategies to market dynamics, ultimately aiming for better financial outcomes.</div>
                     <NewsDisplay />
                   </div>
                 </div>

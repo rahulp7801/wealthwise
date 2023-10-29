@@ -29,6 +29,8 @@ const CardBlur = Loadable(lazy(() => import('views/cardBlur')))
 const Guest = Loadable(lazy(() => import('portbuilderprops/guest')))
 const Customize = Loadable(lazy(() => import('portbuilderprops/customize')))
 const CustomizeBard = Loadable(lazy(() => import('portbuilderprops/customizebard')))
+const PortfolioDisplay = Loadable(lazy(() => import('findProps/portfolioDisplayofficial.js')))
+const AddingNewStocks = Loadable(lazy(() => import('findProps/addingnewStocks.js')))
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -208,8 +210,15 @@ const MainRoutes = {
     {
       path: 'sample-page',
       element: <SamplePage />
+    },
+    {
+      path: 'portfoliodisplay',
+      element: <PortfolioDisplay />
+    },
+    {
+      path: 'addingnewStocks',
+      element: <AddingNewStocks />
     }
-
   ]
 };
 

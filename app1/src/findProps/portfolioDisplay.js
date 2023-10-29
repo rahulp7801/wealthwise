@@ -24,10 +24,10 @@ const RequestStatus = {
   Success: "Success"
 };
 
-const Color = {
-  Green: "76, 175, 80",
-  Red: "198, 40, 40"
-};
+//const Color = {
+//  Green: "76, 175, 80",
+//  Red: "198, 40, 40"
+//};
 // const CryptoListToggle = () => {
 //   const { state, toggleList } = React.useContext(AppContext);
 
@@ -182,7 +182,7 @@ const StockList = () => {
     );
   }
 
-  return null;
+  return console.log(selectedStockSymbol);
 };
 
 const CryptoUtility = {
@@ -482,93 +482,93 @@ const StockPriceGraph = ({ priceData, percentChange }) => {
 //   );
 // }
 
-const ChartUtility = {
-  draw(id, points, change) {
-    const canvas = document.getElementById(id);
-
-    if (canvas) {
-      const context = canvas.getContext("2d");
-      return new ChartJS(context, {
-        type: "line",
-        data: {
-          datasets: [{
-            data: points.map(point => point.price),
-            ...this.getDatasetOptions(change)
-          }],
-          labels: points.map(point => point.timestamp)
-        },
-        options: this.getOptions(points)
-      });
-    }
-  },
-  getDatasetOptions(change) {
-    const color = change >= 0 ? Color.Green : Color.Red;
-
-    return {
-      backgroundColor: "rgba(" + color + ", 0.1)",
-      borderColor: "rgba(" + color + ", 0.5)",
-      fill: true,
-      tension: 0.2,
-      pointRadius: 0
-    };
-  },
-  getOptions(points) {
-    const min = Math.min(...points.map(point => point.price)),
-          max = Math.max(...points.map(point => point.price));
-
-    return {
-      maintainAspectRatio: false,
-      responsive: true,
-      scales: {
-        x: {
-          display: false,
-          gridLines: {
-            display: false
-          }
-        },
-        y: {
-          display: false,
-          gridLines: {
-            display: false
-          },
-          suggestedMin: min * 0.98,
-          suggestedMax: max * 1.02
-        }
-      },
-      plugins: {
-        legend: {
-          display: false
-        },
-        title: {
-          display: false
-        }
-      }
-    };
-  },
-  getUrl(id) {
-    return `${CoinGeckoApi.Base}/coins/${id}/market_chart?vs_currency=usd&days=1`;
-  },
-  mapPoints(data) {
-    return data.prices.map(price => ({
-      price: price[1],
-      timestamp: price[0]
-    }));
-  },
-  update(chart, points, change) {
-    chart.options = this.getOptions(points);
-
-    const options = this.getDatasetOptions(change);
-
-    chart.data.datasets[0].data = points.map(point => point.price);
-    chart.data.datasets[0].backgroundColor = options.backgroundColor;
-    chart.data.datasets[0].borderColor = options.borderColor;
-    chart.data.datasets[0].pointRadius = options.pointRadius;
-
-    chart.data.labels = points.map(point => point.timestamp);
-
-    chart.update();
-  }
-};
+//const ChartUtility = {
+//  draw(id, points, change) {
+//    const canvas = document.getElementById(id);
+//
+//    if (canvas) {
+//      const context = canvas.getContext("2d");
+//      return new ChartJS(context, {
+//        type: "line",
+//        data: {
+//          datasets: [{
+//            data: points.map(point => point.price),
+//            ...this.getDatasetOptions(change)
+//          }],
+//          labels: points.map(point => point.timestamp)
+//        },
+//        options: this.getOptions(points)
+//      });
+//    }
+//  },
+//  getDatasetOptions(change) {
+//    const color = change >= 0 ? Color.Green : Color.Red;
+//
+//    return {
+//      backgroundColor: "rgba(" + color + ", 0.1)",
+//      borderColor: "rgba(" + color + ", 0.5)",
+//      fill: true,
+//      tension: 0.2,
+//      pointRadius: 0
+//    };
+//  },
+//  getOptions(points) {
+//    const min = Math.min(...points.map(point => point.price)),
+//          max = Math.max(...points.map(point => point.price));
+//
+//    return {
+//      maintainAspectRatio: false,
+//      responsive: true,
+//      scales: {
+//        x: {
+//          display: false,
+//          gridLines: {
+//            display: false
+//          }
+//        },
+//        y: {
+//          display: false,
+//          gridLines: {
+//            display: false
+//          },
+//          suggestedMin: min * 0.98,
+//          suggestedMax: max * 1.02
+//        }
+//      },
+//      plugins: {
+//        legend: {
+//          display: false
+//        },
+//        title: {
+//          display: false
+//        }
+//      }
+//    };
+//  },
+//  getUrl(id) {
+//    return `${CoinGeckoApi.Base}/coins/${id}/market_chart?vs_currency=usd&days=1`;
+//  },
+//  mapPoints(data) {
+//    return data.prices.map(price => ({
+//      price: price[1],
+//      timestamp: price[0]
+//    }));
+//  },
+//  update(chart, points, change) {
+//    chart.options = this.getOptions(points);
+//
+//    const options = this.getDatasetOptions(change);
+//
+//    chart.data.datasets[0].data = points.map(point => point.price);
+//    chart.data.datasets[0].backgroundColor = options.backgroundColor;
+//    chart.data.datasets[0].borderColor = options.borderColor;
+//    chart.data.datasets[0].pointRadius = options.pointRadius;
+//
+//    chart.data.labels = points.map(point => point.timestamp);
+//
+//    chart.update();
+//  }
+//};
 
 
 const PortfolioDisplay = () => {
@@ -655,6 +655,7 @@ const PortfolioDisplay = () => {
         {/* {renderLoadingSpinner()} */}
       </div>
     </AppContext.Provider>
+
   );
 }
 

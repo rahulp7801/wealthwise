@@ -1,22 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'assets/scss/CompanySearch.css'; // Import your CSS file
 import Axios from 'axios';
-const CompanySearch = () => {
+const CompanySearchv2 = ({ onStockSelect }) => {
+  
   const [searchResults, setSearchResults] = useState([]);
   const [stockInput, setStockInput] = useState('');
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [userCorrected, setUserCorrected] = useState(false);
   const dropdownRef = useRef(null);
-const handleSubmit = () => {
+  const handleStockSelection = (selectedStock) => {
+    // Call the onStockSelect function to send the selected stock to the parent component
+    onStockSelect(selectedStock);
+  };
+  const handleSubmit = (selectedStock) => {
+          onStockSelect(selectedStock);
+          const portiefortie = localStorage.getItem('portfolio')
+          console.log(portiefortie);
+          const parsedData = JSON.parse(portiefortie);
+          console.log(1, parsedData);
 
-
-        const portiefortie = localStorage.getItem('portfolio')
-        console.log(portiefortie);
-        const parsedData = JSON.parse(portiefortie);
-        console.log(1, parsedData);
-
-        parsedData[searchResults[0].ticker] = searchResults[0].name;
-        console.log(2, parsedData);
+          parsedData[searchResults[0].ticker] = searchResults[0].name;
+          console.log(2, parsedData);
 //        var newPortfolio = parsedData;
         Axios.post('http://localhost:5000/api/post-portfolio-info', {parsedData, "email": localStorage.getItem('userEmail')})
             .then((response) => {
@@ -155,7 +159,7 @@ const handleSubmit = () => {
               </ul>
             )}
           </div>
-            <a style={{ marginTop: '20rem' }}>
+            <a style={{ top: '5.25rem', marginRight: '13rem' }}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -173,7 +177,29 @@ const handleSubmit = () => {
                     type="button"
                     onClick={handleSubmit}
                 >
-                    Submit
+                    Add Stock
+                </button>
+            </a>
+            <a style={{marginLeft: '13rem'}}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <button
+                    className="submit-button-reset-style"
+                    type="button"
+                    onClick={() => handleStockSelection(stockInput)}
+
+                >
+                    Stock Specifics
                 </button>
             </a>
         </div>
@@ -182,4 +208,4 @@ const handleSubmit = () => {
   );
 };
 
-export default CompanySearch;
+export default CompanySearchv2;
