@@ -32,7 +32,7 @@ BARD_API_TOKEN = 'cQjLfV7M1KDnnnAaI3ZuX3oqFLU0yF4iunh59vfMqWe0JwRvyi3ZyliDXCL0uE
 
 
 # Authenticate Firebase, Establish Connection
-cred = credentials.Certificate("creds.json")
+cred = credentials.Certificate("app1/src/creds.json")
 initialize_app(cred, {
     'databaseURL': DATABASE_URL
 })

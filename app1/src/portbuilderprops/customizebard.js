@@ -3,10 +3,8 @@ import { useState } from 'react'
 import 'valuationCourseProps/chat-ui-kit-styles-for-WealthWise/themes/default/main.scss';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 import {marked} from 'marked';
-
-
-
-
+import 'assets/scss/stock-select.css'
+import 'assets/scss/header-aurora.css';
 function StockSurvey() {
   const [messages, setMessages] = useState([
     {
@@ -65,76 +63,63 @@ function StockSurvey() {
       // Handle the error or show a message to the user
     }
   };
-  
-
-//   async function processMessageToChatGPT(chatMessages) { 
-
-
-//     let apiMessages = chatMessages.map((messageObject) => {
-//       let role = "";
-//       if (messageObject.sender === "ChatGPT") {
-//         role = "assistant";
-//       } else {
-//         role = "user";
-//       }
-//       return { role: role, content: messageObject.message}
-//     });
-
-
-
-//     const apiRequestBody = {
-//       "model": "gpt-4",
-//       "messages": [
-//         systemMessage,  // The system message DEFINES the logic of our chatGPT
-//         ...apiMessages // The messages from our chat with ChatGPT
-//       ],
-//       "temperature": 1,
-//     }
-
-//     await fetch("https://api.openai.com/v1/chat/completions", 
-//     {
-//       method: "POST",
-//       headers: {
-//         "Authorization": "Bearer " + API_KEY,
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(apiRequestBody)
-//     }).then((data) => {
-//       return data.json();
-//     }).then((data) => {
-//       console.log(data);
-//       setMessages([...chatMessages, {
-//         message: data.choices[0].message.content,
-//         sender: "ChatGPT"
-//       }]);
-//       setIsTyping(false);
-//     });
-//   }
 
 return (
-  <div className="App">
-<div style={{ position:"relative", height: "700px", width: "100%"  }}>
-        <MainContainer>
-        <ChatContainer>
-          <MessageList
-            scrollBehavior="smooth"
-            typingIndicator={isTyping ? <TypingIndicator content="Wealth Wise is typing" /> : null}
-          >
-            {messages.map((message, i) => {
-              console.log(message)
-              return (<Message key={i} model={{ sender: message.sender, message: message.message, direction: message.direction }}>
-                <Message.CustomContent>
-                  <MarkdownRenderer markdown={message.message.trim()} />
-                </Message.CustomContent>
-              </Message>
-                      )
-            })}
-          </MessageList>
-          <MessageInput placeholder="Type message here" onSend={handleSend} />
-        </ChatContainer>
-      </MainContainer>
+  <div>
+    <div className="aurora-gradient">
+        <div className="header-body">
+          <div className="aurora-content">
+            <h1 className="aurora-title"> 
+              Portfolio Analysis
+              <div className="aurora">
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+                <div className="aurora__item"></div>
+              </div>
+            </h1>
+          </div>
+        </div>
+      </div>
+
+  <div className="card-body">
+  <div className="space"></div>
+
+    <div className="card2">
+    <div className="card2-content">
+            <h2>Meet Wealth Wise, our proprietary financial advisor! Ask questions about your portfolio.</h2>
+          </div>
+    <div className="card2">
+      {/* <div className="card2-content"> */}
+    <div className="App">
+      <div style={{ position:"relative", height: "700px", width: "100%"  }}>
+          <MainContainer>
+          <ChatContainer>
+            <MessageList
+              scrollBehavior="smooth"
+              typingIndicator={isTyping ? <TypingIndicator content="Wealth Wise is typing" /> : null}
+            >
+              {messages.map((message, i) => {
+                console.log(message)
+                return (<Message key={i} model={{ sender: message.sender, message: message.message, direction: message.direction }}>
+                  <Message.CustomContent>
+                    <MarkdownRenderer markdown={message.message.trim()} />
+                  </Message.CustomContent>
+                </Message>
+                        )
+              })}
+            </MessageList>
+            <MessageInput placeholder="Type message here" onSend={handleSend} />
+          </ChatContainer>
+        </MainContainer>
+      </div>
+      </div>
+    {/* </div> */}
     </div>
-  </div>
+    </div>
+    </div>
+    </div>
+
 )
 }
 
