@@ -3,7 +3,6 @@ import { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } fr
 import { Card, Row, Col, ConfigProvider, theme, Typography, Button, Divider } from 'antd';
 import styles from 'assets/scss/NewsCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { LineChartOutlined, UserOutlined, RadarChartOutlined, RobotOutlined } from '@ant-design/icons';  // Import specific icons you use
 
 const { Meta } = Card;
 const { Title } = Typography;

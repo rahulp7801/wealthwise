@@ -1,5 +1,5 @@
 // assets
-import { ProfileOutlined, IdcardOutlined,FundViewOutlined, ScheduleOutlined} from '@ant-design/icons';  // Import specific icons you use
+import { ProfileOutlined, IdcardOutlined,FundViewOutlined, ScheduleOutlined, CompassOutlined} from '@ant-design/icons';  // Import specific icons you use
 // constant
 const icons = {
   
@@ -7,7 +7,8 @@ const icons = {
   CompassOutlined,
   IdcardOutlined,
   ScheduleOutlined,
-  FundViewOutlined
+  FundViewOutlined,
+  CompassOutlined
 };
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
