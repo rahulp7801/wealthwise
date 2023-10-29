@@ -50,7 +50,7 @@ const StockPriceChart = ({ priceData }) => {
               grid: {
                 display: false,
               },
-              callback: (value, index, values) => {
+              callback: (value) => {
                 return '$' + value;
               },
             },
