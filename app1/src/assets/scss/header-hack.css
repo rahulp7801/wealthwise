@@ -1,0 +1,17 @@
+.App {
+    background-color: inherit;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   }
+   
+   .span{
+       color: #5f2ea7;
+       font-size: 2rem;
+       font-weight: bold;
+   }
+   .span:hover {
+    color: white; /* Change text color to white on hover */
+  }

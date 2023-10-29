@@ -4,7 +4,7 @@ import 'assets/scss/header-aurora.css';
 import 'assets/scss/stock-select.css';
 import StockPriceChart from './priceChart';
 import CompanySearchv2 from './stockSearchv2';
-import { Row, Col, Card, ConfigProvider, theme, Divider, Statistic  } from 'antd';
+import { Row, Col, Card, ConfigProvider, theme, Divider, Statistic } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 
 const AddingNewStocks = () => {
@@ -15,6 +15,7 @@ const AddingNewStocks = () => {
     const handleStockSelection = (stock) => {
       setSelectedStock(stock);
     };
+    const [isCardVisible, setIsCardVisible] = useState(false);
 
     const [percentChange, setPercentChange] = useState('');
     const [priceData, setPriceData] = useState({ results: [] });
@@ -41,6 +42,7 @@ const AddingNewStocks = () => {
             fetchData(); // Fetch data only if a stock is selected
         }
     }, [selectedStock]);
+    
 
     useEffect(() => {
         async function fetchStockData2() {
@@ -58,6 +60,13 @@ const AddingNewStocks = () => {
         
         if (selectedStock) {
             fetchStockData2(); // Fetch stock data only if a stock is selected
+        }
+      }, [selectedStock]);
+      useEffect(() => {
+        // When the selectedStock changes, show the Card with a delay to allow for the sliding animation
+        if (selectedStock) {
+          setIsCardVisible(false); // Hide the Card
+          setTimeout(() => setIsCardVisible(true), 0); // Show the Card after a short delay
         }
       }, [selectedStock]);
 
@@ -97,8 +106,18 @@ const AddingNewStocks = () => {
           >
             {selectedStock && (
               <div>
-                <Card title={titleCard} style={{ background: '#20243c' }}
->
+                
+                <Card
+                  title={titleCard}
+                  
+                  style={{
+                    background: '#20243c',
+                    transform: isCardVisible
+                      ? 'translateX(0)' // Slide in when visible
+                      : 'translateX(100%)', // Move off-screen to the right
+                    transition: 'transform 0.5s ease-in-out', // Apply the transition
+                  }}
+                >
 
                   <StockPriceChart priceData={priceData} />
                   <Divider />

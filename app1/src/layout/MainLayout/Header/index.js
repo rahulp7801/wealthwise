@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
-
+import { useEffect } from 'react';
+import TextHackedEffectComponent from 'views/dashboard/Default/headerTest';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase } from '@mui/material';
+// import 'assets/scss/header-aurora2.css';
+import 'assets/scss/header-hack.css'
 
 // project imports
 import LogoSection from '../LogoSection';
@@ -14,6 +17,14 @@ import { IconMenu2 } from '@tabler/icons';
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const theme = useTheme();
+  useEffect(() => {
+    setTimeout(() => {
+      setText('Ipsum');
+    }, 3000);
+    setTimeout(() => {
+      setText('dolor sit amet');
+    }, 5000);
+  }, []);
 
   return (
     <>
@@ -53,9 +64,11 @@ const Header = ({ handleLeftDrawerToggle }) => {
 
       {/* header search */}
     <Box sx={{flexGrow: 0.5}}/>
-                <h1>
-                    Wealth Wise
-                </h1>
+    
+                  <div className="App">
+                      <TextHackedEffectComponent defaultText={'Wealth Wise'} startOnHover={true} />
+                    </div>
+                    
 
       {/* notification & profile */}
     </>

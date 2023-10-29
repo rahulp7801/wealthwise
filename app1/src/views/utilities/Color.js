@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewsCard from "portbuilderprops/newsCard.js";
 import styles from 'assets/scss/NewsCard.module.css';
+import 'assets/scss/header-aurora.css';
 
 const Color = () => {
   const [news, setNews] = useState([]);
@@ -25,18 +26,35 @@ const Color = () => {
   }
 
   return (
-    <div className={styles.cardContainer}>
-      {news.map((article, index) => (
-        <div key={index} className={styles.card}>
-          <NewsCard
-                    key={index}
-                    imageUrl={article[4]}
-                    header={article[1]}
-                    paragraph={article[2]}
-                    link={article[3]}
-                />
-        </div>
-      ))}
+    <div>
+      <div className="aurora-gradient">
+            <div className="header-body">
+                <div className="aurora-content">
+                <h1 className="aurora-title"> 
+                    News Feed
+                    <div className="aurora">
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    <div className="aurora__item"></div>
+                    </div>
+                </h1>
+                </div>
+            </div>
+            </div>
+      <div className={styles.cardContainer}>
+        {news.map((article, index) => (
+          <div key={index} className={styles.card}>
+            <NewsCard
+                      key={index}
+                      imageUrl={article[4]}
+                      header={article[1]}
+                      paragraph={article[2]}
+                      link={article[3]}
+                  />
+          </div>
+        ))}
+      </div>
     </div>
   );
 

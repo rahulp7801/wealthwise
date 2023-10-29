@@ -4,13 +4,15 @@ import DashboardCards from './dashboardCards';
 const { Content } = Layout;
 
 
-const contentStyle = {
-  textAlign: 'center',
-  height: '100%',
-  color: '#fff',
-  backgroundColor: '#20243c',
-};
-const Dashboard = () => (
+const Dashboard = () => {
+  const contentStyle = {
+    textAlign: 'center',
+    height: '100%',
+    color: '#fff',
+    backgroundColor: '#20243c',
+  };
+  
+  return (
   <Space
     direction="vertical"
     style={{
@@ -20,11 +22,13 @@ const Dashboard = () => (
     }}
     size={[0, 48]}
   >
+        
+
     
       <Layout>
         <Content style={contentStyle}><DashboardCards /></Content>
       </Layout>
 
-  </Space>
-);
+  </Space>)
+};
 export default Dashboard;
