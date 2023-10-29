@@ -12,7 +12,7 @@ const MyComponent = () => {
     navigate('/guest');
   };
   const lilButtonClick = () => {
-    navigate('/customize')
+    navigate('/portfolio-advisor')
   };
 
   return (

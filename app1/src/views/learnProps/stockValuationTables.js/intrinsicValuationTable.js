@@ -73,12 +73,6 @@ const SkillsTable3 = () => {
 
   const data = [
     {
-      key: '1',
-      name: 'INTRODUCTION TO INTRINSIC VALUATION',
-      progress: 0,
-      description: 'Learn about valuing your company to others in its industry using multiples. 1.Enterprise Value Multiples 2. Equity Value Multiples',
-    },
-    {
       key: '2',
       name: 'DISCOUNTED CASHFLOW VALUATION',
       progress: 0,

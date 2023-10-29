@@ -72,7 +72,7 @@ const MainRoutes = {
       path: 'utils',
       children: [
         {
-          path: 'news-feed',
+          path: 'portfolio-advisor-home',
           element: <UtilsShadow />
         }
       ]
