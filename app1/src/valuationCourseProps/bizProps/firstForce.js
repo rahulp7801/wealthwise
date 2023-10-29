@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-import { Spin, Space } from 'antd';
+import { Spin, Space, Card} from 'antd';
+import { LoadingOutlined } from '@ant-design/icons'; // for a customized loading icon
 
 const apiKey = "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";
 
@@ -56,9 +57,8 @@ const FirstForce = () => {
     }
   }
 
-  return (
+   return (
     <div>
-          
           {loading ? ( // Render Spin when loading is true
           <div style={{ paddingTop: '20px', height: '100%' }}>
             <Space>
@@ -68,7 +68,7 @@ const FirstForce = () => {
             </Space>
           </div>
           ) : (
-            <div>
+            <div style={{ border: '2px solid #4527A0', padding: '20px'}}>
               {validity}
             </div>
           )}
