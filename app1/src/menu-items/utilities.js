@@ -1,14 +1,14 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill } from '@tabler/icons';
-
+import { ProfileOutlined, IdcardOutlined,FundViewOutlined, ScheduleOutlined} from '@ant-design/icons';  // Import specific icons you use
 // constant
 const icons = {
-  IconTypography,
-  IconPalette,
-  IconShadow,
-  IconWindmill
+  
+  ProfileOutlined,
+  CompassOutlined,
+  IdcardOutlined,
+  ScheduleOutlined,
+  FundViewOutlined
 };
-
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 const utilities = {
@@ -17,50 +17,35 @@ const utilities = {
   type: 'group',
   children: [
     {
-      id: 'icons',
+      id: 'stock-val',
       title: 'Learn',
-      type: 'collapse',
-      icon: icons.IconWindmill,
-      children: [
-        {
-          id: 'stock-val',
-          title: 'Stocks',
-          type: 'item',
-          url: '/icons/stock-val',
-          breadcrumbs: false
-        },
-//        {
-//          id: 'etf-guide',
-//          title: 'ETFs',
-//          type: 'item',
-//          url: '/icons/etf-guide',
-//          breadcrumbs: false
-//        },
-
-      ]
+      type: 'item',
+      url: '/icons/stock-val',
+      breadcrumbs: false,
+      icon: icons.ProfileOutlined,
     },
     {
       id: 'util-typography',
-      title: 'Find',
+      title: 'Explore',
       type: 'item',
-      url: '/utils/util-typography',
-      icon: icons.IconTypography,
+      url: '/utils/portfolio-customization',
+      icon: icons.CompassOutlined,
       breadcrumbs: false
     },
     {
       id: 'util-color',
       title: 'News Feed',
       type: 'item',
-      url: '/utils/util-color',
-      icon: icons.IconPalette,
+      url: '/utils/news-feed',
+      icon: icons.ScheduleOutlined,
       breadcrumbs: false
     },
     {
       id: 'util-shadow',
-      title: 'Portfolio Builder',
+      title: 'Portfolio Advisor',
       type: 'item',
-      url: '/utils/util-shadow',
-      icon: icons.IconShadow,
+      url: '/portfolio-advisor',
+      icon: icons.FundViewOutlined,
       breadcrumbs: false
     }
   ]

@@ -54,7 +54,7 @@ const MainRoutes = {
       path: 'utils',
       children: [
         {
-          path: 'util-typography',
+          path: 'portfolio-customization',
           element: <UtilsTypography />
         }
       ]
@@ -63,7 +63,7 @@ const MainRoutes = {
       path: 'utils',
       children: [
         {
-          path: 'util-color',
+          path: 'news-feed',
           element: <UtilsColor />
         }
       ]
@@ -72,7 +72,7 @@ const MainRoutes = {
       path: 'utils',
       children: [
         {
-          path: 'util-shadow',
+          path: 'news-feed',
           element: <UtilsShadow />
         }
       ]
@@ -199,7 +199,7 @@ const MainRoutes = {
       element: <Guest />
     },
     {
-      path: 'customize',
+      path: 'portfolio-advisor',
       element: <Customize />
     },
     {
@@ -208,7 +208,7 @@ const MainRoutes = {
     },
 
     {
-      path: 'sample-page',
+      path: 'recommendation-survey',
       element: <SamplePage />
     },
     {

@@ -1,12 +1,11 @@
 import React from 'react';
-import Icon, { LineChartOutlined, UserOutlined, RadarChartOutlined ,RobotOutlined } from '@ant-design/icons';
 import { Card, Row, Col, ConfigProvider, theme, Typography, Button, Divider } from 'antd';
 import styles from 'assets/scss/NewsCard.module.css';
-
+import { useNavigate } from 'react-router-dom';
+import { LineChartOutlined, UserOutlined, RadarChartOutlined, RobotOutlined } from '@ant-design/icons';  // Import specific icons you use
 
 const { Meta } = Card;
 const { Title } = Typography;
-
 
 const avatarStyle = {
   width: '64px',
@@ -14,17 +13,40 @@ const avatarStyle = {
 };
 
 const imageStyle = {
-  height: '300px', // Set the height of the images to 300 pixels
+  height: '300px',
 };
 
 const titleStyle = {
-  fontSize: '24px', // Set the font size
-  color: 'white', // Set the font color
+  fontSize: '24px',
+  color: 'white',
   textAlign: 'left'
 };
 
-const DashboardCards = () => (
-  <div className={styles.cardContainer1} >
+const DashboardCards = () => {
+  const navigate = useNavigate(); // Move useNavigate inside the component
+
+  const handleNav1 = () => {
+    navigate('/icons/stock-val');
+  }
+
+  const handleNav2 = () => {
+    navigate('/recommendation-survey');
+  }
+
+  const handleNav3 = () => {
+    navigate('/utils/news-feed');
+  }
+
+  const handleNav4 = () => {
+    navigate('/utils/portfolio-customization');
+  }
+
+  const handleNav5 = () => {
+    navigate('/portfolio-advisor');
+  }
+
+  return (
+    <div className={styles.cardContainer1} >
     <ConfigProvider
       theme={{
         ...theme,
@@ -55,7 +77,7 @@ const DashboardCards = () => (
                 description="This is the description for card 1"
               />
               <Divider />
-              <Button type="primary" style={{ width: '100%' }}>
+              <Button onClick={handleNav1} type="primary" style={{ width: '100%' }}>
                 Go
               </Button>
             </Card>
@@ -79,7 +101,7 @@ const DashboardCards = () => (
                 description="Wondering what stocks fit your investment needs? Let WealthWise guide you!"
               />
               <Divider />
-              <Button type="primary" style={{ width: '100%' }}>
+              <Button onClick={handleNav2} type="primary" style={{ width: '100%' }}>
                 Go
               </Button>
             </Card>
@@ -103,7 +125,7 @@ const DashboardCards = () => (
                 description="This is the description for card 1"
               />
               <Divider />
-              <Button type="primary" style={{ width: '100%' }}>
+              <Button onClick={handleNav3} type="primary" style={{ width: '100%' }}>
                 Go
               </Button>
             </Card>
@@ -133,7 +155,7 @@ const DashboardCards = () => (
                 description="This is the description for card 3"
               />
               <Divider />
-              <Button type="primary" style={{ width: '100%' }}>
+              <Button onClick={handleNav4} type="primary" style={{ width: '100%' }}>
                 Go
               </Button>
             </Card>
@@ -157,7 +179,7 @@ const DashboardCards = () => (
                 description="This is the description for card 4"
               />
               <Divider />
-              <Button type="primary" style={{ width: '100%' }}>
+              <Button onClick={handleNav5} type="primary" style={{ width: '100%' }}>
                 Go
               </Button>
             </Card>
@@ -166,6 +188,7 @@ const DashboardCards = () => (
       </div>
     </ConfigProvider>
   </div>
-);
+  );
+};
 
 export default DashboardCards;
