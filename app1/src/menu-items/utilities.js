@@ -8,7 +8,6 @@ const icons = {
   IdcardOutlined,
   ScheduleOutlined,
   FundViewOutlined,
-  CompassOutlined
 };
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
