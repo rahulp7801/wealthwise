@@ -39,9 +39,6 @@ const SkillsTable1 = () => {
     }
   };
 
-  const rowStyle = {
-    height: '200px', // Set the height of each row
-  };
 
   const columns = [
     {
@@ -117,7 +114,6 @@ const SkillsTable1 = () => {
         dataSource={data}
         expandedRowRender={expandedRowRender}
         pagination={false}
-        rowStyle={rowStyle} // Apply the rowStyle
       />
     </ConfigProvider>
   );
