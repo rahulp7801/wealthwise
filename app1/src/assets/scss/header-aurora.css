@@ -48,7 +48,7 @@
       max-width: 100%;
       transform: translate(-50%, 30%);
       position: absolute;
-      top: 15%;
+      top: 35%;
       left: 55%;
     }
   @media (max-width: 768px) {
