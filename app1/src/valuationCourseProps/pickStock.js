@@ -115,7 +115,7 @@ const PickStock  = () => {
     
   
   const scrollToElement = () => {
-    navigate('/sample-page');
+    navigate('/recommendation-survey');
   };
   return (
       <div>
