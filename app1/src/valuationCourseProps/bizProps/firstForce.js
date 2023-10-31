@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import 'assets/scss/stock-select.css'
-import { Spin, Space, Card} from 'antd';
-import { LoadingOutlined } from '@ant-design/icons'; // for a customized loading icon
+import { Spin, Space} from 'antd';
+// import { LoadingOutlined } from '@ant-design/icons'; // for a customized loading icon
 
 const apiKey = "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";
 

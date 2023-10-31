@@ -87,7 +87,7 @@ const FirebaseLogin = ({ ...others }) => {
     console.log(response.data);
 
     if (response.data === "Login Successful") {
-        // alert("Login Successful");
+        alert("Login Successful");
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userEmail', values.email)
         const userPortfolio = await axios.post('http://localhost:5000/api/get-portfolio-info', values);

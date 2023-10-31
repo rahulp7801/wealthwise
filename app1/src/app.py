@@ -4,7 +4,7 @@ print("Current working directory:", os.getcwd())
 
 import utils  
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, make_response
 from Stock_Chart import graphStock
 from flask_cors import CORS
 from firebase_admin import db

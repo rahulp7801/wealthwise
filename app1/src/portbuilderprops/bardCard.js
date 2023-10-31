@@ -21,7 +21,7 @@ const WealthWiseCard = () => (
       <Card
         hoverable
         style={cardStyle} // Apply the cardStyle here
-        cover={<img alt="example" src="https://images.unsplash.com/photo-1625314887424-9f190599bd56?auto=format&fit=crop&q=80&w=1587&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />}
+        cover={<img alt="example" src="https://images.unsplash.com/photo-1667986292516-f27450ae75a9?auto=format&fit=crop&q=80&w=1588&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />}
       >
         <Meta title="Wealth Wise" />
       </Card>

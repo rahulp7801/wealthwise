@@ -74,7 +74,7 @@ const DashboardCards = () => {
                   <LineChartOutlined style={{ ...avatarStyle, fontSize: '32px' }} />
                 }
                 title='Stock Valuation Course'
-                description="This is the description for card 1"
+                description="Begin your stock valuation journey with this interactive course!"
               />
               <Divider />
               <Button onClick={handleNav1} type="primary" style={{ width: '100%' }}>
@@ -88,7 +88,7 @@ const DashboardCards = () => {
               cover={
                 <img
                   alt="example"
-                  src="https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&q=80&w=1664&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1553316045-e56f8b09f0ed?auto=format&fit=crop&q=80&w=1587&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ ...imageStyle }}
                 />
               }
@@ -112,7 +112,7 @@ const DashboardCards = () => {
               cover={
                 <img
                   alt="example"
-                  src="https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&q=80&w=1664&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1486783046960-64d2ef697c46?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ ...imageStyle }}
                 />
               }
@@ -122,7 +122,7 @@ const DashboardCards = () => {
                   <LineChartOutlined style={{ ...avatarStyle, fontSize: '32px' }} />
                 }
                 title='Look at the latest news'
-                description="This is the description for card 1"
+                description="Stay updated on market news and reports!"
               />
               <Divider />
               <Button onClick={handleNav3} type="primary" style={{ width: '100%' }}>
@@ -142,7 +142,7 @@ const DashboardCards = () => {
               cover={
                 <img
                   alt="example"
-                  src="https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&q=80&w=1664&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1468254095679-bbcba94a7066?auto=format&fit=crop&q=80&w=1738&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ ...imageStyle }}
                 />
               }
@@ -152,7 +152,7 @@ const DashboardCards = () => {
                   <RadarChartOutlined style={{ ...avatarStyle, fontSize: '32px' }} />
                 }
                 title='Portfolio Customization'
-                description="This is the description for card 3"
+                description="Add and manage the stocks in your portfolio!"
               />
               <Divider />
               <Button onClick={handleNav4} type="primary" style={{ width: '100%' }}>
@@ -166,7 +166,7 @@ const DashboardCards = () => {
               cover={
                 <img
                   alt="example"
-                  src="https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto.format&fit=crop&q=80&w=1664&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="https://images.unsplash.com/photo-1534469650761-fce6cc26ac0d?auto=format&fit=crop&q=80&w=1742&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ ...imageStyle }}
                 />
               }
@@ -176,7 +176,7 @@ const DashboardCards = () => {
                   <RobotOutlined style={{ ...avatarStyle, fontSize: '32px' }} />
                 }
                 title='Wealth Wise Portfolio Advisor'
-                description="This is the description for card 4"
+                description="Allow Wealth Wise AI to give you tailored analysis on your specific portfolio!"
               />
               <Divider />
               <Button onClick={handleNav5} type="primary" style={{ width: '100%' }}>
