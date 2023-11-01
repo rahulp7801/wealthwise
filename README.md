@@ -44,7 +44,7 @@ Begin your financial literacy journey by enrolling in our comprehensive course a
 
 ## Contribute and Collaborate
 
-We are currently not accepting any contributions at this time. Please **do not** fork our repository.
+We are currently not accepting any contributions at this time. Please **do not** fork our repository. If you do, you **must** credit us in your repository and app. 
 
 ## Support and Assistance
 
@@ -52,7 +52,7 @@ If you have questions, require assistance, or encounter any issues, please reach
 
 ## License
 
-The Financial Literacy App is released under the [License Name] license. For detailed information, please see the [LICENSE.md](LICENSE.md) file.
+The Financial Literacy App is released under the [GNU Lesser General Public License v2.1] license. For detailed information, please see the [LICENSE.md](LICENSE.md) file.
 
 ## Acknowledgments
 
