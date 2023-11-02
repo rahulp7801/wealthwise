@@ -219,7 +219,7 @@ class User(object):
                 return False, "User does not exist, Google Log In"
             else:
                 return False, "User does not exist"
-        return True, 200  # Log in this bih
+        return True, 200  # Log in this user
 
     # Get user email string if they used GOOGLE log in, since they do not provide it and update self.email
     def _get_user_email(self):
