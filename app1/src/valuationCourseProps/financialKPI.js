@@ -102,7 +102,7 @@ const FinancialKPI = () => {
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <div>Cash flow from operations is a crucial metric showing a company's ability to generate cash from its core activities. Comparing 2022 and 2023 Annual Reports helps assess cash generation over time. Positive cash flow indicates financial strength and sustainability, while negative cash flow may raise concerns about operational efficiency and reliance on external financing. </div>
                                 <div><OperatingCashflow1 /></div>
-=                            </div>
+                            </div>
                         </div>
                     </div>
                 </PersistGate>

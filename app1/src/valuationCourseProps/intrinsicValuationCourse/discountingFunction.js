@@ -5,60 +5,123 @@ import HistoricalCashflowChart from './historicalCashflowChart';
 import { Statistic,  Card, ConfigProvider } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import DCFValueChart from './futureCashflowChart';
+
 const Discounter = () => {
+    // Redux 
     const apiData = useSelector((state) => state.apiData);
     const terms = apiData.trim().split(' ');
+
     // User's Stock
     const STOCK_SYMBOL = terms[terms.length - 1]
-    // // Initial
-    // // WACC / Discount Rate 
+
+    //Key Financial Metric
     const [beta, setBeta] = useState("");
     const [price, setPrice] = useState("");
     const [mktCap, setMktCap] = useState("");
-    const costEquity = (0.0429 + beta) * 0.057
+    const [weightedAverageShsOut, setWeightedAverageShsOut] = useState("")
     const [interestExpense, setInterestExpense] = useState("");
     const [totalDebt, setTotalDebt] = useState("");
-    const costDebt = interestExpense / totalDebt;
     const [incomeExpense, setIncomeExpense] = useState("");
     const [incomeBeforeTax, setIncomeBeforeTax] = useState("");
+    const [cashAndShortTermInvestments, setCashAndShortTermInvestments] = useState("");
+    const costDebt = interestExpense / totalDebt;
+    const costEquity = (0.0429 + beta) * 0.057
     const taxRate = incomeExpense / incomeBeforeTax;
-
     const weightOfDebt = totalDebt / (totalDebt + mktCap)
     const weightOfEquity = mktCap / (totalDebt + mktCap)
     const discountRate = ((weightOfDebt * costDebt) + (weightOfEquity * costEquity)) * (1 - taxRate);
-    // projection
-    const [cashAndShortTermInvestments, setCashAndShortTermInvestments] = useState("");
+
+     //Historical Revenues Data for Linear Regression
+    const [revenue2022, setRevenue2022] = useState("");
+    const [revenue2021, setRevenue2021] = useState("");
+    const [revenue2020, setRevenue2020] = useState("");
+    const [revenue2019, setRevenue2019] = useState("");
+    const [revenue2018, setRevenue2018] = useState("");
+    const revenueDF = [
+      [ 2018, revenue2018 ],
+      [ 2019, revenue2019 ],
+      [ 2020, revenue2020 ],
+      [ 2021, revenue2021 ],
+      [ 2022, revenue2022 ]
+    ];
+    //Historical Operating Cashflow Data for Linear Regression
+    const [operatingCashFlow2022, setOperatingCashFlow2022] = useState("");
+    const [operatingCashFlow2021, setOperatingCashFlow2021] = useState("");
+    const [operatingCashFlow2020, setOperatingCashFlow2020] = useState("");
+    const [operatingCashFlow2019, setOperatingCashFlow2019] = useState("");
+    const [operatingCashFlow2018, setOperatingCashFlow2018] = useState("");
+    const operatingCashFlowDF = [
+      [ 2018, operatingCashFlow2018 ],
+      [ 2019, operatingCashFlow2019 ],
+      [ 2020, operatingCashFlow2020 ],
+      [ 2021, operatingCashFlow2021 ],
+      [ 2022, operatingCashFlow2022 ]
+    ];
+    //Historical Capital Expenditure Data for Linear Regression
+    const [capEx2022, setCapEx2022] = useState("");
+    const [capEx2021, setCapEx2021] = useState("");
+    const [capEx2020, setCapEx2020] = useState("");
+    const [capEx2019, setCapEx2019] = useState("");
+    const [capEx2018, setCapEx2018] = useState("");
+    const capExDF = [
+      [2018, capEx2018],
+      [2019, capEx2019],
+      [2020, capEx2020],
+      [2021, capEx2021],
+      [2022, capEx2022]
+    ];
+    //Historical Freecashflow  Data for Linear Regression
+    const [currentFreeCashFlow, setCurrentFreeCashFlow] = useState("");
+    const [freeCashFlow2018, setFreeCashFlow2018] = useState("");
+    const [freeCashFlow2019, setFreeCashFlow2019] = useState("");
+    const [freeCashFlow2020, setFreeCashFlow2020] = useState("");
+    const [freeCashFlow2021, setFreeCashFlow2021] = useState("");
+
+    // Future Projection Years
     const futureYears = [2023, 2024, 2025, 2026, 2027];
-    const [weightedAverageShsOut, setWeightedAverageShsOut] = useState("")
-    // const [eps2022, setEps2022] = useState("")
-    // const [eps2021, setEps2021] = useState("")
-    // const [eps2020, setEps2020] = useState("")
-    // const [eps2019, setEps2019] = useState("")
-    // const [eps2018, setEps2018] = useState("")
-    // const growthEPS = [
-    //   [ 2018, eps2018 ],
-    //   [ 2019, eps2019 ],
-    //   [ 2020, eps2020 ],
-    //   [ 2021, eps2021 ],
-    //   [ 2022, eps2022 ],
-    // ];
-   
-    // const resultEPS = linearRegression(growthEPS);
+
     
-    // // income statement
+    // API CALLS FROM POLYGON AND FMP 
+
+    // Key Financial Metrics
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await fetch(`https://financialmodelingprep.com/api/v3/profile/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
+          const data = await response.json();   
+          setMktCap(data[0].mktCap)
+          setBeta(data[0].beta)
+          setPrice(data[0].price)
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      fetchData();
+    }, [STOCK_SYMBOL]);
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const response = await fetch(`https://api.polygon.io/vX/reference/financials?ticker=${STOCK_SYMBOL}&apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`);
+          const data = await response.json(); 
+          
+          setIncomeExpense(data.results[1].financials.income_statement.income_tax_expense_benefit.value)
+          setIncomeBeforeTax(data.results[1].financials.income_statement.income_loss_from_continuing_operations_before_tax.value)
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+      fetchData();
+    }, [STOCK_SYMBOL]);
+
+    // Income Statement Data
     useEffect(() => {
         async function fetchData() {
           try {
             const response = await fetch(`https://financialmodelingprep.com/api/v3/income-statement/${STOCK_SYMBOL}?limit=120&apikey=01e4bab5bf0732e8f24a4de466b692bb`);
             const data = await response.json(); 
             setInterestExpense(data[0].interestExpense) 
-
             setWeightedAverageShsOut(data[0].weightedAverageShsOut)
-            // setEps2022(data[0].eps)
-            // setEps2021(data[1].eps)
-            // setEps2020(data[2].eps)
-            // setEps2019(data[3].eps)
-            // setEps2018(data[4].eps)
             setRevenue2022(data[0].revenue)
             setRevenue2021(data[1].revenue)
             setRevenue2020(data[2].revenue)
@@ -71,7 +134,8 @@ const Discounter = () => {
         }
         fetchData();
       }, [STOCK_SYMBOL]);
-    //   // balance statement
+
+      // Balance Sheet Data
       useEffect(() => {
         async function fetchData() {
           try {
@@ -85,7 +149,8 @@ const Discounter = () => {
         }
         fetchData();
       }, [STOCK_SYMBOL]);
-    //   //cash flow statement
+
+      //Cashflow Data
       useEffect(() => {
         async function fetchData() {
           try {
@@ -116,110 +181,56 @@ const Discounter = () => {
         }
         fetchData();
       }, [STOCK_SYMBOL]);
-    const [revenue2022, setRevenue2022] = useState("");
-    const [revenue2021, setRevenue2021] = useState("");
-    const [revenue2020, setRevenue2020] = useState("");
-    const [revenue2019, setRevenue2019] = useState("");
-    const [revenue2018, setRevenue2018] = useState("");
-    const revenueDF = [
-      [ 2018, revenue2018 ],
-      [ 2019, revenue2019 ],
-      [ 2020, revenue2020 ],
-      [ 2021, revenue2021 ],
-      [ 2022, revenue2022 ]
-    ];
+
+    // Projection Using Linear Regression
+
+    // Revenue Projection Projection Equation
     const RevenueLinReg = linearRegression(revenueDF);
     const slope = RevenueLinReg.m;
     const intercept = RevenueLinReg.b;
     const forecastedRevenue = (year) => {
-      // y = mx + b, where y is the forecasted cashflow
       const forecastRevenue = slope * year + intercept;
       return forecastRevenue;
     };
     const forecastRevenue = futureYears.map((year) => {
       const forecastRevenue = forecastedRevenue(year);
       return { x: year.toString(), y: forecastRevenue };
-    });
-    console.log(forecastRevenue)
-    
-    console.log("forecastRevenue", forecastRevenue[0].y)
+    });    
 
-    //Operating Cashflow
-    const [operatingCashFlow2022, setOperatingCashFlow2022] = useState("");
-    const [operatingCashFlow2021, setOperatingCashFlow2021] = useState("");
-    const [operatingCashFlow2020, setOperatingCashFlow2020] = useState("");
-    const [operatingCashFlow2019, setOperatingCashFlow2019] = useState("");
-    const [operatingCashFlow2018, setOperatingCashFlow2018] = useState("");
-
-    const operatingCashFlowDF = [
-      [ 2018, operatingCashFlow2018 ],
-      [ 2019, operatingCashFlow2019 ],
-      [ 2020, operatingCashFlow2020 ],
-      [ 2021, operatingCashFlow2021 ],
-      [ 2022, operatingCashFlow2022 ]
-    ];
-
+    //Operating Cashflow Projection Equation
     const OperatingCashFlowLinReg = linearRegression(operatingCashFlowDF);
     const slopeOperatingCashFlow = OperatingCashFlowLinReg.m;
     const interceptOperatingCashFlow = OperatingCashFlowLinReg.b;
-
     const forecastedOperatingCashFlow = (year) => {
-      // y = mx + b, where y is the forecasted operating cash flow
       const forecastOperatingCashFlow = slopeOperatingCashFlow * year + interceptOperatingCashFlow;
       return forecastOperatingCashFlow;
     };
-
     const forecastOperatingCashFlow = futureYears.map((year) => {
       const forecastOperatingCashFlow = forecastedOperatingCashFlow(year);
       return { x: year.toString(), y: forecastOperatingCashFlow };
     });
 
-
-    // Cap Ex
-    const [capEx2022, setCapEx2022] = useState("");
-    const [capEx2021, setCapEx2021] = useState("");
-    const [capEx2020, setCapEx2020] = useState("");
-    const [capEx2019, setCapEx2019] = useState("");
-    const [capEx2018, setCapEx2018] = useState("");
-    
-    const capExDF = [
-      [2018, capEx2018],
-      [2019, capEx2019],
-      [2020, capEx2020],
-      [2021, capEx2021],
-      [2022, capEx2022]
-    ];
-
+    // Capital Expenditure Projection Equation
     const CapExLinReg = linearRegression(capExDF);
     const slopeCapEx = CapExLinReg.m;
     const interceptCapEx = CapExLinReg.b;
-
     const forecastedCapEx = (year) => {
-      // y = mx + b, where y is the forecasted capital expenditure (CapEx)
       const forecastCapEx = slopeCapEx * year + interceptCapEx;
       return forecastCapEx;
     };
-
     const forecastCapEx = futureYears.map((year) => {
       const forecastCapEx = forecastedCapEx(year);
       return { x: year.toString(), y: forecastCapEx };
     });
 
-
-    // const averageOperatingCashflowMargin = ((operatingCashFlow2018 / revenue2018) + (operatingCashFlow2019 / revenue2019) + (operatingCashFlow2020 / revenue2020) + (operatingCashFlow2021 / revenue2021) + (operatingCashFlow2022 / revenue2022)) / 5 
-    console.log("capex2018", capEx2018)
-    console.log("revenue2018", revenue2018)
-
+    // Cashflow Projections
     const averageCapExMargin = ((capEx2018 / revenue2018) + (capEx2019 / revenue2019) + (capEx2020 / revenue2020) + (capEx2021 / revenue2021) + (capEx2022 / revenue2022)) / 5 
     const projectedCashFlow2023 = (forecastRevenue[0].y - forecastOperatingCashFlow[0].y) * averageCapExMargin;
     const projectedCashFlow2024 = (forecastRevenue[1].y - forecastOperatingCashFlow[1].y) * averageCapExMargin;
     const projectedCashFlow2025 = (forecastRevenue[2].y - forecastOperatingCashFlow[2].y) * averageCapExMargin;
     const projectedCashFlow2026 = (forecastRevenue[3].y - forecastOperatingCashFlow[3].y) * averageCapExMargin;
     const projectedCashFlow2027 = (forecastRevenue[4].y - forecastOperatingCashFlow[4].y) * averageCapExMargin;
-    console.log("forecastRevenue: ", forecastRevenue);
-    console.log("averageCapExMargin: ", averageCapExMargin);
-    
-    console.log("projectedCashFlow2023: ", projectedCashFlow2023);
+
     const [projectedCashFlowData, setProjectedCashFlowData] = useState({
       labels: [],
       datasets: [
@@ -229,7 +240,7 @@ const Discounter = () => {
         },
       ],
     });
-    
+    console.log(projectedCashFlowData)
     useEffect(() => {
       const projectedCashFlowValues = [
         projectedCashFlow2023,
@@ -255,22 +266,16 @@ const Discounter = () => {
       projectedCashFlow2026,
       projectedCashFlow2027,
     ]);
+    // Freecashflow Projections Discounted Down to PResent Value
     const projectedDiscountedCashFlow2023 = projectedCashFlow2023 / Math.pow(1 + discountRate, 1);
     const projectedDiscountedCashFlow2024 = projectedCashFlow2024 / Math.pow(1 + discountRate, 2);
     const projectedDiscountedCashFlow2025 = projectedCashFlow2025 / Math.pow(1 + discountRate, 3)
     const projectedDiscountedCashFlow2026 = projectedCashFlow2026 / Math.pow(1 + discountRate, 4)
     const projectedDiscountedCashFlow2027 = projectedCashFlow2027 / Math.pow(1 + discountRate, 5)
 
-    console.log('projectedCashFlowData', projectedCashFlowData);
     const year5Cash = projectedDiscountedCashFlow2027
-    const [currentFreeCashFlow, setCurrentFreeCashFlow] = useState("");
-    const [freeCashFlow2018, setFreeCashFlow2018] = useState("");
-    const [freeCashFlow2019, setFreeCashFlow2019] = useState("");
-    const [freeCashFlow2020, setFreeCashFlow2020] = useState("");
-    const [freeCashFlow2021, setFreeCashFlow2021] = useState("");
-    
 
-    
+    // Final DCF Calculations
     const totalDiscountedCashFlow = projectedDiscountedCashFlow2023 + projectedDiscountedCashFlow2024 + projectedDiscountedCashFlow2025 + projectedDiscountedCashFlow2026 + projectedDiscountedCashFlow2027
     const perpetualGrowthRate = 0.0449;
     const terminalValue = (year5Cash * (1 + perpetualGrowthRate)) / (discountRate - perpetualGrowthRate)
@@ -280,121 +285,81 @@ const Discounter = () => {
 
     const dcfValue = equityValue / weightedAverageShsOut
     const valuation = (Math.abs(((price - dcfValue) / price) * 100)).toFixed(2) + '%';
-    //   //profile
-      useEffect(() => {
-        async function fetchData() {
-          try {
-            const response = await fetch(`https://financialmodelingprep.com/api/v3/profile/${STOCK_SYMBOL}?apikey=01e4bab5bf0732e8f24a4de466b692bb`);
-            const data = await response.json();   
-            setMktCap(data[0].mktCap)
-            setBeta(data[0].beta)
-            setPrice(data[0].price)
 
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        }
-        fetchData();
-      }, [STOCK_SYMBOL]);
-
-      // equity weight
-      useEffect(() => {
-        async function fetchData() {
-          try {
-            const response = await fetch(`https://api.polygon.io/vX/reference/financials?ticker=${STOCK_SYMBOL}&apiKey=CPgjfwDJOutj46KdeJhwtHC2UfQL5Ble`);
-            const data = await response.json(); 
-            
-            setIncomeExpense(data.results[1].financials.income_statement.income_tax_expense_benefit.value)
-            setIncomeBeforeTax(data.results[1].financials.income_statement.income_loss_from_continuing_operations_before_tax.value)
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        }
-        fetchData();
-      }, [STOCK_SYMBOL]);
-      // graph stuff
-      const [historicalData, setHistoricalData] = useState({
-        labels: [],
-        datasets: [],
+      // Functions Related to Graphing Historical Data and Projections
+    const [historicalData, setHistoricalData] = useState({
+      labels: [],
+      datasets: [],
+    });
+    
+    // Update UserData whenever any of the freeCashFlow variables change
+    useEffect(() => {
+      const OperatingCashFlowChart = {
+        label: 'Operating CashFlow Chart',
+        data: [operatingCashFlow2018, operatingCashFlow2019, operatingCashFlow2020, operatingCashFlow2021, operatingCashFlow2022, forecastOperatingCashFlow[0].y, forecastOperatingCashFlow[1].y, forecastOperatingCashFlow[2].y, forecastOperatingCashFlow[3].y,  forecastOperatingCashFlow[4].y],
+        borderColor: 'rgba(255, 99, 132, 1)',
+      };
+      
+      const FreeCashFlowChart = {
+        label: 'Discounted FreeCashFlow Chart',
+        data: [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow, projectedCashFlow2023, projectedCashFlow2024, projectedCashFlow2025, projectedCashFlow2026, projectedCashFlow2027],
+        borderColor: 'rgba(0, 99, 132, 255)',
+      };
+    
+      const CapExChart = {
+        label: 'CapEx Chart',
+        data: [capEx2018, capEx2019, capEx2020, capEx2021, capEx2022, forecastCapEx[0].y, forecastRevenue[1].y, forecastCapEx[2].y, forecastCapEx[3].y,  forecastCapEx[4].y],
+        borderColor: 'rgba(54, 162, 235, 1)',
+      };
+    
+      const RevenueChart = {
+        label: 'Revenue Chart',
+        data: [revenue2018, revenue2019, revenue2020, revenue2021, revenue2022, forecastRevenue[0].y, forecastRevenue[1].y, forecastRevenue[2].y, forecastRevenue[3].y,  forecastRevenue[4].y],
+        borderColor: 'rgba(255, 206, 86, 1)',
+      };
+      
+    
+      // Update historicalData with the new datasets
+      setHistoricalData({
+        labels: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
+        datasets: [OperatingCashFlowChart, FreeCashFlowChart, CapExChart, RevenueChart],
       });
-      
-      // Update UserData whenever any of the freeCashFlow variables change
-      useEffect(() => {
-        // Create new datasets
-        const OperatingCashFlowChart = {
-          label: 'Operating CashFlow Chart',
-          data: [operatingCashFlow2018, operatingCashFlow2019, operatingCashFlow2020, operatingCashFlow2021, operatingCashFlow2022, forecastOperatingCashFlow[0].y, forecastOperatingCashFlow[1].y, forecastOperatingCashFlow[2].y, forecastOperatingCashFlow[3].y,  forecastOperatingCashFlow[4].y],
-          borderColor: 'rgba(255, 99, 132, 1)',
-        };
-        
-        const FreeCashFlowChart = {
-          label: 'Discounted FreeCashFlow Chart',
-          data: [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow, projectedCashFlow2023, projectedCashFlow2024, projectedCashFlow2025, projectedCashFlow2026, projectedCashFlow2027],
-          borderColor: 'rgba(0, 99, 132, 255)',
-        };
-      
-        const CapExChart = {
-          label: 'CapEx Chart',
-          data: [capEx2018, capEx2019, capEx2020, capEx2021, capEx2022, forecastCapEx[0].y, forecastRevenue[1].y, forecastCapEx[2].y, forecastCapEx[3].y,  forecastCapEx[4].y],
-          borderColor: 'rgba(54, 162, 235, 1)',
-        };
-      
-        const RevenueChart = {
-          label: 'Revenue Chart',
-          data: [revenue2018, revenue2019, revenue2020, revenue2021, revenue2022, forecastRevenue[0].y, forecastRevenue[1].y, forecastRevenue[2].y, forecastRevenue[3].y,  forecastRevenue[4].y],
-          borderColor: 'rgba(255, 206, 86, 1)',
-        };
-        
-      
-        // Update historicalData with the new datasets
-        setHistoricalData({
-          labels: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027],
-          datasets: [OperatingCashFlowChart, FreeCashFlowChart, CapExChart, RevenueChart],
-        });
-      }, [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow]);
-      
-      
-      console.log(historicalData)
-      const [barChartData, setBarChartData] = useState({
+    }, [freeCashFlow2018, freeCashFlow2019, freeCashFlow2020, freeCashFlow2021, currentFreeCashFlow]);
+    
+    
+    const [barChartData, setBarChartData] = useState({
+      labels: ['Price', 'DCF Value'],
+      datasets: [
+        {
+          label: 'Value Comparison',
+          data: [price, dcfValue], 
+          backgroundColor: [
+            'rgba(75, 192, 192, 0.6)', 
+            'rgba(153, 102, 255, 0.6)', 
+          ],
+        },
+      ],
+    });
+    
+    // Update barChartData whenever the price or dcfValue changes
+    useEffect(() => {
+      const newBarChartData = {
         labels: ['Price', 'DCF Value'],
         datasets: [
           {
             label: 'Value Comparison',
-            data: [price, dcfValue], // Replace with your actual price and dcfValue data
+            data: [price, dcfValue], 
             backgroundColor: [
-              'rgba(75, 192, 192, 0.6)', // Color for the Price bar
-              'rgba(153, 102, 255, 0.6)', // Color for the DCF Value bar
+              'rgba(75, 192, 192, 0.6)', 
+              'rgba(153, 102, 255, 0.6)', 
             ],
           },
         ],
-      });
-      
-      // Update barChartData whenever the price or dcfValue changes
-      useEffect(() => {
-        // Create new datasets and labels if needed
-        const newBarChartData = {
-          labels: ['Price', 'DCF Value'],
-          datasets: [
-            {
-              label: 'Value Comparison',
-              data: [price, dcfValue], // Replace with your actual data
-              backgroundColor: [
-                'rgba(75, 192, 192, 0.6)', // Color for the Price bar
-                'rgba(153, 102, 255, 0.6)', // Color for the DCF Value bar
-              ],
-            },
-          ],
-        };
-      
-        // Update the state with the new data
-        setBarChartData(newBarChartData);
-      }, [price, dcfValue]);
-      
-      
-      
-      
-      
-      
+      };
+    
+      // Update the state with the new data
+      setBarChartData(newBarChartData);
+    }, [price, dcfValue]);
       
     return (
       <div>

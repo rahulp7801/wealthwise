@@ -121,31 +121,30 @@ const EVtoEBITDA = () => {
 
         return (
           <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <h1>Enterprise Value over EBITDA Relative Analysis</h1>
-          <div>
-            {apiData} EV/EBITDA:{enterpriseValueMultiple3}
-          </div>
-          <div>
-            {stock1} EV/EBITDA:{enterpriseValueMultiple1}
-          </div>
-          <div>
-            {stock2} EV/EBITDA:{enterpriseValueMultiple2}
-          </div>
-          {loading ? ( // Render Spin when loading is true
-          <div style={{ paddingTop: '20px', height: '100%' }}>
-            <Space>
-              <Spin  size="large" className="custom-spin" >
-                <div className="content" />
-              </Spin>
-            </Space>
-          </div>
-          ) : (
+            <h1>Enterprise Value over EBITDA Relative Analysis</h1>
             <div>
-              {validity}
+              {apiData} EV/EBITDA: {parseFloat(enterpriseValueMultiple3).toFixed(2)}
             </div>
-          )}
-        </div>
-    
+            <div>
+              {stock1} EV/EBITDA: {parseFloat(enterpriseValueMultiple1).toFixed(2)}
+            </div>
+            <div>
+              {stock2} EV/EBITDA: {parseFloat(enterpriseValueMultiple2).toFixed(2)}
+            </div>
+            {loading ? (
+              <div style={{ paddingTop: '20px', height: '100%' }}>
+                <Space>
+                  <Spin size="large" className="custom-spin">
+                    <div className="content" />
+                  </Spin>
+                </Space>
+              </div>
+            ) : (
+              <div>
+                {validity}
+              </div>
+            )}
+          </div>
         );
       };
       

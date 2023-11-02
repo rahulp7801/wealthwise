@@ -1,16 +1,17 @@
 import { useState } from 'react'
-// import './App.css'
 import './chat-ui-kit-styles-for-WealthWise/themes/default/main.scss';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = "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";
+const API_KEY = "KEY";
+
+//Define Wealth Wise Survey Questions
 const systemMessage = { 
   "role": "system", "content": `
   You are a financial advisor. Ask each question after the user replies to the previous question.
   1. Hello, My name is Wealth Wise! What is your investment goal?
-  2. What is your risk tolerance level?
+  2. Have you invested before?
   3. How long do you plan to invest?
-  4. Have you invested before?
+  4. What is your risk tolerance level?
   5. Are there any sectors or industries you are particularly interested in?
   6. Are you interested in income (dividends) or growth (increases in the stock price) investments?
   8. Do you have any ethical or social criteria for the companies you invest in?
@@ -18,17 +19,16 @@ const systemMessage = {
   Provide 10 stock recommendations based on the inputs.
   `
 }
-
+// Survey Function
 function StockSurvey() {
   const [messages, setMessages] = useState([
     {
       message: "Hello, My name is Wealth Wise! What is your investment goal?",
-    //   sentTime: "just now",
       sender: "ChatGPT"
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
-
+  // Handle User Messages
   const handleSend = async (message) => {
     const newMessage = {
       message,
@@ -44,9 +44,8 @@ function StockSurvey() {
     await processMessageToChatGPT(newMessages);
   };
 
+  // Handle Wealth Wise Responses
   async function processMessageToChatGPT(chatMessages) { 
-
-
     let apiMessages = chatMessages.map((messageObject) => {
       let role = "";
       if (messageObject.sender === "ChatGPT") {
@@ -56,9 +55,6 @@ function StockSurvey() {
       }
       return { role: role, content: messageObject.message}
     });
-
-
-
     const apiRequestBody = {
       "model": "gpt-4",
       "messages": [

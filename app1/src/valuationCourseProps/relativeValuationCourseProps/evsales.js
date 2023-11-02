@@ -161,13 +161,13 @@ const EVtoSales = () => {
       <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
             <h1>Enterprise Value over Sales Relative Analysis</h1>
             <div>
-              {apiData} EV/Sales:{enterpriseValueSales3}
+              {apiData} EV/Sales: {parseFloat(enterpriseValueSales3).toFixed(2)}
             </div>
             <div>
-              {stock1} EV/Sales:{enterpriseValueSales1}
+              {stock1} EV/Sales: {parseFloat(enterpriseValueSales1).toFixed(2)}
             </div>
             <div>
-              {stock2} EV/Sales:{enterpriseValueSales2}
+              {stock2} EV/Sales: {parseFloat(enterpriseValueSales2).toFixed(2)}
             </div>
             <div>
               {loading ? ( // Render Spin when loading is true

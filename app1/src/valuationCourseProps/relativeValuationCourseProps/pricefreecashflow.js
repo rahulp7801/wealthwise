@@ -163,13 +163,13 @@ const PriceFreeCashflow = () => {
       <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
             <h1>Price over Free Cashflow Relative Analysis</h1>
             <div>
-              {apiData} Price/Cashflow:{pricefcfratio3}
+              {apiData} Price/Cashflow: {parseFloat(pricefcfratio3).toFixed(2)}
             </div>
             <div>
-              {stock1} Price/Cashflow:{pricefcfratio1}
+              {stock1} Price/Cashflow: {parseFloat(pricefcfratio1).toFixed(2)}
             </div>
             <div>
-              {stock2} Price/Cashflow:{pricefcfratio2}
+              {stock2} Price/Cashflow: {parseFloat(pricefcfratio2).toFixed(2)}
             </div>
             <div>
               {loading ? ( // Render Spin when loading is true

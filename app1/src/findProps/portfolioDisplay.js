@@ -1,21 +1,11 @@
 import React, { useState, useEffect, createContext, useRef  } from 'react';
-import axios from 'axios';
 import classNames from 'classnames'; // Please install 'classnames' package if not already
-// import { Line } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto";
 import { CategoryScale } from 'chart.js';
 import 'assets/scss/portfolioTracker.scss';
 
 
 const AppContext = createContext();
-
-const CoinGeckoApi = {
-  AllCoins: "coins/markets?vs_currency=usd&page=1&per_page=30&sparkline=false",
-  Base: "https://api.coingecko.com/api/v3"
-};
-
-
-
 
 const RequestStatus = {
   Error: "Error",
@@ -24,47 +14,8 @@ const RequestStatus = {
   Success: "Success"
 };
 
-//const Color = {
-//  Green: "76, 175, 80",
-//  Red: "198, 40, 40"
-//};
-// const CryptoListToggle = () => {
-//   const { state, toggleList } = React.useContext(AppContext);
 
-//   if (state.status === RequestStatus.Success && state.cryptos.length > 0) {
-//     const classes = classNames("fa-regular", {
-//       "fa-bars": !state.listToggled,
-//       "fa-xmark": state.listToggled
-//     });
-
-//     return (
-//       <button
-//         id="crypto-list-toggle-button"
-//         onClick={() => toggleList(!state.listToggled)}
-//       >
-//         <i className={classes} />
-//       </button>
-//     );
-//   }
-
-//   return null;
-// }
-
-
-
-  // const specificStocks = [
-  //   { symbol: 'MSFT' },
-  //   { symbol: 'GOOGL' },
-  //   { symbol: 'TSLA' },
-  //   { symbol: 'LLY' },
-  //   { symbol: 'GM' },
-
-
-  // ];
-  // const portielortie = localStorage.getItem('portfolio');
-  // console.log(portielortie)
   const portielortie = localStorage.getItem('portfolio');
-  console.log(portielortie)
     // Parse the JSON data
   const parsedData = JSON.parse(portielortie);
 
@@ -216,15 +167,6 @@ const CryptoUtility = {
   }
 };
 
-// const CryptoField = (props) => {
-//   return (
-//     <div className={classNames("crypto-field", props.className)}>
-//       <h1 className="crypto-field-value">{props.value}</h1>
-//       <h1 className="crypto-field-label">{props.label}</h1>
-//     </div>
-//   );
-// }
-
 const CryptoDetails = (props) => {
     // const { selectedCrypto } = useContext(AppContext).state;
     const [percentChange, setPercentChange] = useState('');
@@ -255,7 +197,6 @@ const CryptoDetails = (props) => {
             const data = await response.json();
             const formattedPercentChange = (data.ticker.todaysChangePerc ).toFixed(2);
             setPercentChange(formattedPercentChange);
-            setPrice(data.ticker.day.o);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -263,22 +204,6 @@ const CryptoDetails = (props) => {
     
         fetchStockData2();
       }, [symbol]);
-
-  
-  // const [state, setState] = useState({
-  //   crypto: null,
-  //   transitioning: true
-  // });
-
-  // const setTransitioning = (transitioning) => {
-  //   setState(prevState => ({ ...prevState, transitioning }));
-  // }
-
-  // const { crypto } = state;
-
-  
-
-  
 
     return (
         <div id="crypto-details" >
@@ -297,26 +222,6 @@ const CryptoDetails = (props) => {
 
 }
 
-
-
-
-
-
-// const StockPriceGraph = ({priceData}) => {
-//     // You don't need to declare a local priceData state variable here
-//     // It's already passed as a prop
-
-//     // You can access selectedStockSymbol directly if needed
-//     // console.log("Selected Stock Symbol:", selectedStockSymbol);
-
-//     return (
-//         <div id="crypto-price-chart-wrapper">
-//             <div>
-//                 <PriceChart id="crypto-price-chart" priceData={priceData}  /> {/* Pass priceData as a prop */}
-//             </div>
-//         </div>
-//     );
-// };
 const StockPriceGraph = ({ priceData, percentChange }) => {
     const canvasRef = useRef(null);
     const animationFrameRef = useRef(null);
@@ -404,175 +309,10 @@ const StockPriceGraph = ({ priceData, percentChange }) => {
   
     return (
       <div id='crypto-price-chart-wrapper'>
-         <canvas id='crypto-price-chart' ref={canvasRef} width={700} height={1000} style={{ marginBottom: '500px' }}></canvas>
+         <canvas id='crypto-price-chart' ref={canvasRef} width={1000} height={1000} style={{ marginBottom: '500px' }}></canvas>
       </div>
     );
   };
-  
-
-
-// const CryptoPriceChart = (props) => {
-//   const { selectedCrypto: crypto } = useContext(AppContext).state;
-
-//   const id = "crypto-price-chart";
-
-//   const [state, setState] = useState({
-//     chart: null,
-//     points: [],
-//     status: RequestStatus.Loading
-//   });
-
-//   const setStatus = (status) => {
-//     setState(prevState => ({ ...prevState, status }));
-//   }
-
-//   const setChart = (chart) => {
-//     setState(prevState => ({ ...prevState, chart }));
-//   }
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         setStatus(RequestStatus.Loading);
-
-//         const res = await axios.get(ChartUtility.getUrl(crypto.id));
-
-//         setState(prevState => ({
-//           ...prevState,
-//           points: ChartUtility.mapPoints(res.data),
-//           status: RequestStatus.Success
-//         }));
-//       } catch (err) {
-//         console.error(err);
-
-//         setStatus(RequestStatus.Error);
-//       }
-//     }
-
-//     fetchData();
-//   }, [crypto]);
-
-//   useEffect(() => {
-//     if(!state.chart && state.status === RequestStatus.Success) {
-//       setChart(ChartUtility.draw(id, state.points, crypto.change));
-//     }
-//   }, [state.status]);
-
-//   useEffect(() => {
-//     if(state.chart) {
-//       const update = () => ChartUtility.update(state.chart, state.points, crypto.change);
-
-//       update();
-//     }
-//   }, [state.chart, state.points]);
-
-// //   const renderLoadingSpinner = () => {
-// //     if(state.status === RequestStatus.Loading) {
-// //       return (
-// //         <div id="crypto-price-chart-loading-spinner">
-// //           <LoadingSpinner />
-// //         </div>
-// //       );
-// //     }
-// //   }
-
-//   return (
-//     <div id="crypto-price-chart-wrapper">
-//       <canvas id={id} />
-//       {/* {renderLoadingSpinner()} */}
-//     </div>
-//   );
-// }
-
-//const ChartUtility = {
-//  draw(id, points, change) {
-//    const canvas = document.getElementById(id);
-//
-//    if (canvas) {
-//      const context = canvas.getContext("2d");
-//      return new ChartJS(context, {
-//        type: "line",
-//        data: {
-//          datasets: [{
-//            data: points.map(point => point.price),
-//            ...this.getDatasetOptions(change)
-//          }],
-//          labels: points.map(point => point.timestamp)
-//        },
-//        options: this.getOptions(points)
-//      });
-//    }
-//  },
-//  getDatasetOptions(change) {
-//    const color = change >= 0 ? Color.Green : Color.Red;
-//
-//    return {
-//      backgroundColor: "rgba(" + color + ", 0.1)",
-//      borderColor: "rgba(" + color + ", 0.5)",
-//      fill: true,
-//      tension: 0.2,
-//      pointRadius: 0
-//    };
-//  },
-//  getOptions(points) {
-//    const min = Math.min(...points.map(point => point.price)),
-//          max = Math.max(...points.map(point => point.price));
-//
-//    return {
-//      maintainAspectRatio: false,
-//      responsive: true,
-//      scales: {
-//        x: {
-//          display: false,
-//          gridLines: {
-//            display: false
-//          }
-//        },
-//        y: {
-//          display: false,
-//          gridLines: {
-//            display: false
-//          },
-//          suggestedMin: min * 0.98,
-//          suggestedMax: max * 1.02
-//        }
-//      },
-//      plugins: {
-//        legend: {
-//          display: false
-//        },
-//        title: {
-//          display: false
-//        }
-//      }
-//    };
-//  },
-//  getUrl(id) {
-//    return `${CoinGeckoApi.Base}/coins/${id}/market_chart?vs_currency=usd&days=1`;
-//  },
-//  mapPoints(data) {
-//    return data.prices.map(price => ({
-//      price: price[1],
-//      timestamp: price[0]
-//    }));
-//  },
-//  update(chart, points, change) {
-//    chart.options = this.getOptions(points);
-//
-//    const options = this.getDatasetOptions(change);
-//
-//    chart.data.datasets[0].data = points.map(point => point.price);
-//    chart.data.datasets[0].backgroundColor = options.backgroundColor;
-//    chart.data.datasets[0].borderColor = options.borderColor;
-//    chart.data.datasets[0].pointRadius = options.pointRadius;
-//
-//    chart.data.labels = points.map(point => point.timestamp);
-//
-//    chart.update();
-//  }
-//};
-
-
 const PortfolioDisplay = () => {
     const [selectedStockSymbol, setSelectedStockSymbol] = useState(''); // Step 1
   
@@ -608,11 +348,8 @@ const PortfolioDisplay = () => {
       try {
         setStatus(RequestStatus.Loading);
 
-        const res = await axios.get(`${CoinGeckoApi.Base}/${CoinGeckoApi.AllCoins}`);
-
         setState({
           ...state,
-          cryptos: CryptoUtility.mapAll(res.data),
           status: RequestStatus.Success
         });
       } catch (err) {
@@ -635,12 +372,6 @@ const PortfolioDisplay = () => {
     }
   }, [state.status]);
 
-//   const renderLoadingSpinner = () => {
-//     if(state.status === RequestStatus.Loading) {
-//       return <LoadingSpinner />;
-//     }
-//   }
-
   ChartJS.register(CategoryScale);
 
 
@@ -649,12 +380,6 @@ const PortfolioDisplay = () => {
       <div id="app" className={classNames({ "list-toggled": state.listToggled })}>
         <StockList />
         <CryptoDetails selectedStockSymbol={selectedStockSymbol}/>
-        {/* <CryptoPriceChart  /> */}
-        
-        {/* <StockPriceGraph  /> */}
-
-        {/* <CryptoListToggle /> */}
-        {/* {renderLoadingSpinner()} */}
       </div>
     </AppContext.Provider>
 

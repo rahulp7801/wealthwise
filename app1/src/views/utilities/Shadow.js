@@ -21,7 +21,7 @@ const MyComponent = () => {
             <div className="header-body">
                 <div className="aurora-content">
                 <h1 className="aurora-title"> 
-                    Portfolio Builder
+                    Portfolio Advisor
                     <div className="aurora">
                     <div className="aurora__item"></div>
                     <div className="aurora__item"></div>

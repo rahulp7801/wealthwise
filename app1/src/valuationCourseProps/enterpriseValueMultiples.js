@@ -128,11 +128,7 @@ const EnterpriseValueMultiples = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="gap2"></div>
-                                <div className='card2'>
-                                <div className='card2-content'>
-                            </div>
-                    </div>
+                                
                             <div className='card2'>
                                 <div className='card2-content'>
                                     <EVtoEBITDA />

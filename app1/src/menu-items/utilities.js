@@ -26,7 +26,7 @@ const utilities = {
     },
     {
       id: 'util-typography',
-      title: 'Explore',
+      title: 'Find',
       type: 'item',
       url: '/utils/portfolio-customization',
       icon: icons.CompassOutlined,
